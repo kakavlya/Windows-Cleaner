@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
-public class StartScreen : AbstractUIScreen
+public class GameOverScreen : AbstractUIScreen
 {
-    public event UnityAction StartButtonClick;
+    public event UnityAction RestartButtonClick;
 
     protected override void OnButtonClick()
     {
-        StartButtonClick?.Invoke();
+        RestartButtonClick?.Invoke();
     }
 }

@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
 
     [SerializeField] private StartScreen _startScreen;
+    [SerializeField] private GameOverScreen _gameOverScreen;
+    [SerializeField] private EndLevelScreen _endLevelScreen;
+    [SerializeField] private Player _player;
 
     private void Start()
     {
@@ -16,11 +20,19 @@ public class Game : MonoBehaviour
     private void OnEnable()
     {
         _startScreen.StartButtonClick += OnPlayButtonClick;
+        _gameOverScreen.RestartButtonClick += OnRestartButtonClick;
+        _endLevelScreen.RestartButtonClick += OnRestartButtonClick;
+        _player.GameOver += GameOver;
+        _player.WonLevel += WonLevel;
     }
 
     private void OnDisable()
     {
         _startScreen.StartButtonClick -= OnPlayButtonClick;
+        _gameOverScreen.RestartButtonClick -= OnRestartButtonClick;
+        _endLevelScreen.RestartButtonClick -= OnRestartButtonClick;
+        _player.GameOver -= GameOver;
+        _player.WonLevel -= WonLevel;
     }
 
     private void StartGame()
@@ -42,12 +54,18 @@ public class Game : MonoBehaviour
     private void GameOver()
     {
         PauseGame();
-        // TODO open gameOver screen
+        _gameOverScreen.gameObject.SetActive(true);
     }
 
-    private void GameWon()
+    private void WonLevel()
     {
         PauseGame();
-        // TODO open gameWon screen
+        _endLevelScreen.gameObject.SetActive(true);
+    }
+
+    private void OnRestartButtonClick()
+    {
+        _gameOverScreen.gameObject.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

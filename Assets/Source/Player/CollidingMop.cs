@@ -4,9 +4,5 @@ using UnityEngine;
 
 public class CollidingMop : MonoBehaviour
 {
-    // Start is called before the first frame update
-    private void Start()
-    {
-        
-    }
+    
 }
