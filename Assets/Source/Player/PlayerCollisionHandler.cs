@@ -14,13 +14,17 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-       if (other.TryGetComponent(out FinishObj finish))
+        if (other.TryGetComponent(out Brick brick))
+        {
+            _player.BrickHit();
+        }
+        else if (other.TryGetComponent(out FinishObj finish))
         {
             _player.EndLevel();
         }
         else if(other.TryGetComponent(out Obstacle obstacle))
         {
             _player.Die();
-        }
+        } 
     }
 }

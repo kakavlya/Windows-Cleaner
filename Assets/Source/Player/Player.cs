@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class Player : MonoBehaviour
 {
     public event UnityAction GameOver;
     public event UnityAction WonLevel;
+    public event UnityAction IncrementScore;
 
     public void Die()
     {
@@ -17,5 +19,10 @@ public class Player : MonoBehaviour
     public void EndLevel()
     {
         WonLevel?.Invoke();
+    }
+
+    public void BrickHit()
+    {
+        IncrementScore?.Invoke();
     }
 }

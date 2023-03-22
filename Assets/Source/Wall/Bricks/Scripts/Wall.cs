@@ -9,13 +9,23 @@ public class Wall : MonoBehaviour
     [SerializeField] private int _rows = 5;
     [SerializeField] private int _columns = 5;
     [SerializeField] private float _brickSpacing = 0.1f;
-    
+
+    private int _totalBricks;
+
+    public int TotalBricks { get => _totalBricks;}
+
     private void Start()
     {
-        GenerateWall();
+        GenerateWallUpdateTotal();
+        CalculateTotalBricksAmount();
     }
 
-    private void GenerateWall()
+    private void CalculateTotalBricksAmount()
+    {
+        _totalBricks = (_rows * _columns);
+    }
+
+    private void GenerateWallUpdateTotal()
     {
         for(int row = 0; row < _rows; row++)
         {
