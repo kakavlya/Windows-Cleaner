@@ -13,7 +13,6 @@ public class WidthUp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("Trigger Collided");
         if (other.GetComponent<Player>())
         {
             Remove();
