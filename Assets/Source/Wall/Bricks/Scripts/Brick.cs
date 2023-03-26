@@ -21,8 +21,7 @@ public class Brick : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("Trigger Collided");
-        if (other.GetComponent<Player>())
+        if (other.GetComponent<PlayerCollisionHandler>())
         {
             Destroy(gameObject);
         }

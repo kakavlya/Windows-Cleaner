@@ -22,18 +22,6 @@ public class HammerSwing : MonoBehaviour
 
         switch (_phase)
         {
-            //case 0:
-            //    transform.Rotate(0f, _speed * (1 - _timer), 0f);
-            //    break;
-            //case 1:
-            //    transform.Rotate(0f, -_speed * _timer, 0f);
-            //    break;
-            //case 2:
-            //    transform.Rotate(0f, -_speed * (1 - _timer), 0f);
-            //    break;
-            //case 3:
-            //    transform.Rotate(0f, -_speed * _timer, 0f);
-            //    break;
             case 0:
                 transform.Rotate(0f, 0f, _speed * (1 - _timer));
                 break;

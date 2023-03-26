@@ -7,19 +7,28 @@ public class PlayerMover : MonoBehaviour
 {
     [SerializeField] private float _horizontalSpeed = 5f;
     [SerializeField] private float _verticalSpeed = 7f;
-
+    private float _yDirection = -1f;
+    private Vector3 _moveDirection;
     private Vector2 _moveInput;
 
     private void Update()
     {
-        transform.Translate(_moveInput * _horizontalSpeed * Time.deltaTime);
-        Vector3 downMovement = new Vector3(0, -1, 0);
-        transform.Translate(downMovement * _verticalSpeed * Time.deltaTime);
+        Move();
+    }
+
+    private void Move()
+    {
+        _moveDirection = new(_moveInput.x, _yDirection, 0);
+        transform.Translate(_moveDirection * _verticalSpeed * Time.deltaTime);
+    }
+
+    public Vector2 MoveInput()
+    {
+        return _moveInput;
     }
 
     public void OnMovement(InputValue value)
     {
         _moveInput = value.Get<Vector2>();
-        //Debug.Log("On Move value: " + value.Get<Vector2>());
     }
 }

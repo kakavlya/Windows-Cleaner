@@ -13,7 +13,7 @@ public class WidthUp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Player>())
+        if (other.GetComponent<PlayerCollisionHandler>())
         {
             Remove();
             var localXUpdated = new Vector3(other.transform.localScale.x * _widthBuff, 
