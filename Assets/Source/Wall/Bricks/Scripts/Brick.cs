@@ -19,7 +19,7 @@ public class Brick : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collided");
+        //Debug.Log("Collided");
         if (collision.gameObject.GetComponent<Player>())
         {
             Destroy(gameObject);
@@ -28,7 +28,7 @@ public class Brick : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Brick hit by: " + other);
+        //Debug.Log("Brick hit by: " + other);
         if (other.GetComponent<PlayerCollisionHandler>())
         {
             

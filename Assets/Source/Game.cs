@@ -10,6 +10,8 @@ public class Game : MonoBehaviour
     [SerializeField] private GameOverScreen _gameOverScreen;
     [SerializeField] private EndLevelScreen _endLevelScreen;
     [SerializeField] private Player _player;
+    [SerializeField] private CollectedFinisher _collectedFinisher;
+    [SerializeField] private float _pauseDuration;
 
     private void Start()
     {
@@ -58,6 +60,12 @@ public class Game : MonoBehaviour
     }
 
     private void WonLevel()
+    {
+        _collectedFinisher.Animate();
+        Invoke(nameof(ShowMenuAndPauseGame), _pauseDuration);
+    }
+
+    private void ShowMenuAndPauseGame()
     {
         PauseGame();
         _endLevelScreen.gameObject.SetActive(true);

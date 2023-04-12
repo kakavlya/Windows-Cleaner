@@ -10,6 +10,12 @@ public class PlayerMover : MonoBehaviour
     private float _yDirection = -1f;
     private Vector3 _moveDirection;
     private Vector2 _moveInput;
+    private bool _stopped;
+
+    private void Start()
+    {
+        _stopped = false;
+    }
 
     private void Update()
     {
@@ -18,6 +24,10 @@ public class PlayerMover : MonoBehaviour
 
     private void Move()
     {
+        if (_stopped)
+        {
+            return;
+        }
         _moveDirection = new(_moveInput.x, _yDirection, 0);
         transform.Translate(_moveDirection * _verticalSpeed * Time.deltaTime);
     }
@@ -30,5 +40,10 @@ public class PlayerMover : MonoBehaviour
     public void OnMovement(InputValue value)
     {
         _moveInput = value.Get<Vector2>();
+    }
+
+    public void Stop()
+    {
+        _stopped = true;
     }
 }

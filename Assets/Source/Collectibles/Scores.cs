@@ -43,4 +43,9 @@ public class Scores : MonoBehaviour
     {
         _totalBricksCount = _wall.TotalBricks;
     }
+
+    public int GetBricksHit()
+    {
+        return _bricksHit;
+    }
 }
