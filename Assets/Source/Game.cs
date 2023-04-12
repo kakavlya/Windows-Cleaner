@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class Game : MonoBehaviour
     [SerializeField] private Player _player;
     [SerializeField] private CollectedFinisher _collectedFinisher;
     [SerializeField] private float _pauseDuration;
+    [SerializeField] private CinemachineVirtualCamera _secondCam;
+    [SerializeField] private int _secondCamPriority;
 
     private void Start()
     {
@@ -61,8 +64,9 @@ public class Game : MonoBehaviour
 
     private void WonLevel()
     {
-        _collectedFinisher.Animate();
+        _collectedFinisher.AnimateUIFromPrefab();
         Invoke(nameof(ShowMenuAndPauseGame), _pauseDuration);
+        _secondCam.Priority = _secondCamPriority;
     }
 
     private void ShowMenuAndPauseGame()
