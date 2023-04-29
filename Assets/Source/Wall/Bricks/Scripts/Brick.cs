@@ -7,7 +7,6 @@ public class Brick : MonoBehaviour
     [SerializeField] private float rotationH = 500.5f;
     [SerializeField] private float rotationV = 1000.5f;
     [SerializeField] private float secondsToDestroy = 3f;
-    [SerializeField] private ParticleSystem _particles;
 
     private BoxCollider _collider;
     private Rigidbody _rigidbody;
@@ -35,9 +34,6 @@ public class Brick : MonoBehaviour
             Destroy(gameObject, secondsToDestroy);
             AddRotation();
             //Add particles with star, on hit
-            _particles.gameObject.SetActive(true);
-            _particles.Play();
-
 
             _collider.isTrigger = false;
             _rigidbody.AddForce(0, -3 * Random.Range(1.1f, 200f), 0);

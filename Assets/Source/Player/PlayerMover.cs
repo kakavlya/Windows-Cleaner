@@ -17,7 +17,7 @@ public class PlayerMover : MonoBehaviour
         _stopped = false;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         Move();
     }
