@@ -6865,6 +6865,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1618971061}
     - target: {fileID: 3922452769632929118, guid: dd09e75039541c248ad459ae4ad8f79a, type: 3}
+      propertyPath: _maxCoins
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 3922452769632929118, guid: dd09e75039541c248ad459ae4ad8f79a, type: 3}
       propertyPath: _startPos
       value: 
       objectReference: {fileID: 1803598103}
@@ -7004,6 +7008,10 @@ PrefabInstance:
       propertyPath: _UICoinsArr.Array.data[27]
       value: 
       objectReference: {fileID: 322165046}
+    - target: {fileID: 3922452769632929118, guid: dd09e75039541c248ad459ae4ad8f79a, type: 3}
+      propertyPath: _waitingTimeCoroutineStarting
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd09e75039541c248ad459ae4ad8f79a, type: 3}
 --- !u!1001 &4751484034205655477

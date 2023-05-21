@@ -21,6 +21,7 @@ public class CollectedFinisher : MonoBehaviour
     [SerializeField] private float _spread = 20f;
     [SerializeField] private Camera _camera;
     [SerializeField] private int _maxCoins = 20;
+    [SerializeField] private float _waitingTimeCoroutineStarting = 1.5f;
     private void Start()
     {
         //Animate();
@@ -52,7 +53,14 @@ public class CollectedFinisher : MonoBehaviour
 
     public void AnimateUIFromPrefab()
     {
-        
+        StartCoroutine(AnimateFromPrefabRoutine());
+    }
+
+    private IEnumerator AnimateFromPrefabRoutine()
+    {
+
+        yield return new WaitForSeconds(_waitingTimeCoroutineStarting);
+
         Vector3 startingPos = _startPos.position;
         Vector3 endPos = _endPos.position;
 
