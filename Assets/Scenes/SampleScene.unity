@@ -4995,7 +4995,7 @@ MonoBehaviour:
   _endLevelScreen: {fileID: 988328017}
   _player: {fileID: 1332751023}
   _collectedFinisher: {fileID: 788674214}
-  _pauseDuration: 3
+  _pauseDuration: 5
   _secondCam: {fileID: 1984533423}
   _secondCamPriority: 50
 --- !u!114 &1616293219

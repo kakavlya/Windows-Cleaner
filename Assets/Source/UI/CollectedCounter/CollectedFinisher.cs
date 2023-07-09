@@ -72,7 +72,7 @@ public class CollectedFinisher : MonoBehaviour
             GameObject coin = Instantiate(_UICoin, coinPos, Quaternion.identity, _Canvas.transform);
 
             coin.transform.position = startingPos
-                + new Vector3(Random.Range(-_spread, _spread), Random.Range(-_spread, 1f), 0f);
+                + new Vector3(Random.Range(-_spread, _spread), Random.Range(-_spread, _spread), 0f);
             coin.transform.DOMove(endPos, 3f)
                 .SetEase(Ease.OutBack)
                 .OnComplete(() =>
