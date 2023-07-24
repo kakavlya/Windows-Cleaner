@@ -1,4 +1,5 @@
 using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,6 +44,20 @@ public class Game : MonoBehaviour
     private void StartGame()
     {
         Time.timeScale = 1;
+
+        // TODO remove later
+        CheckCoinsScene();
+    }
+
+    private void CheckCoinsScene()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+
+        // Check if the name of the current Active Scene is your first Scene.
+        if (scene.name == "TestCoins")
+        {
+            WonLevel();
+        }
     }
 
     private void OnPlayButtonClick()
@@ -64,7 +79,7 @@ public class Game : MonoBehaviour
 
     private void WonLevel()
     {
-        _collectedFinisher.AnimateUIFromPrefab();
+        _collectedFinisher.StartFinishingSequence();
         Invoke(nameof(ShowMenuAndPauseGame), _pauseDuration);
         _secondCam.Priority = _secondCamPriority;
     }
