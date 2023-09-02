@@ -46,4 +46,16 @@ public class Helpers
     {
         return Random.Range(-spread, spread);
     }
+
+
+    public static Vector3 GetRandomPos(float spread)
+    {
+        return new Vector3(Random.Range(-spread, spread), Random.Range(-spread, spread), Random.Range(-spread, spread));
+    }
+
+
+    public static Vector3 GetRandomPosXY(float spread)
+    {
+        return new Vector3(Random.Range(-spread, spread), Random.Range(-spread, spread), 0f);
+    }
 }

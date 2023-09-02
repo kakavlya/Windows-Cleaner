@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6286670135392219127}
   - component: {fileID: 3830916428131297687}
   - component: {fileID: 7942529773862550455}
+  - component: {fileID: 4998195699485597569}
   m_Layer: 0
   m_Name: 3DCoin
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 6286670135392219124}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 5.84, y: 48.94, z: -2.64}
-  m_LocalScale: {x: 1, y: 0.1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -128,3 +129,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9d79e861920b484da9df3fd341fa5fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4998195699485597569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6286670135392219124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb33fd1cbdcc264793c1fcd90b10b2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startSize: 1
+  delayBeforeDecrease: 0.5
+  _endSize: 0.2
+  _spinForce: 100
+  easingType: 6

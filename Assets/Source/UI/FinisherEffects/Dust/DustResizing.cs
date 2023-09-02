@@ -17,11 +17,13 @@ public class DustResizing : MonoBehaviour
     private void Start()
     {
         // Start the size increase when the script is initialized (you can trigger this in other ways too)
-        IncreaseAndDecreaseSizeWithDelay();
+        //IncreaseAndDecreaseSizeWithDelay();
+        gameObject.SetActive(false);
     }
 
-    private void IncreaseAndDecreaseSizeWithDelay()
+    public void IncreaseAndDecreaseSizeWithDelay()
     {
+        gameObject.SetActive(true);
         // Use a sequence to chain the increase and decrease tweens together
         Sequence sequence = DOTween.Sequence();
 

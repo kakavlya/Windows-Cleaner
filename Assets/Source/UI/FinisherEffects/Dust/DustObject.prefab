@@ -162,10 +162,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startSize: 0
-  _enlargeSize: 2
-  _duration: 1.2
+  _enlargeSize: 1.5
+  _duration: 0.7
   delayBeforeDecrease: 0.5
-  _endSize: 0.2
+  _endSize: 0.1
   _spinForce: 100
   easingType: 7
 --- !u!1 &5677044885188537132

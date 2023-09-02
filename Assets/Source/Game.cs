@@ -13,7 +13,7 @@ public class Game : MonoBehaviour
     [SerializeField] private EndLevelScreen _endLevelScreen;
     [SerializeField] private Player _player;
     [SerializeField] private CollectedFinisher _collectedFinisher;
-    [SerializeField] private float _pauseDuration;
+    [SerializeField] private float _totalSequenceDuration;
     [SerializeField] private CinemachineVirtualCamera _secondCam;
     [SerializeField] private int _secondCamPriority;
 
@@ -54,7 +54,7 @@ public class Game : MonoBehaviour
         Scene scene = SceneManager.GetActiveScene();
 
         // Check if the name of the current Active Scene is your first Scene.
-        if (scene.name == "TestCoins")
+        if (scene.name == "TestFullSequence")
         {
             WonLevel();
         }
@@ -80,7 +80,7 @@ public class Game : MonoBehaviour
     private void WonLevel()
     {
         _collectedFinisher.StartFinishingSequence();
-        Invoke(nameof(ShowMenuAndPauseGame), _pauseDuration);
+        Invoke(nameof(ShowMenuAndPauseGame), _totalSequenceDuration);
         _secondCam.Priority = _secondCamPriority;
     }
 

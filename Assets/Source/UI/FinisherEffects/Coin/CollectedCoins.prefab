@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3922452769632929117}
-  - component: {fileID: 3922452769632929118}
+  - component: {fileID: 2520514262212368920}
   m_Layer: 0
   m_Name: CollectedCoins
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3922452769632929118
+--- !u!114 &2520514262212368920
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,15 +41,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3922452769632929116}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61bf70bf8f1b8b1408303b3bbca32648, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f5efff9d290e934c979f9217e38a32d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 0}
-  _3DCoin: {fileID: 0}
-  _StartPos: {fileID: 0}
-  _spriteCoin: {fileID: 2322837881583381057, guid: 3f1f2f46c4a917247bee275dbc143b17, type: 3}
-  _minDuration: 0.3
-  _maxDuration: 2.5
-  _spread: 20
-  _camera: {fileID: 0}
-  _maxCoins: 80
+  _waitingTimeCoroutineStarting: 1.5
+  _duration: 3
+  _ribbonDuration: 7
