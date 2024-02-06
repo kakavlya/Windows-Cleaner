@@ -427,6 +427,14 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 260654972, guid: ab7ebaefe4617004bba87772e264c23c, type: 3}
+      propertyPath: _rotationSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 260654972, guid: ab7ebaefe4617004bba87772e264c23c, type: 3}
+      propertyPath: _rotationBackSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 586847345, guid: ab7ebaefe4617004bba87772e264c23c, type: 3}
       propertyPath: m_Mass
       value: 20
@@ -547,9 +555,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6181774979669189955, guid: ab7ebaefe4617004bba87772e264c23c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8043713470793494122, guid: ab7ebaefe4617004bba87772e264c23c, type: 3}
       propertyPath: _verticalSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8043713470793494122, guid: ab7ebaefe4617004bba87772e264c23c, type: 3}
+      propertyPath: _horizontalSpeed
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab7ebaefe4617004bba87772e264c23c, type: 3}
@@ -3014,6 +3030,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1225102371872220844, guid: 341abd71c1b43df419d84ceb6620a78a, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1993270201735325610, guid: 341abd71c1b43df419d84ceb6620a78a, type: 3}
       propertyPath: m_Name
       value: PlayerCombined

@@ -27,13 +27,11 @@ public class Brick : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("Brick hit by: " + other);
         if (other.GetComponent<PlayerCollisionHandler>())
         {
             
             Destroy(gameObject, secondsToDestroy);
             AddRotation();
-            //Add particles with star, on hit
 
             _collider.isTrigger = false;
             _rigidbody.AddForce(0, -3 * Random.Range(1.1f, 200f), 0);
