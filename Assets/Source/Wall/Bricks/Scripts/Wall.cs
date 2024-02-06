@@ -12,6 +12,11 @@ public class Wall : MonoBehaviour
 
     private int _totalBricks;
 
+    private Vector3 _leftBound;
+    private Vector3 _rightBound;
+
+    public Vector3 LeftBound => _leftBound;
+    public Vector3 RightBound => _rightBound;
     public int TotalBricks { get => _totalBricks;}
 
     private void Start()
@@ -29,6 +34,7 @@ public class Wall : MonoBehaviour
     {
         for(int row = 0; row < _rows; row++)
         {
+            
             for(int column = 0; column < _columns; column++)
             {
                 if(_brick != null)
@@ -37,6 +43,17 @@ public class Wall : MonoBehaviour
                                                 row * (_brick.transform.localScale.y + _brickSpacing),
                                                 0);
                     GameObject brick = Instantiate(_brick, position, Quaternion.identity);
+
+                    if (row == 0)
+                    {
+                        if (column == 0)
+                        {
+                            _leftBound = brick.transform.position;
+                        } else if (column == _columns - 1)
+                        {
+                            _rightBound = brick.transform.position;
+                        }
+                    }
                     brick.transform.SetParent(transform);
                 }
             }
