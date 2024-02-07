@@ -283,6 +283,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerMover: {fileID: 0}
-  _rotationDegree: 15
-  _rotationSpeed: 0
-  _rotationBackSpeed: 20
+  _rotationDegree: 45
+  _rotationSpeed: 1
+  _rotationBackSpeed: 1
