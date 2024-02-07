@@ -26,7 +26,7 @@ public class MopRotator : MonoBehaviour
 
         if (moveInput != 0)
         {
-            var _targetRotation = Quaternion.Euler(_originalRotation.x, _originalRotation.y, _rotationDegree * moveInput * -1);
+            var _targetRotation = Quaternion.Euler(_originalRotation.x, _originalRotation.y, _rotationDegree * moveInput);
 
             transform.rotation = Quaternion.Slerp(transform.rotation, _targetRotation, Time.deltaTime * _rotationSpeed);
 
