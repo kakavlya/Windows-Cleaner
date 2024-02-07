@@ -16,19 +16,20 @@ public class MopRotator : MonoBehaviour
 
     private void Start()
     {
-        _originalRotation = transform.rotation;
+        _originalRotation = transform.localRotation;
 
     }
 
     private void FixedUpdate()
     {
+        
         float moveInput = _playerMover.MoveInput().x;
 
         if (moveInput != 0)
         {
-            var _targetRotation = Quaternion.Euler(_originalRotation.x, _originalRotation.y, _rotationDegree * moveInput);
+            var _targetRotation = Quaternion.Euler(_originalRotation.eulerAngles.x, _originalRotation.eulerAngles.y, _rotationDegree * moveInput);
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, _targetRotation, Time.deltaTime * _rotationSpeed);
+            transform.localRotation = Quaternion.Slerp(transform.rotation, _targetRotation, Time.deltaTime * _rotationSpeed);
 
         } else
         {
@@ -39,7 +40,7 @@ public class MopRotator : MonoBehaviour
 
     private void RotateBack()
     {
-        transform.rotation = Quaternion.Slerp(transform.rotation, _originalRotation, Time.deltaTime * _rotationBackSpeed);
+        transform.localRotation = Quaternion.Slerp(transform.rotation, _originalRotation, Time.deltaTime * _rotationBackSpeed);
     }
 
 }
