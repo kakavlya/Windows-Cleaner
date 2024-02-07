@@ -16,7 +16,7 @@ public class MopRotator : MonoBehaviour
 
     private void Start()
     {
-        _originalRotation = transform.localRotation;
+        _originalRotation = transform.rotation;
 
     }
 
@@ -29,7 +29,7 @@ public class MopRotator : MonoBehaviour
         {
             var _targetRotation = Quaternion.Euler(_originalRotation.eulerAngles.x, _originalRotation.eulerAngles.y, _rotationDegree * moveInput);
 
-            transform.localRotation = Quaternion.Slerp(transform.rotation, _targetRotation, Time.deltaTime * _rotationSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, _targetRotation, Time.deltaTime * _rotationSpeed);
 
         } else
         {
@@ -40,7 +40,7 @@ public class MopRotator : MonoBehaviour
 
     private void RotateBack()
     {
-        transform.localRotation = Quaternion.Slerp(transform.rotation, _originalRotation, Time.deltaTime * _rotationBackSpeed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, _originalRotation, Time.deltaTime * _rotationBackSpeed);
     }
 
 }
