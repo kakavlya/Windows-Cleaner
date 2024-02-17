@@ -8,6 +8,6 @@ public class Follow : MonoBehaviour
     private void Update()
     {
         this.transform.position = _target.position;
-        this.transform.rotation = _target.rotation;
+        //this.transform.rotation = _target.rotation;
     }
 }
