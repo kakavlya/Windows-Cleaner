@@ -27,7 +27,7 @@ public class MopController : MonoBehaviour
 
     private void Update()
     {
-        
+    
       
     }
 
@@ -54,7 +54,7 @@ public class MopController : MonoBehaviour
     private void HandleMove()
     {
         _moveDirectionX = Input.GetAxis("Horizontal");
-        var vector = this.transform.up;
+        var vector = this.transform.up - Vector3.down;
         if (_moveDirectionX > 0)
         {
             vector *= -1;
@@ -66,7 +66,7 @@ public class MopController : MonoBehaviour
 
     private void HandleFalling()
     {
-        var downVector = this.transform.up * -1f;
+        var downVector = Vector3.down;
         this.transform.Translate(downVector * (_fallinSpeed * Time.deltaTime));
     }
 
@@ -94,4 +94,6 @@ public class MopController : MonoBehaviour
     {
         _isStopped = true;
     }
+
+
 }

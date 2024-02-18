@@ -13,14 +13,17 @@ public class WidthUp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<PlayerCollisionHandler>())
+    
+        var mopHead = other.GetComponent<MopHead>();
+        if (mopHead)
         {
             Remove();
-            var localXUpdated = new Vector3(other.transform.localScale.x * _widthBuff, 
-                other.transform.localScale.y, other.transform.localScale.z);
-            other.transform.localScale = localXUpdated;
+            mopHead.WidthUp(_widthBuff);
+          
         }
     }
+
+
 
     private void Remove()
     {
