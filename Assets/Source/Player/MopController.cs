@@ -17,6 +17,7 @@ public class MopController : MonoBehaviour
 
     private float _moveDirectionX;
     private Quaternion _originalRotation;
+    private bool _isStopped;
 
 
     private void Start()
@@ -32,14 +33,22 @@ public class MopController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        HandleMove();
-        HandleFalling();
+        if (_isStopped == false)
+        {
+            HandleMove();
+            HandleFalling();
+        }
+       
     }
 
 
     private void LateUpdate()
     {
-        HandleRotation();
+        if (_isStopped == false)
+        {
+            HandleRotation();
+        }
+  
     }
 
     private void HandleMove()
@@ -79,5 +88,10 @@ public class MopController : MonoBehaviour
     private void RotateBack()
     {
         transform.rotation = Quaternion.Slerp(transform.rotation, _originalRotation, Time.deltaTime * _rotationBackSpeed);
+    }
+
+    public void Stop()
+    {
+        _isStopped = true;
     }
 }
