@@ -12,6 +12,8 @@ public class MopController : MonoBehaviour
 
     [Header("Falling")]
     [SerializeField] private float _fallinSpeed = 1f;
+    [SerializeField] private float _fallinMultiplayer = 2f;
+    [SerializeField] private Wall _wall;
 
 
 
@@ -35,6 +37,9 @@ public class MopController : MonoBehaviour
     {
         if (_isStopped == false)
         {
+            HandleRotation();
+
+
             HandleMove();
             HandleFalling();
         }
@@ -46,7 +51,9 @@ public class MopController : MonoBehaviour
     {
         if (_isStopped == false)
         {
-            HandleRotation();
+            //HandleRotation();
+
+            
         }
   
     }
@@ -67,6 +74,10 @@ public class MopController : MonoBehaviour
     private void HandleFalling()
     {
         var downVector = Vector3.down;
+        if (_wall && _wall.CheckBoundaries(this.transform.position) == false)
+        {
+            downVector *= _fallinMultiplayer;
+        }
         this.transform.Translate(downVector * (_fallinSpeed * Time.deltaTime));
     }
 
