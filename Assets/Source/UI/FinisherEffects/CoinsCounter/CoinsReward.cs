@@ -56,8 +56,8 @@ public class CoinsReward : MonoBehaviour
         _stepsToMake = duration * _updatesDuringSecond;
         _stepsLeft = _stepsToMake;
         _scoresInStep = _totalRewardCount / _stepsToMake;
-        Debug.Log(String.Format("_steps to make {0}, _stepsLeft: {1}, _scoresInStep{2}, milliSecondsToWait{3}",
-            _stepsToMake, _stepsLeft, _scoresInStep, milliSecondsToWait));
+        //Debug.Log(String.Format("_steps to make {0}, _stepsLeft: {1}, _scoresInStep{2}, milliSecondsToWait{3}",
+        //    _stepsToMake, _stepsLeft, _scoresInStep, milliSecondsToWait));
         IEnumerator coroutine = StartUpdatingScores(milliSecondsToWait);
         StartCoroutine(coroutine);
     }

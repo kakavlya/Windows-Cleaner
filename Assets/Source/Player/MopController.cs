@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MopController : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class MopController : MonoBehaviour
     [SerializeField] private float _fallinSpeed = 1f;
     [SerializeField] private float _fallinMultiplayer = 2f;
     [SerializeField] private Wall _wall;
+    [SerializeField] private UnityEvent _outOfWallBoundaries;
+    [SerializeField] private UnityEvent _insideWallBoundaris;
 
 
 
@@ -77,6 +80,13 @@ public class MopController : MonoBehaviour
         if (_wall && _wall.CheckBoundaries(this.transform.position) == false)
         {
             downVector *= _fallinMultiplayer;
+
+            this._outOfWallBoundaries?.Invoke();
+
+        }
+        else
+        {
+            this._insideWallBoundaris?.Invoke();
         }
         this.transform.Translate(downVector * (_fallinSpeed * Time.deltaTime));
     }
