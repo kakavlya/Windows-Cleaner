@@ -15,6 +15,10 @@ public class Wall : MonoBehaviour
     private Vector3 _leftBound;
     private Vector3 _rightBound;
 
+    private Vector3 _topBound;
+    private Vector3 _bottomBound;
+
+
     public Vector3 LeftBound => _leftBound;
     public Vector3 RightBound => _rightBound;
     public int TotalBricks { get => _totalBricks;}
@@ -46,6 +50,7 @@ public class Wall : MonoBehaviour
 
                     if (row == 0)
                     {
+                        this._topBound = brick.transform.position;
                         if (column == 0)
                         {
                             _leftBound = brick.transform.position;
@@ -53,10 +58,19 @@ public class Wall : MonoBehaviour
                         {
                             _rightBound = brick.transform.position;
                         }
+                    } else if (row == _rows - 1)
+                    {
+                        this._bottomBound = brick.transform.position;
+
                     }
                     brick.transform.SetParent(transform);
                 }
             }
         }
+    }
+
+    public bool CheckBoundaries(Vector3 position)
+    {
+        return position.x >= LeftBound.x && position.x <= RightBound.x && position.y  <= _bottomBound.y && position.y >= _topBound.y;
     }
 }

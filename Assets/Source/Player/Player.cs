@@ -4,17 +4,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(PlayerMover))]
+//[RequireComponent(typeof(PlayerMover))]
 public class Player : MonoBehaviour
 {
+    [SerializeField] private MopController _mopController;
+
+
     public event UnityAction GameOver;
     public event UnityAction WonLevel;
     public event UnityAction IncrementScore;
-    private PlayerMover _playerMover;
+
+    //private PlayerMover _playerMover;
 
     private void Start()
     {
-        _playerMover = GetComponent<PlayerMover>();
+        //_playerMover = GetComponent<PlayerMover>();
     }
 
     public void Die()
@@ -25,7 +29,8 @@ public class Player : MonoBehaviour
     public void EndLevel()
     {
         WonLevel?.Invoke();
-        _playerMover.Stop();
+        //_playerMover.Stop();
+        _mopController.Stop();
     }
 
     public void BrickHit()

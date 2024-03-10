@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,5 +22,10 @@ public class PlayerCollisionHandler : MonoBehaviour
         {
             _player.Die();
         } 
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        
     }
 }
