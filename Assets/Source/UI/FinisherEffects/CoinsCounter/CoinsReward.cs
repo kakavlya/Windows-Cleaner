@@ -70,7 +70,7 @@ public class CoinsReward : MonoBehaviour
         {
             _stepsLeft--;
             _currentDisplayedReward += _scoresInStep;
-            Debug.Log(String.Format(" _stepsLeft: {0}, _currentDisplayedReward{1}", _stepsLeft, _currentDisplayedReward));
+            //Debug.Log(String.Format(" _stepsLeft: {0}, _currentDisplayedReward{1}", _stepsLeft, _currentDisplayedReward));
             int rounded = Convert.ToInt32(_currentDisplayedReward);
             ShowCoinsPrize(rounded);
             StartCoroutine(StartUpdatingScores(milliSecondsToWait));
