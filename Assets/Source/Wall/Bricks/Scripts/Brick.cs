@@ -18,7 +18,6 @@ public class Brick : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Debug.Log("Collided");
         if (collision.gameObject.GetComponent<Player>())
         {
             Destroy(gameObject);
@@ -40,8 +39,9 @@ public class Brick : MonoBehaviour
 
     private void AddRotation()
     {
-        GetComponent<Rigidbody>().useGravity = true;
-        GetComponent<Rigidbody>().AddTorque(transform.up * rotationH * rotationV * Random.Range(1.1f, 200f));
-        GetComponent<Rigidbody>().AddTorque(transform.right * rotationH * rotationV * Random.Range(1.1f, 200f));
+
+        _rigidbody.useGravity = true;
+        _rigidbody.AddTorque(transform.up * rotationH * rotationV * Random.Range(1.1f, 200f));
+        _rigidbody.AddTorque(transform.right * rotationH * rotationV * Random.Range(1.1f, 200f));
     }
 }
