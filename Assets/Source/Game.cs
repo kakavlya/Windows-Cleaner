@@ -16,10 +16,13 @@ public class Game : MonoBehaviour
     [SerializeField] private float _totalSequenceDuration;
     [SerializeField] private CinemachineVirtualCamera _secondCam;
     [SerializeField] private int _secondCamPriority;
+    [SerializeField] private int _levelIndex;
+    [SerializeField] private Level _level;
 
     private void Start()
     {
         _startScreen.gameObject.SetActive(true);
+        _level = GetComponent<Level>();
         PauseGame();
     }
 
@@ -27,7 +30,10 @@ public class Game : MonoBehaviour
     {
         _startScreen.StartButtonClick += OnPlayButtonClick;
         _gameOverScreen.RestartButtonClick += OnRestartButtonClick;
+        _gameOverScreen.MainMenuButtonClick += OnMainMenuButtonClick;
         _endLevelScreen.RestartButtonClick += OnRestartButtonClick;
+        _endLevelScreen.MainMenuButtonClick += OnMainMenuButtonClick;
+        _endLevelScreen.NextButtonClick += OnNextLevelButtonCLick;
         _player.GameOver += GameOver;
         _player.WonLevel += WonLevel;
     }
@@ -36,7 +42,10 @@ public class Game : MonoBehaviour
     {
         _startScreen.StartButtonClick -= OnPlayButtonClick;
         _gameOverScreen.RestartButtonClick -= OnRestartButtonClick;
+        _gameOverScreen.MainMenuButtonClick -= OnMainMenuButtonClick;
         _endLevelScreen.RestartButtonClick -= OnRestartButtonClick;
+        _endLevelScreen.MainMenuButtonClick -= OnMainMenuButtonClick;
+        _endLevelScreen.NextButtonClick -= OnNextLevelButtonCLick;
         _player.GameOver -= GameOver;
         _player.WonLevel -= WonLevel;
     }
@@ -82,6 +91,7 @@ public class Game : MonoBehaviour
         _collectedFinisher.StartFinishingSequence();
         Invoke(nameof(ShowMenuAndPauseGame), _totalSequenceDuration);
         _secondCam.Priority = _secondCamPriority;
+        _level.CompleteLevel(_levelIndex, GetComponent<Scores>().GetCurrentScore());
     }
 
     private void ShowMenuAndPauseGame()
@@ -94,5 +104,22 @@ public class Game : MonoBehaviour
     {
         _gameOverScreen.gameObject.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void OnMainMenuButtonClick()
+    {
+        //_gameOverScreen.gameObject.SetActive(false);
+        Debug.Log("OnMainMenuButtonClick() clicked");
+        SceneManager.LoadScene("StartingScene");
+    }
+
+    private void OnNextLevelButtonCLick()
+    {
+        _level.OnLevelCompleted(_levelIndex);
+    }
+
+    public int GetLevelIndex()
+    {
+        return _levelIndex;
     }
 }

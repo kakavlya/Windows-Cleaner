@@ -7,15 +7,19 @@ public abstract class AbstractUIScreen : MonoBehaviour
 {
 
     [SerializeField] protected Button Button;
+    [SerializeField] protected Button MainMenuButton;
     protected abstract void OnButtonClick();
+    protected abstract void OnMainMenuButtonClick();
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         Button.onClick.AddListener(OnButtonClick);
+        MainMenuButton?.onClick.AddListener(OnMainMenuButtonClick);
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         Button.onClick.RemoveListener(OnButtonClick);
+        MainMenuButton?.onClick.RemoveListener(OnMainMenuButtonClick);
     }
 }

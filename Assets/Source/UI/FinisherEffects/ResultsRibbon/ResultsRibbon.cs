@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ResultsRibbon : MonoBehaviour
@@ -19,6 +20,8 @@ public class ResultsRibbon : MonoBehaviour
     [SerializeField] private Ease _easingTypeStarsBack = Ease.InOutBounce;
     [SerializeField] private GameObject _ribbon;
     [SerializeField] private Transform[] _starsTransforms;
+    [SerializeField] private TMP_Text _scoresText;
+    [SerializeField] private Scores _scores;
 
     private Transform _ribbonTransform;
     private bool _showRibbon;
@@ -33,6 +36,14 @@ public class ResultsRibbon : MonoBehaviour
         // TODO create timer, that will stop the method after certain amount of time and hide all objects
         // Until then scale the stars
         StartCoroutine(StartHideSequence());
+        ShowScore();
+    }
+
+    private void ShowScore()
+    {
+        float scoreValue = _scores.GetCurrentScore();
+
+        _scoresText.SetText(scoreValue.ToString("#.#") + "%");
     }
 
     public void StartRibbonSequence()

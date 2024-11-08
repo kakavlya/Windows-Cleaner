@@ -11,6 +11,7 @@ public class Scores : MonoBehaviour
 
     [SerializeField] private Player _player;
     [SerializeField] private Wall _wall;
+    [SerializeField] private int _multiplier = 5;
     private int _totalBricksCount;
     private int _bricksHit;
     private float _currentScore;
@@ -36,7 +37,7 @@ public class Scores : MonoBehaviour
     {
         _bricksHit++;
         GetTotalBricksCount();
-        _currentScore = _bricksHit / (_totalBricksCount / 100f);
+        _currentScore = _bricksHit / (_totalBricksCount / 100f) * _multiplier;
         ProgressUpdated?.Invoke(_currentScore);
     }
 

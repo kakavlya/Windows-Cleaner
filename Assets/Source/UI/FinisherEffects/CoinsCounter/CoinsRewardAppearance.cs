@@ -25,10 +25,10 @@ public class CoinsRewardAppearance : MonoBehaviour
         _coinsRewardTransform.localScale = new Vector3(0, 0, 0);
 
         DisplayRewardsSequence(_coinsRewardTransform);
-        TriggerRewardCount(_coinsReward.GetComponent<CoinsReward>());
+        TriggerRewardCount(_coinsReward.GetComponent<RewardObj>());
     }
 
-    private void TriggerRewardCount(CoinsReward coinsReward) => 
+    private void TriggerRewardCount(RewardObj coinsReward) => 
         coinsReward.TriggerRewardCount(_duration+1);
 
     private void DisplayRewardsSequence(Transform _coinsRewardTransform)

@@ -12,4 +12,9 @@ public class StartScreen : AbstractUIScreen
     {
         StartButtonClick?.Invoke();
     }
+
+    protected override void OnMainMenuButtonClick()
+    {
+        
+    }
 }
