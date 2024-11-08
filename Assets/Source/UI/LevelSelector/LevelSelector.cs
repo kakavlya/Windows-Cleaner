@@ -46,14 +46,7 @@ public class LevelSelector : MonoBehaviour
         _levelStatus = new bool[_totalLevels];
         for (int i = 0; i < _totalLevels; i++)
         {
-            //TODO load from json
-            if(i == 0 || i == 1)
-            {
-                _levelStatus[i] = true;
-            } else
-            {
-                _levelStatus[i] = false;
-            }
+            _levelStatus[i] = _progress.Levels[i].IsUnlocked;
         }
     }
 
