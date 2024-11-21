@@ -9,6 +9,7 @@ public class Game : MonoBehaviour
 {
 
     [SerializeField] private StartScreen _startScreen;
+    [SerializeField] private GameObject _tutorialScreen;
     [SerializeField] private GameOverScreen _gameOverScreen;
     [SerializeField] private EndLevelScreen _endLevelScreen;
     [SerializeField] private Player _player;
@@ -72,6 +73,7 @@ public class Game : MonoBehaviour
     private void OnPlayButtonClick()
     {
         _startScreen.gameObject.SetActive(false);
+        _tutorialScreen?.SetActive(false);
         StartGame();
     }
 

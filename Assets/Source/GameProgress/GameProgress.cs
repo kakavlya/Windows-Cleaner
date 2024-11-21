@@ -22,4 +22,5 @@ public class GameProgress
         public bool IsUnlocked;
         public float Score;
     }
+
 }

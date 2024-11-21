@@ -12,23 +12,36 @@ public class LevelSelector : MonoBehaviour
 {
     [SerializeField] private string _gameProgressPrefs = "GameProgress";
     [SerializeField] private GameObject _levelButtonPrefab;
+    [SerializeField] private Button _closeBtn;
     [SerializeField] private Transform _contentParent;
     [SerializeField] private int _totalLevels;
 
     private GameProgress _progress;
+    private GameDataHandle _gameDataHandle;
 
     private bool[] _levelStatus;
     private void Start()
     {
+        _gameDataHandle = new GameDataHandle();
         LoadLevels();
         EnsureAllLevelsExist(_progress, _totalLevels);
         LoadLevelStatus();
         GenerateLevelButton();
     }
 
-    private void LoadLevels()
+    private void OnEnable()
     {
-        _progress = LoadProgressFromPlayerPrefs();
+        _closeBtn.onClick.AddListener(CloseMenu);
+    }
+
+    private void OnDisable()
+    {
+        _closeBtn.onClick.RemoveListener(CloseMenu);
+    }
+
+    public void LoadLevels()
+    {
+        _progress = _gameDataHandle.LoadProgress();
         if(_progress.Levels.Count == 0)
         {
             _progress.Levels.Add(new LevelData { LevelNumber = 1, IsUnlocked = true, Score = 0 });
@@ -37,7 +50,7 @@ public class LevelSelector : MonoBehaviour
                 _progress.Levels.Add(new LevelData { LevelNumber = i, IsUnlocked = false, Score = 0 });
             }
 
-            SaveProgressToPlayerPrefs(_progress);
+            _gameDataHandle.SaveProgress(_progress);
         }
     }
 
@@ -74,22 +87,27 @@ public class LevelSelector : MonoBehaviour
         SceneManager.LoadScene("Level" + (levelIndex + 1));
     }
 
-    public void SaveProgressToPlayerPrefs(GameProgress progress)
+    private void CloseMenu()
     {
-        string json = JsonUtility.ToJson(progress);
-        PlayerPrefs.SetString(_gameProgressPrefs, json);
-        PlayerPrefs.Save(); 
+        gameObject.SetActive(false);
     }
 
-    public GameProgress LoadProgressFromPlayerPrefs()
-    {
-        if (PlayerPrefs.HasKey(_gameProgressPrefs))
-        {
-            string json = PlayerPrefs.GetString(_gameProgressPrefs);
-            return JsonUtility.FromJson<GameProgress>(json);
-        }
-        return new GameProgress(); // Новый объект по умолчанию, если данных нет
-    }
+    //public void SaveProgressToPlayerPrefs(GameProgress progress)
+    //{
+    //    string json = JsonUtility.ToJson(progress);
+    //    PlayerPrefs.SetString(_gameProgressPrefs, json);
+    //    PlayerPrefs.Save(); 
+    //}
+
+    //public GameProgress LoadProgressFromPlayerPrefs()
+    //{
+    //    if (PlayerPrefs.HasKey(_gameProgressPrefs))
+    //    {
+    //        string json = PlayerPrefs.GetString(_gameProgressPrefs);
+    //        return JsonUtility.FromJson<GameProgress>(json);
+    //    }
+    //    return new GameProgress(); // Новый объект по умолчанию, если данных нет
+    //}
 
     private void EnsureAllLevelsExist(GameProgress progress, int totalLevelsInGame)
     {
@@ -98,17 +116,5 @@ public class LevelSelector : MonoBehaviour
         {
             progress.Levels.Add(new LevelData { LevelNumber = i, IsUnlocked = false, Score = 0 });
         }
-    }
-
-    public void ResetGameProgress()
-    {
-        DeleteGameProgress();
-        LoadProgressFromPlayerPrefs();
-    }
-
-    private void DeleteGameProgress()
-    {
-        PlayerPrefs.DeleteKey(_gameProgressPrefs);
-        PlayerPrefs.Save();
     }
 }

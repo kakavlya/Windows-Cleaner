@@ -92,7 +92,7 @@ MonoBehaviour:
     thisPlayer:
       rank: 2
       score: 10
-  - technoName: simple
+  - technoName: simple LB
     entries: "Test LeaderBoard\nName: simple\n1. \u0441\u043A\u0440\u044B\u0442:
       10\n2. Max: 15\n3. Maria: 23"
     isDefault: 0
@@ -131,8 +131,8 @@ MonoBehaviour:
       photo: https://justplaygames.ru/public/icon_player.png
       uniqueID: 321
     thisPlayer:
-      rank: 0
-      score: 0
+      rank: 1
+      score: 5000
   - technoName: time
     entries: 'Test LeaderBoard
 
