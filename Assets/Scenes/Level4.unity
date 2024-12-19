@@ -11826,7 +11826,7 @@ MonoBehaviour:
   _totalSequenceDuration: 10
   _secondCam: {fileID: 1984533423}
   _secondCamPriority: 50
-  _levelIndex: 1
+  _levelIndex: 4
   _level: {fileID: 1616293220}
 --- !u!114 &1616293219
 MonoBehaviour:
