@@ -58,6 +58,8 @@ public class Level : MonoBehaviour
     private void LoadLevel(int levelIndex)
     {
         SceneManager.LoadScene("Level" + (levelIndex));
+        //TODO запускать скрипт сцены, с определенным номером левела
+        //запуск через и регулировка уровня через animation curve, в зависимости от прогрессии
     }
 
     private void UpdateLeaderBoard(int newRecord)

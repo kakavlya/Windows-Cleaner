@@ -153,13 +153,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e33e942b108425643b590babe92e4c17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 3
-  _rotationSpeed: 3
-  _rotateAngle: 45
-  _rotationBackSpeed: 20
+  _moveSpeed: 1
+  _rotationSpeed: 6
+  _rotateAngle: 70
+  _rotationBackSpeed: 30
   _fallinSpeed: 5
   _fallinMultiplayer: 2
   _wall: {fileID: 0}
+  _outOfWallBoundaries:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3148340967452589395}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _insideWallBoundaris:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3148340967452589395}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  _outerCircle: {fileID: 0}
+  _innerCircle: {fileID: 0}
+  _joystickSmoothness: 22
 --- !u!1 &2724438593157078743
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,6 +889,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 263867d4955e3644f9a1dfa779ab7d1e, type: 3}
+--- !u!1 &3148340967452589395 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 194016, guid: 263867d4955e3644f9a1dfa779ab7d1e, type: 3}
+  m_PrefabInstance: {fileID: 3148340967452494003}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3148340967452936917 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 475750, guid: 263867d4955e3644f9a1dfa779ab7d1e, type: 3}
