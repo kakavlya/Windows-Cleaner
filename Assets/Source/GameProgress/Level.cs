@@ -31,7 +31,6 @@ public class Level : MonoBehaviour
 
             }
 
-            // Открываем следующий уровень, если он существует и еще не открыт
             LevelData nextLevel = progress.Levels.Find(level => level.LevelNumber == currentLevelNumber + 1);
             if (nextLevel != null && !nextLevel.IsUnlocked)
             {

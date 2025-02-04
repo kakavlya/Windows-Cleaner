@@ -4,59 +4,99 @@ using UnityEngine;
 
 public class WallWithObstacles : Wall
 {
-    [System.Serializable]
-    public class ObstacleData
-    {
-        public GameObject ObstaclePrefab;
-        public int Count;
-        public Vector2 Size;
-        public Vector3 Rotation;
-        public float ZOffset;
-    }
-
-
-
-    [SerializeField] private List<ObstacleData> _obstacleTypes = new List<ObstacleData>();
-    [SerializeField] private float _obstacleMinDistance = 1.0f;
+    [SerializeField] private ObstacleSettings _obstacleSettings;
+    [SerializeField] private int _currentLevel = 1;
+    [SerializeField] private float _obstacleMinDistance = 5.0f;
 
     private List<Bounds> _occupiedAreas = new List<Bounds>();
+
 
     protected override void Start()
     {
         base.Start();
         _occupiedAreas = GetOccupiedAreas();
         GenerateObstacles();
+    }
 
+    public void SetLevel(int level)
+    {
+        _currentLevel = level;
+        ClearObstacles();
+        GenerateObstacles();
+    }
+
+    private void ClearObstacles()
+    {
+        foreach(Transform child in transform)
+        {
+            if(child.GetComponent<Brick>() == null)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+        _occupiedAreas.Clear();
     }
 
     private void GenerateObstacles()
     {
-        foreach(var obstacleType in _obstacleTypes)
+
+        int obstacleCount = _obstacleSettings.GetObstacleCount(_currentLevel);
+        float minSpeed = _obstacleSettings.GetMinSpeed(_currentLevel);
+        float maxSpeed = _obstacleSettings.GetMaxSpeed(_currentLevel);
+
+        for (int i = 0; i < obstacleCount; i++)
         {
-            int generated = 0;
-            while (generated < obstacleType.Count)
+            ObstacleData obstacleData = _obstacleSettings.GetRandomObstacleData();
+            GameObject obstaclePrefab = obstacleData.ObstaclePrefab;
+            if (obstaclePrefab == null) continue;
+
+            Vector3 randomPosition = new Vector3(
+                Random.Range(LeftBound.x, RightBound.x),
+                Random.Range(_topBound.y, _bottomBound.y),
+                obstacleData.ZOffset);
+
+            Bounds obstacleBounds = new Bounds(randomPosition, obstaclePrefab.transform.localScale);
+
+            if (IsAreaValid(obstacleBounds))
             {
-                Vector3 randomPosition = new Vector3(
-                    Random.Range(LeftBound.x, RightBound.x),
-                    Random.Range(_topBound.y, _bottomBound.y),
-                    obstacleType.ZOffset);
+                GameObject obstacle = Instantiate(obstaclePrefab, randomPosition, Quaternion.Euler(obstacleData.Rotation));
+                obstacle.transform.SetParent(transform);
 
+                float speed = Random.Range(minSpeed, maxSpeed);
+                Rigidbody2D rb = obstacle.GetComponent<Rigidbody2D>();
+                if (rb != null) rb.velocity = new Vector2(0, -speed);
 
-                Bounds obstacleBounds = new Bounds(randomPosition, new Vector3(obstacleType.Size.x, obstacleType.Size.y));
-
-                if (IsAreaValid(obstacleBounds))
-                {
-                    GameObject obstacle = Instantiate(obstacleType.ObstaclePrefab, randomPosition,
-                        Quaternion.Euler(obstacleType.Rotation));
-                    obstacle.transform.SetParent(transform);
-
-                    //obstacle.transform.localScale = new Vector3(obstacleType.Size.x, obstacleType.Size.y, 1);
-
-                    _occupiedAreas.Add(obstacleBounds);
-                    generated++;
-                }
+                _occupiedAreas.Add(obstacleBounds);
             }
         }
+
+
+        //foreach(var obstacleType in _obstacleTypes)
+        //{
+        //    int generated = 0;
+        //    while (generated < obstacleType.Count)
+        //    {
+        //        Vector3 randomPosition = new Vector3(
+        //            Random.Range(LeftBound.x, RightBound.x),
+        //            Random.Range(_topBound.y, _bottomBound.y),
+        //            obstacleType.ZOffset);
+
+
+        //        Bounds obstacleBounds = new Bounds(randomPosition, new Vector3(obstacleType.Size.x, obstacleType.Size.y));
+
+        //        if (IsAreaValid(obstacleBounds))
+        //        {
+        //            GameObject obstacle = Instantiate(obstacleType.ObstaclePrefab, randomPosition,
+        //                Quaternion.Euler(obstacleType.Rotation));
+        //            obstacle.transform.SetParent(transform);
+
+        //            //obstacle.transform.localScale = new Vector3(obstacleType.Size.x, obstacleType.Size.y, 1);
+
+        //            _occupiedAreas.Add(obstacleBounds);
+        //            generated++;
+        //        }
+        //    }
+        //}
     }
 
     private List<Bounds> GetOccupiedAreas()
