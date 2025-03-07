@@ -82,9 +82,13 @@ public class LevelSelector : MonoBehaviour
         }
     }
 
-    private void LoadLevel(int levelIndex)
+    public void LoadLevel(int levelIndex)
     {
-        SceneManager.LoadScene("Level" + (levelIndex + 1));
+        int selectedLevel = levelIndex + 1;
+
+        LevelController.Instance.SetLevel(selectedLevel);
+        
+        SceneManager.LoadScene("GameScene");
     }
 
     private void CloseMenu()

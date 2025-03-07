@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class StartButton : MonoBehaviour
 {
     [SerializeField] private Button _startButton;
+    [SerializeField] private LevelSelector _levelSelector;
     private GameDataHandle _gameDataHandle;
 
     private void Start()
@@ -44,6 +45,7 @@ public class StartButton : MonoBehaviour
         Debug.Log("First Locked level " + levelToLoad);
 
 
-        SceneManager.LoadScene("Level" + (levelToLoad));
+        //SceneManager.LoadScene("Level" + (levelToLoad));
+        _levelSelector.LoadLevel(levelToLoad);
     }
 }

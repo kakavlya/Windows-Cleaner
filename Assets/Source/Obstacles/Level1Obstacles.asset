@@ -14,10 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacleDataPrefabs:
   - ObstaclePrefab: {fileID: 7592102460273681930, guid: ff3bfa21cf59174418990d821cbfd3a7, type: 3}
-    Size: {x: 1, y: 1}
+    Size: {x: 2, y: 2}
     Rotation: {x: -90, y: 0, z: 0}
     ZOffset: -0.5
   - ObstaclePrefab: {fileID: 6987241758747578229, guid: cbb10dad3320c5a4db6e8ff58f8240be, type: 3}
+    Size: {x: 1, y: 1}
+    Rotation: {x: 0, y: 0, z: 0}
+    ZOffset: -0.5
+  - ObstaclePrefab: {fileID: 1013513318920267292, guid: 244e5b280548fd44f8b526ea37af0b5b, type: 3}
     Size: {x: 1, y: 1}
     Rotation: {x: 0, y: 0, z: 0}
     ZOffset: -0.5

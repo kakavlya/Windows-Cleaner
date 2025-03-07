@@ -38,8 +38,8 @@ public class Wall : MonoBehaviour
     {
         float centerX = (_leftBound.x + _rightBound.x) / 2;
         float centerY = _topBound.y;
-        Debug.Log("Topbound.y: " + _topBound.y);
-        Debug.Log("BottomBound.y: " + _bottomBound.y);
+        //Debug.Log("Topbound.y: " + _topBound.y);
+        //Debug.Log("BottomBound.y: " + _bottomBound.y);
         return new Vector3(centerX, centerY, 0);
     }
 

@@ -4,6 +4,7 @@ public class GameProgress
 {
     public List<LevelData> Levels = new List<LevelData>();
     public float TotalScore;
+    public int CurrentLevel;
 
     public void UpdateTotalScore()
     {

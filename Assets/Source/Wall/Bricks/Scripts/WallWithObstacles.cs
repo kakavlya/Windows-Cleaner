@@ -10,12 +10,14 @@ public class WallWithObstacles : Wall
 
     private List<Bounds> _occupiedAreas = new List<Bounds>();
 
+    private void OnDisable() => LevelController.Instance.OnLevelChanged -= OnLevelChanged;
 
     protected override void Start()
     {
         base.Start();
         _occupiedAreas = GetOccupiedAreas();
         GenerateObstacles();
+        LevelController.Instance.OnLevelChanged += OnLevelChanged;
     }
 
     public void SetLevel(int level)
@@ -23,6 +25,11 @@ public class WallWithObstacles : Wall
         _currentLevel = level;
         ClearObstacles();
         GenerateObstacles();
+    }
+
+    private void OnLevelChanged(int level)
+    {
+        SetLevel(level);
     }
 
     private void ClearObstacles()

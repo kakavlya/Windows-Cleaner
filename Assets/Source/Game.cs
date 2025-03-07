@@ -1,13 +1,10 @@
-using Cinemachine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cinemachine;
+using YG;
 
 public class Game : MonoBehaviour
 {
-
     [SerializeField] private StartScreen _startScreen;
     [SerializeField] private GameObject _tutorialScreen;
     [SerializeField] private GameOverScreen _gameOverScreen;
@@ -17,13 +14,19 @@ public class Game : MonoBehaviour
     [SerializeField] private float _totalSequenceDuration;
     [SerializeField] private CinemachineVirtualCamera _secondCam;
     [SerializeField] private int _secondCamPriority;
-    [SerializeField] private int _levelIndex;
-    [SerializeField] private Level _level;
+    [SerializeField] private Scores _scores;  
+
+    [SerializeField] private string _leaderBoardName = "WindowsCleanerLeaderboard";
+    private LeaderboardService _leaderboardService;
+
+    private void Awake()
+    {
+        _leaderboardService = new LeaderboardService(_leaderBoardName);
+    }
 
     private void Start()
     {
         _startScreen.gameObject.SetActive(true);
-        _level = GetComponent<Level>();
         PauseGame();
     }
 
@@ -34,7 +37,7 @@ public class Game : MonoBehaviour
         _gameOverScreen.MainMenuButtonClick += OnMainMenuButtonClick;
         _endLevelScreen.RestartButtonClick += OnRestartButtonClick;
         _endLevelScreen.MainMenuButtonClick += OnMainMenuButtonClick;
-        _endLevelScreen.NextButtonClick += OnNextLevelButtonCLick;
+        _endLevelScreen.NextButtonClick += OnNextLevelButtonClick;
         _player.GameOver += GameOver;
         _player.WonLevel += WonLevel;
     }
@@ -46,28 +49,9 @@ public class Game : MonoBehaviour
         _gameOverScreen.MainMenuButtonClick -= OnMainMenuButtonClick;
         _endLevelScreen.RestartButtonClick -= OnRestartButtonClick;
         _endLevelScreen.MainMenuButtonClick -= OnMainMenuButtonClick;
-        _endLevelScreen.NextButtonClick -= OnNextLevelButtonCLick;
+        _endLevelScreen.NextButtonClick -= OnNextLevelButtonClick;
         _player.GameOver -= GameOver;
         _player.WonLevel -= WonLevel;
-    }
-
-    private void StartGame()
-    {
-        Time.timeScale = 1;
-
-        // TODO remove later
-        CheckCoinsScene();
-    }
-
-    private void CheckCoinsScene()
-    {
-        Scene scene = SceneManager.GetActiveScene();
-
-        // Check if the name of the current Active Scene is your first Scene.
-        if (scene.name == "TestFullSequence")
-        {
-            WonLevel();
-        }
     }
 
     private void OnPlayButtonClick()
@@ -75,6 +59,11 @@ public class Game : MonoBehaviour
         _startScreen.gameObject.SetActive(false);
         _tutorialScreen?.SetActive(false);
         StartGame();
+    }
+
+    private void StartGame()
+    {
+        Time.timeScale = 1;
     }
 
     private void PauseGame()
@@ -87,41 +76,45 @@ public class Game : MonoBehaviour
         PauseGame();
         _gameOverScreen.gameObject.SetActive(true);
     }
-
     private void WonLevel()
     {
+        float currentScore = _scores.GetCurrentScore();
+        LevelController.Instance.CompleteLevel(currentScore);
+
         _collectedFinisher.StartFinishingSequence();
-        Invoke(nameof(ShowMenuAndPauseGame), _totalSequenceDuration);
+
         _secondCam.Priority = _secondCamPriority;
-        _level.CompleteLevel(_levelIndex, GetComponent<Scores>().GetCurrentScore());
+
+        Invoke(nameof(ShowMenuAndPauseGame), _totalSequenceDuration);
     }
 
     private void ShowMenuAndPauseGame()
     {
         PauseGame();
         _endLevelScreen.gameObject.SetActive(true);
+        _leaderboardService.UpdateLeaderboard(LevelController.Instance.CurrentLevel);
+    }
+
+    private void UpdateLeaderBoard(int newRecord)
+    {
+        YandexGame.NewLeaderboardScores(_leaderBoardName, newRecord);
     }
 
     private void OnRestartButtonClick()
     {
         _gameOverScreen.gameObject.SetActive(false);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        LevelController.Instance.ReloadScene();
     }
 
     private void OnMainMenuButtonClick()
     {
-        //_gameOverScreen.gameObject.SetActive(false);
         Debug.Log("OnMainMenuButtonClick() clicked");
         SceneManager.LoadScene("StartingScene");
     }
 
-    private void OnNextLevelButtonCLick()
+    private void OnNextLevelButtonClick()
     {
-        _level.OnLevelCompleted(_levelIndex);
-    }
-
-    public int GetLevelIndex()
-    {
-        return _levelIndex;
+        LevelController.Instance.NextLevel();
+        LevelController.Instance.ReloadScene();
     }
 }
