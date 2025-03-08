@@ -3973,6 +3973,62 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3547492303847291095, guid: 69dc33bd9163b0b4f966dd9bdfd2e80f, type: 3}
   m_PrefabInstance: {fileID: 1053328829}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1071067592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1071067593}
+  - component: {fileID: 1071067594}
+  m_Layer: 0
+  m_Name: EnvironmentGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1071067593
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071067592}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1071067594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071067592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f563e97fc8c7dab4d9a20530ad60462e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _environments:
+  - {fileID: 256096265274315862, guid: 0907965dd1bb50c4a9c29b56eddda137, type: 3}
+  - {fileID: 256096265274315862, guid: 55b3e91829e0c834088a5c9e6331bb75, type: 3}
+  - {fileID: 5397162765931013793, guid: 77b1d70187a922b40b2e1fc862ef7764, type: 3}
+  - {fileID: 723596070811082367, guid: fef060ea7caa67c4489231fb13575298, type: 3}
+  - {fileID: 1086154784740018350, guid: 5ead3eefdfc6a7848b594b92a8ddac37, type: 3}
+  - {fileID: 6163701428227602435, guid: 8d741fe84f954ab438d3134af709e6ab, type: 3}
+  - {fileID: 7110389250537180871, guid: 41cbe813cd250734a89b14193c0b8768, type: 3}
+  - {fileID: 576017981228341456, guid: 877f2fb844dfc5e47a4d26cedf4949e0, type: 3}
+  - {fileID: 8108309728799277746, guid: a612389c31a46214daa52054fe8e5484, type: 3}
+  - {fileID: 6613987827641712391, guid: 6e19b0440fa69464a82655350a6e5db7, type: 3}
+  _position: {x: 0, y: 0, z: 0}
 --- !u!1 &1111783950
 GameObject:
   m_ObjectHideFlags: 0
@@ -16720,3 +16776,4 @@ SceneRoots:
   - {fileID: 1111783951}
   - {fileID: 1725296252800521610}
   - {fileID: 428554724}
+  - {fileID: 1071067593}

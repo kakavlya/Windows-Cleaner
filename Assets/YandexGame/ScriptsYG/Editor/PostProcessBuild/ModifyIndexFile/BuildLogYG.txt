@@ -1,2 +1,2 @@
-Build path: F:/Development/GitHub/Windows-Cleaner/ProjectBuild/Web
-Build number: 6
+Build path: C:/Users/nepuh/OneDrive/Documents/GitHub/Windows-Cleaner/ProjectBuild/Web_4
+Build number: 7

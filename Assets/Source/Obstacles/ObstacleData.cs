@@ -6,7 +6,7 @@ using UnityEngine;
 public class ObstacleData
 {
     public GameObject ObstaclePrefab;
-    public Vector2 Size;
+    public float SizeScale;
     public Vector3 Rotation;
     public float ZOffset;
 }

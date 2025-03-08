@@ -31,7 +31,7 @@ public class LevelController : MonoBehaviour
     private void Start()
     {
         // uncomment to reset progress
-        //_gameDataHandle.ResetGameProgress();
+        _gameDataHandle.ResetGameProgress();
         GameProgress progress = _gameDataHandle.LoadProgress();
         CurrentLevel = progress.CurrentLevel > 0 ? progress.CurrentLevel : 1;
         NotifyLevelChanged();

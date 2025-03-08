@@ -4130,15 +4130,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7473326560062532029, guid: 55b3e91829e0c834088a5c9e6331bb75, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7473326560062532029, guid: 55b3e91829e0c834088a5c9e6331bb75, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7473326560062532029, guid: 55b3e91829e0c834088a5c9e6331bb75, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 17.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7473326560062532029, guid: 55b3e91829e0c834088a5c9e6331bb75, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6084,8 +6084,8 @@ MonoBehaviour:
   _totalSequenceDuration: 10
   _secondCam: {fileID: 1984533423}
   _secondCamPriority: 50
-  _levelIndex: 15
-  _level: {fileID: 1616293220}
+  _scores: {fileID: 0}
+  _leaderBoardName: WindowsCleanerLeaderboard
 --- !u!114 &1616293219
 MonoBehaviour:
   m_ObjectHideFlags: 0

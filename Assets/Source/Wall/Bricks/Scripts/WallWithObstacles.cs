@@ -18,6 +18,7 @@ public class WallWithObstacles : Wall
         _occupiedAreas = GetOccupiedAreas();
         GenerateObstacles();
         LevelController.Instance.OnLevelChanged += OnLevelChanged;
+        SetLevel(LevelController.Instance.CurrentLevel);
     }
 
     public void SetLevel(int level)
@@ -62,7 +63,7 @@ public class WallWithObstacles : Wall
                 Random.Range(_topBound.y, _bottomBound.y),
                 obstacleData.ZOffset);
 
-            Bounds obstacleBounds = new Bounds(randomPosition, obstaclePrefab.transform.localScale);
+            Bounds obstacleBounds = new Bounds(randomPosition, obstaclePrefab.transform.localScale*obstacleData.SizeScale);
 
             if (IsAreaValid(obstacleBounds))
             {
@@ -76,34 +77,6 @@ public class WallWithObstacles : Wall
                 _occupiedAreas.Add(obstacleBounds);
             }
         }
-
-
-        //foreach(var obstacleType in _obstacleTypes)
-        //{
-        //    int generated = 0;
-        //    while (generated < obstacleType.Count)
-        //    {
-        //        Vector3 randomPosition = new Vector3(
-        //            Random.Range(LeftBound.x, RightBound.x),
-        //            Random.Range(_topBound.y, _bottomBound.y),
-        //            obstacleType.ZOffset);
-
-
-        //        Bounds obstacleBounds = new Bounds(randomPosition, new Vector3(obstacleType.Size.x, obstacleType.Size.y));
-
-        //        if (IsAreaValid(obstacleBounds))
-        //        {
-        //            GameObject obstacle = Instantiate(obstacleType.ObstaclePrefab, randomPosition,
-        //                Quaternion.Euler(obstacleType.Rotation));
-        //            obstacle.transform.SetParent(transform);
-
-        //            //obstacle.transform.localScale = new Vector3(obstacleType.Size.x, obstacleType.Size.y, 1);
-
-        //            _occupiedAreas.Add(obstacleBounds);
-        //            generated++;
-        //        }
-        //    }
-        //}
     }
 
     private List<Bounds> GetOccupiedAreas()
