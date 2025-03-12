@@ -96,23 +96,6 @@ public class LevelSelector : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    //public void SaveProgressToPlayerPrefs(GameProgress progress)
-    //{
-    //    string json = JsonUtility.ToJson(progress);
-    //    PlayerPrefs.SetString(_gameProgressPrefs, json);
-    //    PlayerPrefs.Save(); 
-    //}
-
-    //public GameProgress LoadProgressFromPlayerPrefs()
-    //{
-    //    if (PlayerPrefs.HasKey(_gameProgressPrefs))
-    //    {
-    //        string json = PlayerPrefs.GetString(_gameProgressPrefs);
-    //        return JsonUtility.FromJson<GameProgress>(json);
-    //    }
-    //    return new GameProgress(); // Новый объект по умолчанию, если данных нет
-    //}
-
     private void EnsureAllLevelsExist(GameProgress progress, int totalLevelsInGame)
     {
         int currentLevelCount = progress.Levels.Count;
