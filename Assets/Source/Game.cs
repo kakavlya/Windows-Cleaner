@@ -7,6 +7,7 @@ public class Game : MonoBehaviour
 {
     [SerializeField] private StartScreen _startScreen;
     [SerializeField] private GameObject _tutorialScreen;
+    [SerializeField] private GameObject _touchControlsScreen;
     [SerializeField] private GameOverScreen _gameOverScreen;
     [SerializeField] private EndLevelScreen _endLevelScreen;
     [SerializeField] private Player _player;
@@ -27,6 +28,7 @@ public class Game : MonoBehaviour
     private void Start()
     {
         _startScreen.gameObject.SetActive(true);
+        _touchControlsScreen.SetActive(false);
         PauseGame();
     }
 
@@ -58,6 +60,7 @@ public class Game : MonoBehaviour
     {
         _startScreen.gameObject.SetActive(false);
         _tutorialScreen?.SetActive(false);
+        _touchControlsScreen.SetActive(true);
         StartGame();
     }
 
@@ -75,9 +78,11 @@ public class Game : MonoBehaviour
     {
         PauseGame();
         _gameOverScreen.gameObject.SetActive(true);
+        _touchControlsScreen?.SetActive(false);
     }
     private void WonLevel()
     {
+        _touchControlsScreen.SetActive(false);
         float currentScore = _scores.GetCurrentScore();
         LevelController.Instance.CompleteLevel(currentScore);
 
@@ -92,6 +97,7 @@ public class Game : MonoBehaviour
     {
         PauseGame();
         _endLevelScreen.gameObject.SetActive(true);
+        _touchControlsScreen.SetActive(false);
         _leaderboardService.UpdateLeaderboard(LevelController.Instance.CurrentLevel);
     }
 
