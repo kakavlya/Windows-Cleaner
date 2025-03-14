@@ -55,7 +55,6 @@ public class WallWithObstacles : Wall
         ClearSceneObstacles();
         CheckClearObstaclesState();
         InitObstacles();
-        //GenerateObstacles();
     }
 
     private void CheckClearObstaclesState()

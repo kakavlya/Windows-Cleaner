@@ -121,6 +121,8 @@ public class Game : MonoBehaviour
 
     private void OnNextLevelButtonClick()
     {
+        PersistentData.SavedObstacles.Clear();
+        PersistentData.EnvironmentPrefabIndex = null;
         LevelController.Instance.NextLevel();
         LevelController.Instance.ReloadScene();
     }
