@@ -16,16 +16,52 @@ public class WallWithObstacles : Wall
     {
         base.Start();
         _occupiedAreas = GetOccupiedAreas();
-        GenerateObstacles();
+        InitObstacles();
         LevelController.Instance.OnLevelChanged += OnLevelChanged;
         SetLevel(LevelController.Instance.CurrentLevel);
+    }
+
+    private void InitObstacles()
+    {
+        if (LevelController.Instance.IsRestartingLevel && PersistentData.SavedObstacles.Count > 0)
+        {
+            RestoreObstacles();
+        }
+        else
+        {
+            GenerateObstacles();
+        }
+    }
+
+    private void RestoreObstacles()
+    {
+        foreach(ObstacleState state in PersistentData.SavedObstacles)
+        {
+            GameObject obstacle = Instantiate(state.Prefab, state.Position, state.Rotation);
+            obstacle.transform.SetParent(transform);
+
+            Rigidbody2D rb = obstacle.GetComponent<Rigidbody2D>();
+            if (rb != null)
+                rb.velocity = new Vector2(0, -state.Speed);
+
+            Bounds bounds = new Bounds(state.Position, obstacle.transform.localScale * state.SizeScale);
+            _occupiedAreas.Add(bounds);
+        }
     }
 
     public void SetLevel(int level)
     {
         _currentLevel = level;
-        ClearObstacles();
-        GenerateObstacles();
+        ClearSceneObstacles();
+        CheckClearObstaclesState();
+        InitObstacles();
+        //GenerateObstacles();
+    }
+
+    private void CheckClearObstaclesState()
+    {
+        if (!LevelController.Instance.IsRestartingLevel)
+            PersistentData.SavedObstacles.Clear();
     }
 
     private void OnLevelChanged(int level)
@@ -33,7 +69,7 @@ public class WallWithObstacles : Wall
         SetLevel(level);
     }
 
-    private void ClearObstacles()
+    private void ClearSceneObstacles()
     {
         foreach(Transform child in transform)
         {
@@ -47,10 +83,11 @@ public class WallWithObstacles : Wall
 
     private void GenerateObstacles()
     {
-
         int obstacleCount = _obstacleSettings.GetObstacleCount(_currentLevel);
         float minSpeed = _obstacleSettings.GetMinSpeed(_currentLevel);
         float maxSpeed = _obstacleSettings.GetMaxSpeed(_currentLevel);
+
+        CheckClearObstaclesState();
 
         for (int i = 0; i < obstacleCount; i++)
         {
@@ -75,8 +112,23 @@ public class WallWithObstacles : Wall
                 if (rb != null) rb.velocity = new Vector2(0, -speed);
 
                 _occupiedAreas.Add(obstacleBounds);
+                SaveObstacle(obstacleData, obstaclePrefab, randomPosition, speed);
             }
         }
+    }
+
+    private void SaveObstacle(ObstacleData obstacleData, GameObject obstaclePrefab, Vector3 randomPosition, float speed)
+    {
+        ObstacleState state = new ObstacleState
+        {
+            Prefab = obstaclePrefab,
+            Position = randomPosition,
+            Rotation = Quaternion.Euler(obstacleData.Rotation),
+            Speed = speed,
+            SizeScale = obstacleData.SizeScale
+        };
+
+        PersistentData.SavedObstacles.Add(state);
     }
 
     private List<Bounds> GetOccupiedAreas()

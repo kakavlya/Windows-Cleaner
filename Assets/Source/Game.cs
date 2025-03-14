@@ -109,6 +109,7 @@ public class Game : MonoBehaviour
     private void OnRestartButtonClick()
     {
         _gameOverScreen.gameObject.SetActive(false);
+        LevelController.Instance.RestartingLevel();
         LevelController.Instance.ReloadScene();
     }
 

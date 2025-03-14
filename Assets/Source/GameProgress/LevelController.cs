@@ -12,7 +12,7 @@ public class LevelController : MonoBehaviour
 
     public event Action<int> OnLevelChanged;
     public int CurrentLevel { get; private set; }
-
+    public bool IsRestartingLevel { get; private set; } = false;
     private GameDataHandle _gameDataHandle = new GameDataHandle();
 
     private void Awake()
@@ -31,7 +31,7 @@ public class LevelController : MonoBehaviour
     private void Start()
     {
         // uncomment to reset progress
-        _gameDataHandle.ResetGameProgress();
+        //_gameDataHandle.ResetGameProgress();
         GameProgress progress = _gameDataHandle.LoadProgress();
         CurrentLevel = progress.CurrentLevel > 0 ? progress.CurrentLevel : 1;
         NotifyLevelChanged();
@@ -70,6 +70,7 @@ public class LevelController : MonoBehaviour
 
     public void NextLevel()
     {
+        GoingNextLevel();
         SetLevel(CurrentLevel + 1);
     }
 
@@ -82,5 +83,16 @@ public class LevelController : MonoBehaviour
     public void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void RestartingLevel()
+    {
+        Debug.Log("Level Restarting");
+        IsRestartingLevel = true;
+    }
+
+    private void GoingNextLevel()
+    {
+        IsRestartingLevel = false;
     }
 }
