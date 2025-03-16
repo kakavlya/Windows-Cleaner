@@ -11,6 +11,11 @@ GameObject:
   - component: {fileID: 3922452769632929117}
   - component: {fileID: 2520514262212368920}
   - component: {fileID: 4876479558977487709}
+  - component: {fileID: 8911296791105852873}
+  - component: {fileID: 5582661521274182515}
+  - component: {fileID: 7856812314731040345}
+  - component: {fileID: 5712243856536796317}
+  - component: {fileID: 8533485360398637227}
   m_Layer: 0
   m_Name: CollectedCoins
   m_TagString: Untagged
@@ -45,9 +50,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f5efff9d290e934c979f9217e38a32d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _waitingTimeCoroutineStarting: 1.5
-  _duration: 3
-  _ribbonDuration: 7
+  _waitingTimeCoroutineStarting: 0.1
+  _duration: 2
+  _ribbonDuration: 1.6
 --- !u!114 &4876479558977487709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,3 +66,116 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Button: {fileID: 0}
+  MainMenuButton: {fileID: 0}
+--- !u!114 &8911296791105852873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3922452769632929116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbb3ceae2b191014a8168acbd2f8ff6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _3dCoin: {fileID: 9208837054699443434, guid: 6b967e786e5f5be49967985c1a8f0b77, type: 3}
+  _coinsAmount: 10
+  _explosionCenter: {fileID: 3922452769632929116}
+  _coinsOnScreenDuration: 2
+  _throwForce: 5
+  _spinForce: 1
+  _spread: 1
+  _maxRandomRotationAngle: 360
+  _minMagnitude: 0.1
+  _maxMagnitude: 1
+  _startingPos: {x: 10, y: 0, z: -2}
+--- !u!114 &5582661521274182515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3922452769632929116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cc9105c487a4a143a89b26462862851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enlargeSize: 0.6
+  _ribbonOnScreenDuration: 1.2
+  _duration: 0.4
+  _starsIncreaseDuration: 0.1
+  delayBeforeDecrease: 0.2
+  _endSize: 2.2
+  _starEnlargeMax: 2
+  _starEnlargeMin: 1.1
+  _starPauseBeforeAppearance: 0.2
+  _easingType: 6
+  _easingTypeStars: 4
+  _easingTypeStarsBack: 31
+  _ribbon: {fileID: 0}
+  _starsTransforms:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _scoresText: {fileID: 0}
+  _scores: {fileID: 0}
+--- !u!114 &7856812314731040345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3922452769632929116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e4cbd51f168a9b44a73253ad8f54d2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dustObject: {fileID: -3415486647531128969, guid: c75a9445fa862eb49a3ba266450015ee, type: 3}
+  _amountOfDusts: 10
+  _spread: 5
+  _maxRandomRotationAngle: 360
+  _dustParticle: {fileID: 19867508, guid: cd427f0dc853ec74a9ba1c5ff0e48ca2, type: 3}
+  _startPos: {x: 10, y: 0, z: -2}
+--- !u!114 &5712243856536796317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3922452769632929116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d8d2d81d26c9254e89509176b6df88a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startPos: {fileID: 0}
+  _intermediatePos: {fileID: 0}
+  _endPos: {fileID: 0}
+  _Canvas: {fileID: 0}
+  _UICoin: {fileID: 3547492303847291095, guid: e978d892a388ded478803466c72d7374, type: 3}
+  _minDuration: 0.2
+  _maxDuration: 0.5
+  _scaleSize: 0.5
+  _spread: 500
+  _maxCoins: 196
+--- !u!114 &8533485360398637227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3922452769632929116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c0eae6869644da4daa8b041caae11c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _coinsReward: {fileID: 0}
+  _enlargeSize: 0.9
+  _duration: 0.4
+  delayBeforeDecrease: 0.15
+  _endSize: 0.5
+  _easingType: 7

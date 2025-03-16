@@ -7,7 +7,7 @@ public class CoinsExplosion : MonoBehaviour, IHaveDurartion
     [SerializeField] private GameObject _3dCoin;
     [SerializeField] private int _coinsAmount = 10;
     [SerializeField] private GameObject _explosionCenter;
-    [SerializeField] public float _coinsOnScreenDuration = 3f;
+    [SerializeField] public float _coinsOnScreenDuration = 0.5f;
     [SerializeField] private float _throwForce = 5f;
     [SerializeField] private float _spinForce = 1f;
     [SerializeField] private float _spread = 1f;

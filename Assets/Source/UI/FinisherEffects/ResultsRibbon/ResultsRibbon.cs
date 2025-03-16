@@ -15,6 +15,7 @@ public class ResultsRibbon : MonoBehaviour
     [SerializeField] private float _endSize = 2.2f;
     [SerializeField] private float _starEnlargeMax = 2.0f;
     [SerializeField] private float _starEnlargeMin = 1.1f;
+    [SerializeField] private float _starPauseBeforeAppearance = 0.2f;
     [SerializeField] private Ease _easingType = Ease.OutQuad;
     [SerializeField] private Ease _easingTypeStars = Ease.InOutSine;
     [SerializeField] private Ease _easingTypeStarsBack = Ease.InOutBounce;
@@ -100,7 +101,7 @@ public class ResultsRibbon : MonoBehaviour
                 {
                     star.DOScale(1.0f, _starsIncreaseDuration)
                     .SetEase(_easingTypeStars)
-                    .SetDelay(1.0f)
+                    .SetDelay(_starPauseBeforeAppearance)
                     .OnComplete(ScaleStars);
                 });
         }
