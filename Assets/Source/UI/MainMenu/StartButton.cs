@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -23,29 +24,19 @@ public class StartButton : MonoBehaviour
 
     private void LoadLevel()
     {
+        int minimalLevelToLoad = 1;
 
-        // Temp Solution to reset progress
-        //_gameDataHandle.ResetGameProgress();
-        
         var progress = _gameDataHandle.LoadProgress();
         var levels = progress.Levels;
-        int levelToLoad = 1;
-        for(int i = 0; i< levels.Count; i++)
-        {
-            if (!levels[i].IsUnlocked)
-            {
-                
-                levelToLoad = Mathf.Max(levelToLoad, levels[i].LevelNumber - 1);
-                break;
-            }
-            levelToLoad = i;
-        }
+        int highestUnlockedLevel = progress.Levels
+            .Where(level => level.IsUnlocked)
+            .Select(level => level.LevelNumber)
+            .DefaultIfEmpty(minimalLevelToLoad)
+            .Max();
 
         Debug.Log("Levels " + levels.Count);
-        Debug.Log("First Locked level " + levelToLoad);
+        Debug.Log("HighestInlocked level" + highestUnlockedLevel);
 
-
-        //SceneManager.LoadScene("Level" + (levelToLoad));
-        _levelSelector.LoadLevel(levelToLoad);
+        _levelSelector.LoadLevel(highestUnlockedLevel);
     }
 }

@@ -18,7 +18,7 @@ public class WallWithObstacles : Wall
         _occupiedAreas = GetOccupiedAreas();
         InitObstacles();
         LevelController.Instance.OnLevelChanged += OnLevelChanged;
-        SetLevel(LevelController.Instance.CurrentLevel);
+        SetLevel(LevelController.Instance.CurrentLevelInController);
     }
 
     private void InitObstacles()

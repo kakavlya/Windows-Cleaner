@@ -74,7 +74,7 @@ public class LevelSelector : MonoBehaviour
             {
                 button.GetComponent<Button>().interactable = true;
                 int levelIndex = i;
-                button.GetComponent<Button>().onClick.AddListener(() => LoadLevel(levelIndex));
+                button.GetComponent<Button>().onClick.AddListener(() => LoadNextLevel(levelIndex));
             } else
             {
                 button.GetComponent<Button>().interactable = false;
@@ -84,11 +84,15 @@ public class LevelSelector : MonoBehaviour
 
     public void LoadLevel(int levelIndex)
     {
-        int selectedLevel = levelIndex + 1;
+        LevelController.Instance.SetLevel(levelIndex);
 
-        LevelController.Instance.SetLevel(selectedLevel);
-        
         SceneManager.LoadScene("GameScene");
+    }
+
+    public void LoadNextLevel(int levelIndex)
+    {
+        int selectedLevel = levelIndex + 1;
+        LoadLevel(selectedLevel);
     }
 
     private void CloseMenu()

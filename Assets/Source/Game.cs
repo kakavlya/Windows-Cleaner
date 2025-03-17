@@ -98,7 +98,7 @@ public class Game : MonoBehaviour
         PauseGame();
         _endLevelScreen.gameObject.SetActive(true);
         _touchControlsScreen.SetActive(false);
-        _leaderboardService.UpdateLeaderboard(LevelController.Instance.CurrentLevel);
+        _leaderboardService.UpdateLeaderboard(LevelController.Instance.CurrentLevelInController);
     }
 
     private void UpdateLeaderBoard(int newRecord)

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static GameProgress;
@@ -11,7 +12,7 @@ public class LevelController : MonoBehaviour
     public static LevelController Instance { get; private set; }
 
     public event Action<int> OnLevelChanged;
-    public int CurrentLevel { get; private set; }
+    public int CurrentLevelInController { get; private set; }
     public bool IsRestartingLevel { get; private set; } = false;
     private GameDataHandle _gameDataHandle = new GameDataHandle();
 
@@ -33,16 +34,25 @@ public class LevelController : MonoBehaviour
         // uncomment to reset progress
         //_gameDataHandle.ResetGameProgress();
         GameProgress progress = _gameDataHandle.LoadProgress();
-        CurrentLevel = progress.CurrentLevel > 0 ? progress.CurrentLevel : 1;
+        //PrintAllLevelsDebug(progress);
+        CurrentLevelInController = progress.CurrentLevel > 0 ? progress.CurrentLevel : 1;
         NotifyLevelChanged();
+    }
+
+    private void PrintAllLevelsDebug(GameProgress progress)
+    {
+        foreach(var level in progress.Levels)
+        {
+            Debug.Log($"level number: {level.LevelNumber} level is unlocked: {level.IsUnlocked}");
+        }
     }
 
     public void CompleteLevel(float newScore)
     {
         GameProgress progress = _gameDataHandle.LoadProgress();
-        LevelData currentLevelData = progress.Levels.Find(level => level.LevelNumber == CurrentLevel);
+        LevelData currentLevelData = progress.Levels.Find(level => level.LevelNumber == CurrentLevelInController);
         if (currentLevelData == null)
-            throw new Exception($"Level {CurrentLevel} not found in progress data.");
+            throw new Exception($"Level {CurrentLevelInController} not found in progress data.");
 
         if (newScore > currentLevelData.Score)
         {
@@ -50,12 +60,13 @@ public class LevelController : MonoBehaviour
         }
 
         progress.UpdateTotalScore();
-        progress.CurrentLevel = CurrentLevel;
+        progress.CurrentLevel = CurrentLevelInController;
 
-        LevelData nextLevel = progress.Levels.Find(level => level.LevelNumber == CurrentLevel + 1);
+        LevelData nextLevel = progress.Levels.FirstOrDefault(level => level.LevelNumber == (progress.CurrentLevel + 1));
+
         if (nextLevel != null && !nextLevel.IsUnlocked)
         {
-            nextLevel.IsUnlocked = true;
+            nextLevel.IsUnlocked = true;  
         }
 
         _gameDataHandle.SaveProgress(progress);
@@ -64,20 +75,20 @@ public class LevelController : MonoBehaviour
 
     public void SetLevel(int newLevel)
     {
-        CurrentLevel = newLevel;
+        CurrentLevelInController = newLevel;
         NotifyLevelChanged();
     }
 
     public void NextLevel()
     {
         GoingNextLevel();
-        SetLevel(CurrentLevel + 1);
+        SetLevel(CurrentLevelInController + 1);
     }
 
     private void NotifyLevelChanged()
     {
-        Debug.Log("Level Changed: " + CurrentLevel);
-        OnLevelChanged?.Invoke(CurrentLevel);
+        //Debug.Log("Level Changed: " + CurrentLevelInController);
+        OnLevelChanged?.Invoke(CurrentLevelInController);
     }
 
     public void ReloadScene()
@@ -87,7 +98,7 @@ public class LevelController : MonoBehaviour
 
     public void RestartingLevel()
     {
-        Debug.Log("Level Restarting");
+        //Debug.Log("Level Restarting");
         IsRestartingLevel = true;
     }
 

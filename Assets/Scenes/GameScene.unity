@@ -8087,18 +8087,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2520514262212368920, guid: dd09e75039541c248ad459ae4ad8f79a, type: 3}
-      propertyPath: _duration
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2520514262212368920, guid: dd09e75039541c248ad459ae4ad8f79a, type: 3}
-      propertyPath: _ribbonDuration
-      value: 1.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2520514262212368920, guid: dd09e75039541c248ad459ae4ad8f79a, type: 3}
-      propertyPath: _waitingTimeCoroutineStarting
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 3922452769632929116, guid: dd09e75039541c248ad459ae4ad8f79a, type: 3}
       propertyPath: m_Name
       value: FinishEffect
@@ -8159,14 +8147,6 @@ PrefabInstance:
       propertyPath: _scoresText
       value: 
       objectReference: {fileID: 1869210474}
-    - target: {fileID: 5582661521274182515, guid: dd09e75039541c248ad459ae4ad8f79a, type: 3}
-      propertyPath: _enlargeSize
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5582661521274182515, guid: dd09e75039541c248ad459ae4ad8f79a, type: 3}
-      propertyPath: _ribbonOnScreenDuration
-      value: 1.2
-      objectReference: {fileID: 0}
     - target: {fileID: 5582661521274182515, guid: dd09e75039541c248ad459ae4ad8f79a, type: 3}
       propertyPath: _starsTransforms.Array.data[0]
       value: 

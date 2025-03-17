@@ -26,7 +26,7 @@ public class GameDataHandle
         {
             GameProgress newProgress = new GameProgress();
             newProgress.Levels.Add(new LevelData { LevelNumber = 1, IsUnlocked = true, Score = 0 });
-            for (int i = 2; i <= 10; i++)
+            for (int i = 2; i <= 50; i++)
             {
                 newProgress.Levels.Add(new LevelData { LevelNumber = i, IsUnlocked = false, Score = 0 });
             }
