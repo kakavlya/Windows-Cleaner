@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using YG;
 using static GameProgress;
 
 public class GameDataHandle
@@ -13,9 +15,32 @@ public class GameDataHandle
         string json = JsonUtility.ToJson(progress);
         PlayerPrefs.SetString(_gameProgressPref, json);
         PlayerPrefs.Save();
+
+        if(YandexGame.SDKEnabled)
+        {
+            YandexGame.savesData.gameProgress = json;
+            YandexGame.SaveProgress();
+        }
     }
 
+
     public GameProgress LoadProgress()
+    {
+        GameProgress progress = null;
+
+        if(YandexGame.SDKEnabled && !string.IsNullOrEmpty(YandexGame.savesData.gameProgress))
+        {
+            progress = JsonUtility.FromJson<GameProgress>(YandexGame.savesData.gameProgress);
+            Debug.Log("Progress loaded from YandexGames.savesData");
+        } else
+        {
+            progress = LoadProgressLocal();
+        }
+
+        return progress;
+    }
+
+    public GameProgress LoadProgressLocal()
     {
         if (PlayerPrefs.HasKey(_gameProgressPref))
         {

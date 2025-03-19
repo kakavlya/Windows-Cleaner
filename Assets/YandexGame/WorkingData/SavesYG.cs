@@ -17,7 +17,7 @@ namespace YG
         public bool[] openLevels = new bool[3];
 
         // Ваши сохранения
-
+        public string gameProgress = "";
         // ...
 
         // Поля (сохранения) можно удалять и создавать новые. При обновлении игры сохранения ломаться не должны
@@ -28,7 +28,7 @@ namespace YG
         {
             // Допустим, задать значения по умолчанию для отдельных элементов массива
 
-            openLevels[1] = true;
+            //openLevels[1] = true;
         }
     }
 }
