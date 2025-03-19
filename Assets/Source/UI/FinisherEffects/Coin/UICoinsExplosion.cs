@@ -21,7 +21,7 @@ public class UICoinsExplosion : MonoBehaviour, IHaveDurartion
     {
         Vector3 startingPos = _startPos.position;
         Vector3 intermediatePos = _intermediatePos.position;
-        Vector3 endPos = _endPos.position;
+        Vector3 endPos = GetCenteredEndPosition(); 
 
         for (int i = 0; i < _maxCoins; i++)
         {
@@ -43,6 +43,17 @@ public class UICoinsExplosion : MonoBehaviour, IHaveDurartion
                     });
                 });
         }
+    }
+
+    private Vector3 GetCenteredEndPosition()
+    {
+        RectTransform rectTransform = _endPos.GetComponent<RectTransform>();
+        Vector3 screenPos = new Vector3(_endPos.position.x, _endPos.position.y, 0);
+        float width = rectTransform.rect.width;
+        float height = rectTransform.rect.height;
+
+        Vector3 centeredPos = screenPos - new Vector3(width / 4, height / 4, 0);
+        return centeredPos;
     }
 
     public void SetDuration(float duration)
