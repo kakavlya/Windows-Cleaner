@@ -17,6 +17,7 @@ public class ResultsRibbon : MonoBehaviour
     [SerializeField] private float _starEnlargeMin = 1.1f;
     [SerializeField] private float _starPauseBeforeAppearance = 0.2f;
     [SerializeField] private Ease _easingType = Ease.OutQuad;
+    [SerializeField] private AnimationCurve _easingCurve;
     [SerializeField] private Ease _easingTypeStars = Ease.InOutSine;
     [SerializeField] private Ease _easingTypeStarsBack = Ease.InOutBounce;
     [SerializeField] private GameObject _ribbon;
@@ -34,8 +35,6 @@ public class ResultsRibbon : MonoBehaviour
         _ribbonTransform = _ribbon.transform;
         _ribbonTransform.localScale = new Vector3(0, 0, 0);
         DisplayRibbonSequence(_ribbonTransform);
-        // TODO create timer, that will stop the method after certain amount of time and hide all objects
-        // Until then scale the stars
         StartCoroutine(StartHideSequence());
         ShowScore();
     }
@@ -68,22 +67,15 @@ public class ResultsRibbon : MonoBehaviour
     {
         StartCoroutine(StartHideSequence());
 
-        //gameObject.SetActive(true);
-        // Use a sequence to chain the increase and decrease tweens together
         Sequence sequence = DOTween.Sequence();
 
-        // Step 1: Increase the object's scale to the targetScale over the specified duration
-        sequence.Append(transform.DOScale(_enlargeSize, _duration).SetEase(_easingType));
+        //sequence.Append(transform.DOScale(_enlargeSize, _duration).SetEase(_easingType));
 
-        // Step 2: Wait for the delayBeforeDecrease time before starting the decrease
-        sequence.AppendInterval(delayBeforeDecrease);
+        //sequence.AppendInterval(delayBeforeDecrease);
 
-        // Step 3: Decrease the object's scale back to its original size over the specified duration
-        sequence.Append(transform.DOScale(_endSize, _duration).SetEase(_easingType))
+        sequence.Append(transform.DOScale(_endSize, _duration).SetEase(_easingCurve))
             .OnComplete(() =>
             {
-                // start stars method
-                //_ribbon.SetActive(false);
                 ScaleStars();
             });
     }
