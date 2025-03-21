@@ -33,7 +33,7 @@ public class CollectedBar : MonoBehaviour
 
     private void SetPercentText(float currentPercent)
     {
-        _hitScore.text = (currentPercent.ToString("#.#") + "%");
+        _hitScore.text = (currentPercent.ToString("0.#") + "%");
     }
 
     private void SetSliderValue(float currentPercent)

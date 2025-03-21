@@ -10,6 +10,7 @@ public class Game : MonoBehaviour
     [SerializeField] private GameObject _touchControlsScreen;
     [SerializeField] private GameOverScreen _gameOverScreen;
     [SerializeField] private EndLevelScreen _endLevelScreen;
+    [SerializeField] private GameObject _sliderePickedBar;
     [SerializeField] private Player _player;
     [SerializeField] private CollectedFinisher _collectedFinisher;
     [SerializeField] private float _totalSequenceDuration;
@@ -28,6 +29,7 @@ public class Game : MonoBehaviour
     private void Start()
     {
         _startScreen.gameObject.SetActive(true);
+        _sliderePickedBar.SetActive(false);
         _touchControlsScreen.SetActive(false);
         PauseGame();
     }
@@ -58,6 +60,7 @@ public class Game : MonoBehaviour
 
     private void OnPlayButtonClick()
     {
+        _sliderePickedBar?.SetActive(true);
         _startScreen.gameObject.SetActive(false);
         _tutorialScreen?.SetActive(false);
         _touchControlsScreen.SetActive(true);
