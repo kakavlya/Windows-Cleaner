@@ -47,21 +47,17 @@ public class MopController : MonoBehaviour
        
     }
 
-
     private void LateUpdate()
     {
         if (_isStopped == false)
         {
-            //HandleRotation();
-
-            
+            ClampBoundsPosition();
         }
   
     }
 
     private void HandleMove()
     {
-        // Keyboard movement
         _moveDirectionX = Input.GetAxis("Horizontal");
         var vector = this.transform.up - Vector3.down;
         if (_moveDirectionX > 0)
@@ -71,7 +67,6 @@ public class MopController : MonoBehaviour
         }
         this.transform.Translate(vector * (_moveDirectionX * Time.deltaTime * _moveSpeed));
 
-        // Joystick movement
         HandleJoystickInput();
     }
     private void HandleJoystickInput()
@@ -99,35 +94,8 @@ public class MopController : MonoBehaviour
         }
         else
         {
-            // Reset inner circle to center and smoothly bring _moveDirectionX back to zero
             _innerCircle.position = _startPos;
             _moveDirectionX = Mathf.Lerp(_moveDirectionX, 0f, Time.deltaTime * _joystickSmoothness);
-        }
-    }
-
-    private void HandleJoystickMove()
-    {
-        if (Input.touchCount > 0 || Input.GetMouseButton(0))
-        {
-            Vector2 touchPos = Input.touchCount > 0 ? Input.GetTouch(0).position : (Vector2)Input.mousePosition;
-            _inputDir = (touchPos - _startPos).normalized;
-
-            float distance = Vector2.Distance(touchPos, _startPos);
-            float maxDistance = _outerCircle.rect.width / 2;
-
-            // Move inner circle within bounds
-            _innerCircle.position = _startPos + Vector2.ClampMagnitude(touchPos - _startPos, maxDistance);
-
-            if (distance > maxDistance)
-                distance = maxDistance;
-
-            Vector3 moveVector = new Vector3(_inputDir.x, 0, _inputDir.y) * (_moveSpeed * (distance / maxDistance) * Time.deltaTime);
-            transform.Translate(moveVector, Space.World);
-        }
-        else
-        {
-            _innerCircle.position = _startPos;
-            _inputDir = Vector2.zero;
         }
     }
 
@@ -168,5 +136,14 @@ public class MopController : MonoBehaviour
     public void Stop()
     {
         _isStopped = true;
+    }
+
+    private void ClampBoundsPosition()
+    {
+        if (_wall != null)
+        {
+            float clampedX = Mathf.Clamp(transform.position.x, _wall.LeftBound.x, _wall.RightBound.x);
+            transform.position = new Vector3(clampedX, transform.position.y, transform.position.z);
+        }
     }
 }

@@ -3,7 +3,8 @@ using UnityEngine.Events;
 
 public class MopHead : MonoBehaviour
 {
-    [SerializeField] private UnityEvent OnGrow;
+    //[SerializeField] private UnityEvent OnGrow;
+    [SerializeField] private AudioClip _growSound;
     public void WidthUp(float widthScale)
     {
         var curLocalScale = this.transform.localScale;
@@ -11,7 +12,7 @@ public class MopHead : MonoBehaviour
             curLocalScale.y, curLocalScale.z);
         this.transform.localScale =  localXUpdated;
 
-        this.OnGrow?.Invoke();
-        
+        //this.OnGrow?.Invoke();
+        Audio.Instance.PlaySfx(_growSound);
     }
 }

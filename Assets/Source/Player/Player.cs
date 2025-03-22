@@ -4,6 +4,7 @@ using UnityEngine.Events;
 public class Player : MonoBehaviour
 {
     [SerializeField] private MopController _mopController;
+    [SerializeField] private AudioClip _collisionSound;
 
     public event UnityAction GameOver;
     public event UnityAction WonLevel;
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
         if(GameOver != null)
         {
             GameOver.Invoke();
+            Audio.Instance?.PlaySfx(_collisionSound);
         }
     }
 
