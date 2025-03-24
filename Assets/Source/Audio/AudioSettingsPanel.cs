@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class AudioSettingsPanel : MonoBehaviour
 {
@@ -8,28 +9,31 @@ public class AudioSettingsPanel : MonoBehaviour
     public Toggle musicToggle;
     public Toggle sfxToggle;
 
-    private void OnEnable()
+    private bool _initialized = false;
+
+    private IEnumerator Start()
     {
-        TryConnectToAudio();
+        while (Audio.Instance == null)
+            yield return null;
+
+        if (!_initialized)
+        {
+            InitializeUI();
+            _initialized = true;
+        }
     }
 
-    private void TryConnectToAudio()
+    private void InitializeUI()
     {
-        if (Audio.Instance == null)
-        {
-            Debug.LogWarning("Audio.Instance is missing — UI will not bind.");
-            return;
-        }
-
         musicSlider.onValueChanged.RemoveAllListeners();
         sfxSlider.onValueChanged.RemoveAllListeners();
         musicToggle.onValueChanged.RemoveAllListeners();
         sfxToggle.onValueChanged.RemoveAllListeners();
 
-        musicSlider.value = Audio.Instance.musicVolume;
-        sfxSlider.value = Audio.Instance.sfxVolume;
-        musicToggle.isOn = Audio.Instance.IsMusicEnabled;
-        sfxToggle.isOn = Audio.Instance.IsSfxEnabled;
+        musicSlider.SetValueWithoutNotify(Audio.Instance.musicVolume);
+        sfxSlider.SetValueWithoutNotify(Audio.Instance.sfxVolume);
+        musicToggle.SetIsOnWithoutNotify(Audio.Instance.IsMusicEnabled);
+        sfxToggle.SetIsOnWithoutNotify(Audio.Instance.IsSfxEnabled);
 
         musicSlider.onValueChanged.AddListener(Audio.Instance.SetMusicVolume);
         sfxSlider.onValueChanged.AddListener(Audio.Instance.SetSfxVolume);
@@ -42,6 +46,18 @@ public class AudioSettingsPanel : MonoBehaviour
         if (Audio.Instance != null)
         {
             Audio.Instance.SaveSettings();
+        }
+    }
+
+    private void OnEnable()
+    {
+        
+        InitializeUI();
+        IconToggleUI[] iconToggles = GetComponentsInChildren<IconToggleUI>();
+        foreach (var iconToggle in iconToggles)
+        {
+            //Debug.Log($"Вызван AudioSettingsPanel.OnEnable() iconToggle: {iconToggle}");
+            iconToggle.ForceUpdate();
         }
     }
 }
