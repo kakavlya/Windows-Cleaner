@@ -14,45 +14,28 @@ public class IconToggleUI : MonoBehaviour
     private void Awake()
     {
         _toggle = GetComponent<Toggle>();
-
-        if (_iconOn == null || _iconOff == null)
-            Debug.LogWarning($"{name}: Icons are not set");
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        _toggle = GetComponent<Toggle>();
+        Debug.Log("IconToggleUI גûחמג OnEnabled");
+
         _toggle.onValueChanged.AddListener(UpdateIcons);
         UpdateIcons(_toggle.isOn);
     }
 
-    public void ForceUpdate()
+    private void OnDisable()
     {
-        _toggle = GetComponent<Toggle>();
-        UpdateIcons(_toggle.isOn);
+        Debug.Log("IconToggleUI גûחמג OnDisable");
+        _toggle.onValueChanged.RemoveListener(UpdateIcons);
     }
 
     private void UpdateIcons(bool isOn)
     {
         _iconOn.SetActive(isOn);
         _iconOff.SetActive(!isOn);
-        Debug.Log($"(bool isOn is: {isOn}");
-        Debug.Log($"_iconOn is: {_iconOn}");
-        Debug.Log($"_iconOff is: {_iconOff}");
+        Debug.Log($"IconToggle UIUpdateIcons");
+        //Debug.Log($"_iconOn is: {_iconOn}");
+        //Debug.Log($"_iconOff is: {_iconOff}");
     }
-
-    private void OnEnable()
-    {
-        _toggle = GetComponent<Toggle>();
-        Debug.Log("IconToggleUI גûחמג OnEnabled");
-        _toggle.onValueChanged.RemoveListener(UpdateIcons);
-        _toggle.onValueChanged.AddListener(UpdateIcons);
-        ForceUpdate();
-    }
-
-    private void OnDestroy()
-    {
-        _toggle.onValueChanged.RemoveListener(UpdateIcons);
-    }
-
 }

@@ -79,10 +79,16 @@ public class Audio : MonoBehaviour
     private void ApplySettings()
     {
         if (_musicSource != null)
-            _musicSource.volume = IsMusicEnabled ? musicVolume : 0f;
+        {
+            _musicSource.mute = !IsMusicEnabled;
+            _musicSource.volume = musicVolume;
+        }
 
         if (_sfxSource != null)
-            _sfxSource.volume = IsSfxEnabled ? sfxVolume : 0f;
+        {
+            _sfxSource.mute = !IsSfxEnabled;
+            _sfxSource.volume = sfxVolume;
+        }
     }
 
     public void SaveSettings()
