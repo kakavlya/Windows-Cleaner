@@ -1,4 +1,5 @@
 using UnityEngine;
+using YG;
 
 public class Audio : MonoBehaviour
 {
@@ -38,7 +39,14 @@ public class Audio : MonoBehaviour
         _sfxSource.loop = false;
         _sfxSource.playOnAwake = false;
 
+        // loading local settings
         LoadSettings();
+
+        if (YandexGame.SDKEnabled)
+        {
+            LoadSettingsFromYandex();
+        }
+
         ApplySettings();
         PlayMusic(_musicClip);
     }
@@ -98,6 +106,16 @@ public class Audio : MonoBehaviour
         PlayerPrefs.SetInt("MusicEnabled", IsMusicEnabled ? 1 : 0);
         PlayerPrefs.SetInt("SfxEnabled", IsSfxEnabled ? 1 : 0);
         PlayerPrefs.Save();
+
+        // ќбновл€ем объект сохранений дл€ яндекса
+        if (YandexGame.SDKEnabled)
+        {
+            YandexGame.savesData.musicVolume = musicVolume;
+            YandexGame.savesData.sfxVolume = sfxVolume;
+            YandexGame.savesData.isMusicEnabled = IsMusicEnabled;
+            YandexGame.savesData.isSfxEnabled = IsSfxEnabled;
+            YandexGame.SaveProgress();
+        }
     }
 
     public void LoadSettings()
@@ -106,6 +124,14 @@ public class Audio : MonoBehaviour
         sfxVolume = PlayerPrefs.GetFloat("SfxVolume", 1f);
         IsMusicEnabled = PlayerPrefs.GetInt("MusicEnabled", 1) == 1;
         IsSfxEnabled = PlayerPrefs.GetInt("SfxEnabled", 1) == 1;
+    }
+
+    public void LoadSettingsFromYandex()
+    {
+        musicVolume = YandexGame.savesData.musicVolume;
+        sfxVolume = YandexGame.savesData.sfxVolume;
+        IsMusicEnabled = YandexGame.savesData.isMusicEnabled;
+        IsSfxEnabled = YandexGame.savesData.isSfxEnabled;
     }
 
     public void PlaySfx(AudioClip clip)

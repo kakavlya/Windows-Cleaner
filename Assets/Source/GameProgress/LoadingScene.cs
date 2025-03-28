@@ -36,7 +36,7 @@ public class LoadingScene : MonoBehaviour
             OnYandexDataLoaded();
         } else
         {
-            if (!string.IsNullOrEmpty(YandexGame.savesData.gameProgress))
+            if (YandexGame.savesData.gameProgress != null)
             {
                 OnYandexDataLoaded();
             }

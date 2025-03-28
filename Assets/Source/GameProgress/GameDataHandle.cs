@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using YG;
 using static GameProgress;
@@ -9,7 +10,7 @@ public class GameDataHandle
 {
     private const string _gameProgressPref = "GameProgress";
     private string _leaderBoardName = "WindowsCleanerLeaderboard";
-
+    private const int ExpectedLevelsCount = 50;
     public void SaveProgress(GameProgress progress)
     {
         string json = JsonUtility.ToJson(progress);
@@ -18,7 +19,7 @@ public class GameDataHandle
 
         if(YandexGame.SDKEnabled)
         {
-            YandexGame.savesData.gameProgress = json;
+            YandexGame.savesData.gameProgress = progress;
             YandexGame.SaveProgress();
         }
     }
@@ -26,17 +27,18 @@ public class GameDataHandle
 
     public GameProgress LoadProgress()
     {
-        GameProgress progress = null;
+        GameProgress progress;
 
-        if(YandexGame.SDKEnabled && !string.IsNullOrEmpty(YandexGame.savesData.gameProgress))
+        if(YandexGame.SDKEnabled && YandexGame.savesData.gameProgress != null)
         {
-            progress = JsonUtility.FromJson<GameProgress>(YandexGame.savesData.gameProgress);
+            progress = YandexGame.savesData.gameProgress;
             Debug.Log("Progress loaded from YandexGames.savesData");
         } else
         {
             progress = LoadProgressLocal();
         }
 
+        progress = ValidateProgress(progress);
         return progress;
     }
 
@@ -58,6 +60,30 @@ public class GameDataHandle
             SaveProgress(newProgress);
             return newProgress;
         }
+    }
+
+    private GameProgress ValidateProgress(GameProgress progress)
+    {
+        if (progress.Levels == null)
+        {
+            progress.Levels = new List<GameProgress.LevelData>();
+        }
+
+        for (int i = 1; i <= ExpectedLevelsCount; i++)
+        {
+            if (!progress.Levels.Any(l => l.LevelNumber == i))
+            {
+                progress.Levels.Add(new GameProgress.LevelData
+                {
+                    LevelNumber = i,
+                    IsUnlocked = (i == 1), //only first level enabled by default
+                    Score = 0
+                });
+            }
+        }
+
+        progress.Levels = progress.Levels.OrderBy(l => l.LevelNumber).ToList();
+        return progress;
     }
 
     public void ResetGameProgress()

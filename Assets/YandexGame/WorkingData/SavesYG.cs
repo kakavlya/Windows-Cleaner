@@ -17,7 +17,14 @@ namespace YG
         public bool[] openLevels = new bool[3];
 
         // Ваши сохранения
-        public string gameProgress = "";
+        //public string gameProgress = "";
+        public GameProgress gameProgress = new GameProgress();
+
+        // sound settings
+        public float musicVolume = 1f;
+        public float sfxVolume = 1f;
+        public bool isMusicEnabled = true;
+        public bool isSfxEnabled = true;
 
         // ...
 
