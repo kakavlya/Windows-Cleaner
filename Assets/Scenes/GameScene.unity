@@ -1802,13 +1802,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5421465521251218127, guid: 6d612e8ef7687514583ad2681e6e9a56, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5421465521251218127, guid: 6d612e8ef7687514583ad2681e6e9a56, type: 3}
       propertyPath: _levelsMenu
       value: 
       objectReference: {fileID: 2075414960}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1889461033323805143, guid: 6d612e8ef7687514583ad2681e6e9a56, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 577325058}
   m_SourcePrefab: {fileID: 100100000, guid: 6d612e8ef7687514583ad2681e6e9a56, type: 3}
 --- !u!224 &518799990 stripped
 RectTransform:
@@ -1928,6 +1935,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 566538132}
   m_CullTransparentMesh: 1
+--- !u!1 &577325054 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1889461033323805143, guid: 6d612e8ef7687514583ad2681e6e9a56, type: 3}
+  m_PrefabInstance: {fileID: 518799989}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &577325055 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3075228464697334510, guid: 6d612e8ef7687514583ad2681e6e9a56, type: 3}
+  m_PrefabInstance: {fileID: 518799989}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 577325054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &577325058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 577325054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf281c38d0c5c174498823a7df23aac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ScreenOpenPanelcon: {fileID: 577325055}
+  _panelClose: {fileID: 1656441625}
+  _UIPanel: {fileID: 2075414960}
 --- !u!1001 &586247935
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5637,6 +5675,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1641252390}
   m_CullTransparentMesh: 1
+--- !u!114 &1656441625 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2953883642736879610, guid: 8dd023c86114c314fadff35a31b2c75d, type: 3}
+  m_PrefabInstance: {fileID: 2075414958}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1674290943
 GameObject:
   m_ObjectHideFlags: 0
@@ -6863,19 +6912,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6131483273257380642, guid: 8dd023c86114c314fadff35a31b2c75d, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6131483273257380642, guid: 8dd023c86114c314fadff35a31b2c75d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6131483273257380642, guid: 8dd023c86114c314fadff35a31b2c75d, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -12
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6131483273257380642, guid: 8dd023c86114c314fadff35a31b2c75d, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -560
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7105,6 +7154,10 @@ PrefabInstance:
       propertyPath: _tutorialElement
       value: 
       objectReference: {fileID: 814296111}
+    - target: {fileID: 8839542374353080794, guid: f9d9ea3ecd988eb40b79dd40919762a0, type: 3}
+      propertyPath: _wall
+      value: 
+      objectReference: {fileID: 1359935034}
     - target: {fileID: 8839542374353080794, guid: f9d9ea3ecd988eb40b79dd40919762a0, type: 3}
       propertyPath: _player
       value: 

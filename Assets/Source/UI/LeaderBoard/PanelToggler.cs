@@ -14,17 +14,17 @@ public class PanelToggler : MonoBehaviour
 
     private void Start()
     {
-        _ScreenOpenPanelcon.onClick.AddListener(ToggleLeaderBoard);
-        _panelClose.onClick.AddListener(ToggleLeaderBoard);
+        _ScreenOpenPanelcon.onClick.AddListener(TogglePanel);
+        _panelClose.onClick.AddListener(TogglePanel);
     }
 
     private void OnDisable()
     {
-        _ScreenOpenPanelcon.onClick.RemoveListener(ToggleLeaderBoard);
-        _panelClose.onClick.RemoveListener(ToggleLeaderBoard);
+        _ScreenOpenPanelcon.onClick.RemoveListener(TogglePanel);
+        _panelClose.onClick.RemoveListener(TogglePanel);
     }
 
-    private void ToggleLeaderBoard()
+    private void TogglePanel()
     {
         if (_UIPanel.activeSelf)
         {

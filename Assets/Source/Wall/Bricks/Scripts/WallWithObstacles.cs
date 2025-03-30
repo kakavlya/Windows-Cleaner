@@ -9,16 +9,37 @@ public class WallWithObstacles : Wall
     [SerializeField] private float _obstacleMinDistance = 5.0f;
 
     private List<Bounds> _occupiedAreas = new List<Bounds>();
+    private List<GameObject> _obstacles = new List<GameObject>();
 
     private void OnDisable() => LevelController.Instance.OnLevelChanged -= OnLevelChanged;
 
     protected override void Start()
     {
+
         base.Start();
+        _obstacles.Clear();
         _occupiedAreas = GetOccupiedAreas();
         InitObstacles();
         LevelController.Instance.OnLevelChanged += OnLevelChanged;
         SetLevel(LevelController.Instance.CurrentLevelInController);
+    }
+
+    public void StopObstacles()
+    {
+        foreach (GameObject obstacle in _obstacles)
+        {
+            
+            if(obstacle != null)
+                obstacle.SetActive(false);
+        }
+    }
+
+    public void SetLevel(int level)
+    {
+        _currentLevel = level;
+        ClearSceneObstacles();
+        CheckClearObstaclesState();
+        InitObstacles();
     }
 
     private void InitObstacles()
@@ -35,7 +56,8 @@ public class WallWithObstacles : Wall
 
     private void RestoreObstacles()
     {
-        foreach(ObstacleState state in PersistentData.SavedObstacles)
+        _obstacles.Clear();
+        foreach (ObstacleState state in PersistentData.SavedObstacles)
         {
             GameObject obstacle = Instantiate(state.Prefab, state.Position, state.Rotation);
             obstacle.transform.SetParent(transform);
@@ -46,21 +68,16 @@ public class WallWithObstacles : Wall
 
             Bounds bounds = new Bounds(state.Position, obstacle.transform.localScale * state.SizeScale);
             _occupiedAreas.Add(bounds);
+            _obstacles.Add(obstacle);
         }
-    }
-
-    public void SetLevel(int level)
-    {
-        _currentLevel = level;
-        ClearSceneObstacles();
-        CheckClearObstaclesState();
-        InitObstacles();
     }
 
     private void CheckClearObstaclesState()
     {
         if (!LevelController.Instance.IsRestartingLevel)
             PersistentData.SavedObstacles.Clear();
+
+        _obstacles.Clear();
     }
 
     private void OnLevelChanged(int level)
@@ -85,7 +102,7 @@ public class WallWithObstacles : Wall
         int obstacleCount = _obstacleSettings.GetObstacleCount(_currentLevel);
         float minSpeed = _obstacleSettings.GetMinSpeed(_currentLevel);
         float maxSpeed = _obstacleSettings.GetMaxSpeed(_currentLevel);
-
+        
         CheckClearObstaclesState();
 
         for (int i = 0; i < obstacleCount; i++)
@@ -112,6 +129,8 @@ public class WallWithObstacles : Wall
 
                 _occupiedAreas.Add(obstacleBounds);
                 SaveObstacle(obstacleData, obstaclePrefab, randomPosition, speed);
+
+                _obstacles.Add(obstacle);
             }
         }
     }
@@ -157,5 +176,5 @@ public class WallWithObstacles : Wall
         return true;
     }
 
-
+    
 }

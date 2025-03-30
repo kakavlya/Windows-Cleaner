@@ -17,6 +17,7 @@ public class Game : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera _secondCam;
     [SerializeField] private int _secondCamPriority;
     [SerializeField] private Scores _scores;  
+    [SerializeField] private WallWithObstacles _wall;  
 
     [SerializeField] private string _leaderBoardName = "WindowsCleanerLeaderboard";
     private LeaderboardService _leaderboardService;
@@ -85,6 +86,7 @@ public class Game : MonoBehaviour
     }
     private void WonLevel()
     {
+        _wall.StopObstacles();
         _touchControlsScreen.SetActive(false);
         float currentScore = _scores.GetCurrentScore();
         LevelController.Instance.CompleteLevel(currentScore);
@@ -119,7 +121,6 @@ public class Game : MonoBehaviour
 
     private void OnMainMenuButtonClick()
     {
-        Debug.Log("OnMainMenuButtonClick() clicked");
         SceneManager.LoadScene("StartingScene");
     }
 
