@@ -1,5 +1,5 @@
 {
-    "idSave": 59,
+    "idSave": 64,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -30,11 +30,11 @@
             {
                 "LevelNumber": 4,
                 "IsUnlocked": true,
-                "Score": 0.0
+                "Score": 64.0625
             },
             {
                 "LevelNumber": 5,
-                "IsUnlocked": false,
+                "IsUnlocked": true,
                 "Score": 0.0
             },
             {
@@ -263,8 +263,8 @@
                 "Score": 0.0
             }
         ],
-        "TotalScore": 197.22222900390626,
-        "CurrentLevel": 3
+        "TotalScore": 261.28472900390627,
+        "CurrentLevel": 4
     },
     "musicVolume": 0.2681819796562195,
     "sfxVolume": 0.5565387010574341,
