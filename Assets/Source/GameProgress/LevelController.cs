@@ -102,7 +102,7 @@ public class LevelController : MonoBehaviour
         IsRestartingLevel = true;
     }
 
-    private void GoingNextLevel()
+    public void GoingNextLevel()
     {
         IsRestartingLevel = false;
     }

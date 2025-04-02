@@ -24,7 +24,7 @@ public class PanelToggler : MonoBehaviour
         _panelClose.onClick.RemoveListener(TogglePanel);
     }
 
-    private void TogglePanel()
+    protected virtual void TogglePanel()
     {
         if (_UIPanel.activeSelf)
         {

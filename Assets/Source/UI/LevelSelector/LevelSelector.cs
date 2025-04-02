@@ -85,7 +85,7 @@ public class LevelSelector : MonoBehaviour
     public void LoadLevel(int levelIndex)
     {
         LevelController.Instance.SetLevel(levelIndex);
-
+        LevelController.Instance.GoingNextLevel();
         SceneManager.LoadScene("GameScene");
     }
 

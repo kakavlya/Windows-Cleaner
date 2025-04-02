@@ -83,6 +83,7 @@ public class Game : MonoBehaviour
         PauseGame();
         _gameOverScreen.gameObject.SetActive(true);
         _touchControlsScreen?.SetActive(false);
+        _sliderPickedBar.SetActive(false);
     }
     private void WonLevel()
     {
@@ -115,6 +116,7 @@ public class Game : MonoBehaviour
     private void OnRestartButtonClick()
     {
         _gameOverScreen.gameObject.SetActive(false);
+        _sliderPickedBar.gameObject.SetActive(true);
         LevelController.Instance.RestartingLevel();
         LevelController.Instance.ReloadScene();
     }
