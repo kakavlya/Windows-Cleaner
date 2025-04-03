@@ -14171,6 +14171,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4943786179277616450, guid: 108548eae303e084395b98b046afc33d, type: 3}
+      propertyPath: updateLBMethod
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7373808405562426138, guid: 108548eae303e084395b98b046afc33d, type: 3}
       propertyPath: m_Name
       value: LeaderBoard
