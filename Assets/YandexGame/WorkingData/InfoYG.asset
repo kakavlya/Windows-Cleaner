@@ -43,7 +43,7 @@ MonoBehaviour:
   leaderboardEnable: 1
   saveScoreAnonymousPlayers: 1
   leaderboardSimulation:
-  - technoName: advanced
+  - technoName: WindowsCleanerLeaderboard
     entries: 'Test LeaderBoard
 
       Name: advanced
@@ -93,8 +93,7 @@ MonoBehaviour:
       rank: 2
       score: 10
   - technoName: simple
-    entries: "Test LeaderBoard\nName: simple\n1. \u0441\u043A\u0440\u044B\u0442:
-      10\n2. Max: 15\n3. Maria: 23"
+    entries: Test LeaderBoardfgh
     isDefault: 0
     isInvertSortOrder: 0
     decimalOffset: 0
@@ -218,6 +217,35 @@ MonoBehaviour:
     de: 0
     hi: 0
   fonts:
+    defaultFont: []
+    ru: []
+    en: []
+    tr: []
+    az: []
+    be: []
+    he: []
+    hy: []
+    ka: []
+    et: []
+    fr: []
+    kk: []
+    ky: []
+    lt: []
+    lv: []
+    ro: []
+    tg: []
+    tk: []
+    uk: []
+    uz: []
+    es: []
+    pt: []
+    ar: []
+    id: []
+    ja: []
+    it: []
+    de: []
+    hi: []
+  fontsTMP:
     defaultFont: []
     ru: []
     en: []
