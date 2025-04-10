@@ -1,2 +1,2 @@
-Build path: F:/Development/GitHub/Windows-Cleaner/ProjectBuild/Web_04_04_25
-Build number: 19
+Build path: F:/Development/GitHub/Windows-Cleaner/ProjectBuild/Web_06_04_25
+Build number: 24

@@ -17,7 +17,8 @@ public class Game : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera _secondCam;
     [SerializeField] private int _secondCamPriority;
     [SerializeField] private Scores _scores;  
-    [SerializeField] private WallWithObstacles _wall;  
+    [SerializeField] private WallWithObstacles _wall;
+    [SerializeField] private UIStateMachine _uiStateMachine;
 
     [SerializeField] private string _leaderBoardName = "WindowsCleanerLeaderboard";
     private LeaderboardService _leaderboardService;
@@ -29,9 +30,7 @@ public class Game : MonoBehaviour
 
     private void Start()
     {
-        _startScreen.gameObject.SetActive(true);
-        _sliderPickedBar.SetActive(false);
-        _touchControlsScreen.SetActive(false);
+        _uiStateMachine.SwitchState(UIState.StartScreen);
         PauseGame();
     }
 
@@ -61,10 +60,7 @@ public class Game : MonoBehaviour
 
     private void OnPlayButtonClick()
     {
-        _sliderPickedBar?.SetActive(true);
-        _startScreen.gameObject.SetActive(false);
-        _tutorialScreen?.SetActive(false);
-        _touchControlsScreen.SetActive(true);
+        _uiStateMachine.SwitchState(UIState.Playing);
         StartGame();
     }
 
@@ -81,9 +77,7 @@ public class Game : MonoBehaviour
     private void GameOver()
     {
         PauseGame();
-        _gameOverScreen.gameObject.SetActive(true);
-        _touchControlsScreen?.SetActive(false);
-        _sliderPickedBar.SetActive(false);
+        _uiStateMachine.SwitchState(UIState.GameOver);
     }
     private void WonLevel()
     {
@@ -91,7 +85,7 @@ public class Game : MonoBehaviour
         _touchControlsScreen.SetActive(false);
         float currentScore = _scores.GetCurrentScore();
         LevelController.Instance.CompleteLevel(currentScore);
-
+        _uiStateMachine.SwitchState(UIState.EndLevelAnimation);
         _collectedFinisher.StartFinishingSequence();
 
         _secondCam.Priority = _secondCamPriority;
@@ -102,9 +96,7 @@ public class Game : MonoBehaviour
     private void ShowMenuAndPauseGame()
     {
         PauseGame();
-        _endLevelScreen.gameObject.SetActive(true);
-        _touchControlsScreen.SetActive(false);
-        _sliderPickedBar.SetActive(false);
+        _uiStateMachine.SwitchState(UIState.EndLevel);
         _leaderboardService.UpdateLeaderboard(LevelController.Instance.CurrentLevelInController);
     }
 

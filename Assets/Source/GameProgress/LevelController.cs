@@ -34,7 +34,6 @@ public class LevelController : MonoBehaviour
         // uncomment to reset progress
         //_gameDataHandle.ResetGameProgress();
         GameProgress progress = _gameDataHandle.LoadProgress();
-        //PrintAllLevelsDebug(progress);
         CurrentLevelInController = progress.CurrentLevel > 0 ? progress.CurrentLevel : 1;
         NotifyLevelChanged();
     }
@@ -87,7 +86,6 @@ public class LevelController : MonoBehaviour
 
     private void NotifyLevelChanged()
     {
-        //Debug.Log("Level Changed: " + CurrentLevelInController);
         OnLevelChanged?.Invoke(CurrentLevelInController);
     }
 
@@ -98,7 +96,6 @@ public class LevelController : MonoBehaviour
 
     public void RestartingLevel()
     {
-        //Debug.Log("Level Restarting");
         IsRestartingLevel = true;
     }
 
