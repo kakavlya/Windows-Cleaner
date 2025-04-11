@@ -10,7 +10,7 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out Brick brick))
+        if (other.TryGetComponent(out IBrick brick))
         {
             _player.BrickHit();
         }

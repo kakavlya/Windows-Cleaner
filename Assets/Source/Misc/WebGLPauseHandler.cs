@@ -8,6 +8,7 @@ public class WebGLPauseHandler : MonoBehaviour
     private UIStateMachine _uiStateMachine;
     private bool _hasInitialized = false;
     private bool _pausedByFocus = false;
+    private UIState _previousState;
 
     private void Awake()
     {
@@ -46,6 +47,8 @@ public class WebGLPauseHandler : MonoBehaviour
             }
 
             _pausedByFocus = false;
+            _uiStateMachine = FindUiStateMachine();
+            _previousState = _uiStateMachine.GetCurrentState();
             ActivatePauseMenuDelayed();
         }
     }
@@ -89,7 +92,8 @@ public class WebGLPauseHandler : MonoBehaviour
 
     public void ResumeGame()
     {
-        _uiStateMachine.SwitchState(UIState.Playing);
+        //_uiStateMachine.SwitchState(UIState.Playing);
+        _uiStateMachine.SwitchState(_previousState);
         Time.timeScale = 1f;
         ToggleAudio(true);
     }

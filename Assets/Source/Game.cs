@@ -17,8 +17,6 @@ public class Game : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera _secondCam;
     [SerializeField] private int _secondCamPriority;
     [SerializeField] private Scores _scores;  
-    [SerializeField] private WallWithObstacles _wall;
-    [SerializeField] private UIStateMachine _uiStateMachine;
 
     [SerializeField] private string _leaderBoardName = "WindowsCleanerLeaderboard";
     private LeaderboardService _leaderboardService;
@@ -30,7 +28,9 @@ public class Game : MonoBehaviour
 
     private void Start()
     {
-        _uiStateMachine.SwitchState(UIState.StartScreen);
+        _startScreen.gameObject.SetActive(true);
+        _sliderPickedBar.SetActive(false);
+        _touchControlsScreen.SetActive(false);
         PauseGame();
     }
 
@@ -60,7 +60,10 @@ public class Game : MonoBehaviour
 
     private void OnPlayButtonClick()
     {
-        _uiStateMachine.SwitchState(UIState.Playing);
+        _sliderPickedBar?.SetActive(true);
+        _startScreen.gameObject.SetActive(false);
+        _tutorialScreen?.SetActive(false);
+        _touchControlsScreen.SetActive(true);
         StartGame();
     }
 
@@ -77,15 +80,15 @@ public class Game : MonoBehaviour
     private void GameOver()
     {
         PauseGame();
-        _uiStateMachine.SwitchState(UIState.GameOver);
+        _gameOverScreen.gameObject.SetActive(true);
+        _touchControlsScreen?.SetActive(false);
     }
     private void WonLevel()
     {
-        _wall.StopObstacles();
         _touchControlsScreen.SetActive(false);
         float currentScore = _scores.GetCurrentScore();
         LevelController.Instance.CompleteLevel(currentScore);
-        _uiStateMachine.SwitchState(UIState.EndLevelAnimation);
+
         _collectedFinisher.StartFinishingSequence();
 
         _secondCam.Priority = _secondCamPriority;
@@ -96,7 +99,9 @@ public class Game : MonoBehaviour
     private void ShowMenuAndPauseGame()
     {
         PauseGame();
-        _uiStateMachine.SwitchState(UIState.EndLevel);
+        _endLevelScreen.gameObject.SetActive(true);
+        _touchControlsScreen.SetActive(false);
+        
         _leaderboardService.UpdateLeaderboard(LevelController.Instance.CurrentLevelInController);
     }
 
@@ -108,13 +113,13 @@ public class Game : MonoBehaviour
     private void OnRestartButtonClick()
     {
         _gameOverScreen.gameObject.SetActive(false);
-        _sliderPickedBar.gameObject.SetActive(true);
         LevelController.Instance.RestartingLevel();
         LevelController.Instance.ReloadScene();
     }
 
     private void OnMainMenuButtonClick()
     {
+        Debug.Log("OnMainMenuButtonClick() clicked");
         SceneManager.LoadScene("StartingScene");
     }
 

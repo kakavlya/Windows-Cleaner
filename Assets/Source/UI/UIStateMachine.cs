@@ -19,6 +19,8 @@ public partial class UIStateMachine : MonoBehaviour
     [SerializeField] private GameObject _leaderBoardPanel;
     [SerializeField] private GameObject _levelSelectionPanel;
 
+    private UIState _currentState;
+
     private void Start()
     {
         SwitchState(UIState.StartScreen);
@@ -26,11 +28,13 @@ public partial class UIStateMachine : MonoBehaviour
 
     public void SwitchState(UIState newState)
     {
+        _currentState = newState;
         DisableAll();
         switch (newState)
         {
             case UIState.StartScreen:
                 _startScreen.gameObject.SetActive(true);
+                _sideButtons.SetActive(true);
                 break;
             case UIState.Playing:
                 _touchControlsScreen.SetActive(true);
@@ -44,12 +48,16 @@ public partial class UIStateMachine : MonoBehaviour
                 _pausePanel.SetActive(true);
                 break;
             case UIState.EndLevelAnimation:
-
                 break;
             case UIState.EndLevel:
                 _endLevelScreen.gameObject.SetActive(true);
                 break;
         }
+    }
+    
+    public UIState GetCurrentState()
+    {
+        return _currentState;
     }
 
     private void DisableAll()

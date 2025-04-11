@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Brick : MonoBehaviour
+public class Brick : MonoBehaviour, IBrick
 {
     [SerializeField] private float rotationH = 500.5f;
     [SerializeField] private float rotationV = 1000.5f;
@@ -24,7 +24,7 @@ public class Brick : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<PlayerCollisionHandler>())
         {

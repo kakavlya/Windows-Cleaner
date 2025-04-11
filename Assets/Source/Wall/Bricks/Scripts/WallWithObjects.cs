@@ -25,7 +25,7 @@ public class WallWithObjects : Wall
         List<Bounds> areas = new List<Bounds>();
         foreach (Transform child in transform)
         {
-            if (child.GetComponent<Brick>() != null)
+            if (child.GetComponent<IBrick>() != null)
                 continue;
             Renderer rend = child.GetComponent<Renderer>();
             if (rend != null)

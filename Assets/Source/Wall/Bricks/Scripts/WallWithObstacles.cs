@@ -89,7 +89,7 @@ public class WallWithObstacles : Wall
     {
         foreach(Transform child in transform)
         {
-            if(child.GetComponent<Brick>() == null)
+            if(child.GetComponent<IBrick>() == null)
             {
                 Destroy(child.gameObject);
             }
@@ -157,7 +157,7 @@ public class WallWithObstacles : Wall
         foreach (Transform child in children)
         {
             Renderer renderer = child.GetComponent<Renderer>();
-            if(renderer != null && child.GetComponent<Brick>() == null)
+            if(renderer != null && child.GetComponent<IBrick>() == null)
             {
                 occupiedAreas.Add(renderer.bounds);
             }
