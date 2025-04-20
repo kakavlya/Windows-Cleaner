@@ -4,11 +4,9 @@ using UnityEngine;
 public class WebGLPauseHandler : MonoBehaviour
 {
     public static WebGLPauseHandler Instance;
-    //private PauseScreen _pauseMenu;
     private UIStateMachine _uiStateMachine;
     private bool _hasInitialized = false;
     private bool _pausedByFocus = false;
-    private UIState _previousState;
 
     private void Awake()
     {
@@ -29,6 +27,12 @@ public class WebGLPauseHandler : MonoBehaviour
             if (hasFocus)
             {
                 _hasInitialized = true;
+                // Make sure audio is enabled at game start
+                if (Audio.Instance != null)
+                {
+                    Audio.Instance.ToggleMusic(true);
+                    Audio.Instance.ToggleSfx(true);
+                }
                 return;
             }
         }
@@ -38,28 +42,6 @@ public class WebGLPauseHandler : MonoBehaviour
             _pausedByFocus = true;
             PauseGame();
         }
-        else
-        {
-            if (!_pausedByFocus)
-            {
-                Debug.Log("Focus returned, but not paused by focus. Skipping UI.");
-                return;
-            }
-
-            _pausedByFocus = false;
-            _uiStateMachine = FindUiStateMachine();
-            _previousState = _uiStateMachine.GetCurrentState();
-            ActivatePauseMenuDelayed();
-        }
-    }
-
-    private void ActivatePauseMenuDelayed()
-    {
-        if(_uiStateMachine == null)
-        {
-            _uiStateMachine = FindUiStateMachine();
-        }
-        _uiStateMachine.SwitchState(UIState.PauseMenu);
     }
 
     private UIStateMachine FindUiStateMachine()
@@ -76,6 +58,15 @@ public class WebGLPauseHandler : MonoBehaviour
         return null;
     }
 
+    private UIStateMachine GetUIStateMachine()
+    {
+        if (_uiStateMachine == null)
+        {
+            _uiStateMachine = FindUiStateMachine();
+        }
+        return _uiStateMachine;
+    }
+
     public void OnApplicationPause(bool isPaused)
     {
         if (isPaused)
@@ -86,24 +77,11 @@ public class WebGLPauseHandler : MonoBehaviour
 
     private void PauseGame()
     {
-        Time.timeScale = 0f;
-        ToggleAudio(false);
-    }
-
-    public void ResumeGame()
-    {
-        //_uiStateMachine.SwitchState(UIState.Playing);
-        _uiStateMachine.SwitchState(_previousState);
-        Time.timeScale = 1f;
-        ToggleAudio(true);
-    }
-
-    private void ToggleAudio(bool enabled)
-    {
-        if (Audio.Instance != null)
+        // Only pause if we're in playing state
+        if (GetUIStateMachine().GetCurrentState() == UIState.Playing)
         {
-            Audio.Instance.ToggleMusic(enabled);
-            Audio.Instance.ToggleSfx(enabled);
+            GetUIStateMachine().SwitchState(UIState.PauseMenu);
+            // Note: TimeScale is set in UIStateMachine.SwitchState
         }
     }
 }

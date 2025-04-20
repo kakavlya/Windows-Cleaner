@@ -85,9 +85,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5339086546812896187}
   - component: {fileID: 8229965440136684803}
+  - component: {fileID: 3799197601917865606}
   - component: {fileID: 2770286731772924468}
   - component: {fileID: 1878869031771280786}
-  - component: {fileID: 3799197601917865606}
   m_Layer: 5
   m_Name: Button_Ranking
   m_TagString: Untagged
@@ -125,6 +125,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1908393935960895826}
   m_CullTransparentMesh: 0
+--- !u!114 &3799197601917865606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908393935960895826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b13d7e71264a29247b1b81d6431c5ef3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ScreenOpenPanelcon: {fileID: 1878869031771280786}
+  _panelClose: {fileID: 0}
+  _UIPanel: {fileID: 0}
+  _sidePanelCanvasGroups:
+  - {fileID: 0}
 --- !u!114 &2770286731772924468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,23 +216,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3799197601917865606
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1908393935960895826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b13d7e71264a29247b1b81d6431c5ef3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _ScreenOpenPanelcon: {fileID: 1878869031771280786}
-  _panelClose: {fileID: 0}
-  _UIPanel: {fileID: 0}
-  _sidePanelCanvasGroups:
-  - {fileID: 0}
 --- !u!1 &3095782450421646729
 GameObject:
   m_ObjectHideFlags: 0

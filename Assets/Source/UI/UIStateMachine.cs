@@ -20,7 +20,7 @@ public partial class UIStateMachine : MonoBehaviour
     [SerializeField] private GameObject _levelSelectionPanel;
 
     private UIState _currentState;
-
+    private UIState _previousState;
     private void Start()
     {
         SwitchState(UIState.StartScreen);
@@ -28,7 +28,13 @@ public partial class UIStateMachine : MonoBehaviour
 
     public void SwitchState(UIState newState)
     {
-        _currentState = newState;
+
+        if (_currentState != newState)
+        {
+            _previousState = _currentState;
+            _currentState = newState;
+        }
+
         DisableAll();
         switch (newState)
         {
@@ -37,15 +43,28 @@ public partial class UIStateMachine : MonoBehaviour
                 _sideButtons.SetActive(true);
                 break;
             case UIState.Playing:
-                _touchControlsScreen.SetActive(true);
-                _sliderPickedBar.SetActive(true);
-                _sideButtons.SetActive(true);
+                ActivateGameplay();
                 break;
             case UIState.GameOver:
                 _gameOverScreen.gameObject.SetActive(true);
                 break;
             case UIState.PauseMenu:
+                Audio.Instance.ToggleMusic(false);
+                Audio.Instance.ToggleSfx(false);
                 _pausePanel.SetActive(true);
+                Time.timeScale = 0;
+                break;
+            case UIState.LevelsMenu:
+                _levelSelectionPanel.SetActive(true);
+                Time.timeScale = 0;
+                break;
+            case UIState.SoundMenu:
+                _audioSettingsPanel.SetActive(true);
+                Time.timeScale = 0;
+                break;
+            case UIState.Leaderboard:
+                _leaderBoardPanel.SetActive(true);
+                Time.timeScale = 0;
                 break;
             case UIState.EndLevelAnimation:
                 break;
@@ -54,10 +73,28 @@ public partial class UIStateMachine : MonoBehaviour
                 break;
         }
     }
-    
+
     public UIState GetCurrentState()
     {
         return _currentState;
+    }
+    public UIState GetPreviousState()
+    {
+        return _previousState;
+    }
+
+    public void BackToPreviousState()
+    {
+        SwitchState(_previousState);
+    }
+    private void ActivateGameplay()
+    {
+        _touchControlsScreen.SetActive(true);
+        _sliderPickedBar.SetActive(true);
+        _sideButtons.SetActive(true);
+        Audio.Instance.ToggleMusic(true);
+        Audio.Instance.ToggleSfx(true);
+        Time.timeScale = 1;
     }
 
     private void DisableAll()

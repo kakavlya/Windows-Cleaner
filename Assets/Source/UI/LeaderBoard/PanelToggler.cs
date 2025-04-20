@@ -26,6 +26,7 @@ public class PanelToggler : MonoBehaviour
 
     protected virtual void TogglePanel()
     {
+        Debug.Log("TogglePanel");
         if (_UIPanel.activeSelf)
         {
             _UIPanel.SetActive(false);

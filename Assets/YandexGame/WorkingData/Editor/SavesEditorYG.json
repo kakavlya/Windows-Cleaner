@@ -1,5 +1,5 @@
 {
-    "idSave": 108,
+    "idSave": 152,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -25,7 +25,7 @@
             {
                 "LevelNumber": 3,
                 "IsUnlocked": true,
-                "Score": 80.38194274902344
+                "Score": 87.32638549804688
             },
             {
                 "LevelNumber": 4,
@@ -45,61 +45,61 @@
             {
                 "LevelNumber": 7,
                 "IsUnlocked": true,
-                "Score": 0.0
+                "Score": 55.20833206176758
             },
             {
                 "LevelNumber": 8,
-                "IsUnlocked": false,
-                "Score": 0.0
+                "IsUnlocked": true,
+                "Score": 70.65972137451172
             },
             {
                 "LevelNumber": 9,
-                "IsUnlocked": false,
-                "Score": 0.0
+                "IsUnlocked": true,
+                "Score": 49.30555725097656
             },
             {
                 "LevelNumber": 10,
-                "IsUnlocked": false,
-                "Score": 0.0
+                "IsUnlocked": true,
+                "Score": 64.23611450195313
             },
             {
                 "LevelNumber": 11,
-                "IsUnlocked": false,
-                "Score": 0.0
+                "IsUnlocked": true,
+                "Score": 75.86805725097656
             },
             {
                 "LevelNumber": 12,
-                "IsUnlocked": false,
-                "Score": 0.0
+                "IsUnlocked": true,
+                "Score": 61.28472137451172
             },
             {
                 "LevelNumber": 13,
-                "IsUnlocked": false,
-                "Score": 0.0
+                "IsUnlocked": true,
+                "Score": 50.69444274902344
             },
             {
                 "LevelNumber": 14,
-                "IsUnlocked": false,
-                "Score": 0.0
+                "IsUnlocked": true,
+                "Score": 68.05555725097656
             },
             {
                 "LevelNumber": 15,
-                "IsUnlocked": false,
-                "Score": 0.0
+                "IsUnlocked": true,
+                "Score": 68.75
             },
             {
                 "LevelNumber": 16,
-                "IsUnlocked": false,
-                "Score": 0.0
+                "IsUnlocked": true,
+                "Score": 61.63194274902344
             },
             {
                 "LevelNumber": 17,
-                "IsUnlocked": false,
-                "Score": 0.0
+                "IsUnlocked": true,
+                "Score": 63.36805725097656
             },
             {
                 "LevelNumber": 18,
-                "IsUnlocked": false,
+                "IsUnlocked": true,
                 "Score": 0.0
             },
             {
@@ -263,10 +263,10 @@
                 "Score": 0.0
             }
         ],
-        "TotalScore": 412.6736145019531,
-        "CurrentLevel": 3
+        "TotalScore": 1108.680419921875,
+        "CurrentLevel": 17
     },
-    "musicVolume": 0.27408933639526369,
+    "musicVolume": 0.22894620895385743,
     "sfxVolume": 0.4572640657424927,
     "isMusicEnabled": true,
     "isSfxEnabled": true

@@ -102,23 +102,34 @@ public class WallWithObstacles : Wall
         int obstacleCount = _obstacleSettings.GetObstacleCount(_currentLevel);
         float minSpeed = _obstacleSettings.GetMinSpeed(_currentLevel);
         float maxSpeed = _obstacleSettings.GetMaxSpeed(_currentLevel);
-        
+
         CheckClearObstaclesState();
 
-        for (int i = 0; i < obstacleCount; i++)
+        // Limit number of attempts to prevent infinite loops
+        int maxAttempts = obstacleCount * 5;
+        int attemptCount = 0;
+        int placedObstacles = 0;
+
+        while (placedObstacles < obstacleCount && attemptCount < maxAttempts)
         {
+            attemptCount++;
+
             ObstacleData obstacleData = _obstacleSettings.GetRandomObstacleData();
             GameObject obstaclePrefab = obstacleData.ObstaclePrefab;
             if (obstaclePrefab == null) continue;
 
+            // Calculate a random position within the wall bounds
             Vector3 randomPosition = new Vector3(
                 Random.Range(LeftBound.x, RightBound.x),
                 Random.Range(_topBound.y, _bottomBound.y),
                 obstacleData.ZOffset);
 
-            Bounds obstacleBounds = new Bounds(randomPosition, obstaclePrefab.transform.localScale*obstacleData.SizeScale);
+            Bounds obstacleBounds = new Bounds(randomPosition, obstaclePrefab.transform.localScale * obstacleData.SizeScale);
 
-            if (IsAreaValid(obstacleBounds))
+            // Add some padding to ensure obstacles aren't too close
+            Bounds paddedBounds = new Bounds(obstacleBounds.center, obstacleBounds.size + Vector3.one * _obstacleMinDistance);
+
+            if (IsAreaValid(paddedBounds))
             {
                 GameObject obstacle = Instantiate(obstaclePrefab, randomPosition, Quaternion.Euler(obstacleData.Rotation));
                 obstacle.transform.SetParent(transform);
@@ -127,11 +138,18 @@ public class WallWithObstacles : Wall
                 Rigidbody2D rb = obstacle.GetComponent<Rigidbody2D>();
                 if (rb != null) rb.velocity = new Vector2(0, -speed);
 
-                _occupiedAreas.Add(obstacleBounds);
+                _occupiedAreas.Add(paddedBounds);
                 SaveObstacle(obstacleData, obstaclePrefab, randomPosition, speed);
 
                 _obstacles.Add(obstacle);
+                placedObstacles++;
             }
+        }
+
+        // Log warning if we couldn't place all obstacles
+        if (placedObstacles < obstacleCount)
+        {
+            Debug.LogWarning($"Could only place {placedObstacles} obstacles out of {obstacleCount} due to space constraints");
         }
     }
 

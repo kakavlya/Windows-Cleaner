@@ -5,22 +5,21 @@ using UnityEngine.UI;
 
 public class PauseScreen : MonoBehaviour
 {
-    [SerializeField] private Button _pauseButton;
-    [SerializeField] private GameObject _panel;
+    [SerializeField] private Button _resumeButton;
+    [SerializeField] private UIStateMachine _uiStateMachine;
 
     private void OnEnable()
     {
-        _pauseButton.onClick.AddListener(OnButtonClick);
+        _resumeButton.onClick.AddListener(OnResumeButtonClick);
     }
 
-    private void OnButtonClick()
+    private void OnDisable()
     {
-        WebGLPauseHandler.Instance.ResumeGame();
-        _panel.SetActive(false);
+        _resumeButton.onClick.RemoveListener(OnResumeButtonClick);
     }
 
-    public void ActivatePanel()
+    private void OnResumeButtonClick()
     {
-        _panel.SetActive(true);
+        _uiStateMachine.SwitchState(UIState.Playing);
     }
 }

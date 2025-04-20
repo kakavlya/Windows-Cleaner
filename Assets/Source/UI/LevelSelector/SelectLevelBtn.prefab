@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 954615303577323450}
   - component: {fileID: 5562383132158586380}
-  - component: {fileID: 3075228464697334510}
   - component: {fileID: 8986715513718955185}
+  - component: {fileID: 3075228464697334510}
   m_Layer: 5
   m_Name: SelectLevelBtn
   m_TagString: Untagged
@@ -48,6 +48,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1889461033323805143}
   m_CullTransparentMesh: 0
+--- !u!114 &8986715513718955185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889461033323805143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b13d7e71264a29247b1b81d6431c5ef3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ScreenOpenPanelcon: {fileID: 3075228464697334510}
+  _panelClose: {fileID: 0}
+  _UIPanel: {fileID: 0}
+  _sidePanelCanvasGroups:
+  - {fileID: 0}
 --- !u!114 &3075228464697334510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,23 +109,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8986715513718955185
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1889461033323805143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b13d7e71264a29247b1b81d6431c5ef3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _ScreenOpenPanelcon: {fileID: 3075228464697334510}
-  _panelClose: {fileID: 0}
-  _UIPanel: {fileID: 0}
-  _sidePanelCanvasGroups:
-  - {fileID: 0}
 --- !u!1 &2353240624446187263
 GameObject:
   m_ObjectHideFlags: 0
