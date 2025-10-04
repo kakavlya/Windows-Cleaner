@@ -14,7 +14,7 @@ public class LevelController : MonoBehaviour
     public event Action<int> OnLevelChanged;
     public int CurrentLevelInController { get; private set; }
     public bool IsRestartingLevel { get; private set; } = false;
-    private GameDataHandle _gameDataHandle = new GameDataHandle();
+    private readonly GameDataHandle _gameDataHandle = new GameDataHandle();
 
     private void Awake()
     {
@@ -31,10 +31,6 @@ public class LevelController : MonoBehaviour
 
     private void Start()
     {
-        // uncomment to reset progress
-        //_gameDataHandle.ResetGameProgress();
-        // uncomment to unlock all levels
-        //OpenAllLevels();
         GameProgress progress = _gameDataHandle.LoadProgress();
         CurrentLevelInController = progress.CurrentLevel > 0 ? progress.CurrentLevel : 1;
         NotifyLevelChanged();

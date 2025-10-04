@@ -9,7 +9,7 @@ using static GameProgress;
 public class GameDataHandle
 {
     private const string _gameProgressPref = "GameProgress";
-    private string _leaderBoardName = "WindowsCleanerLeaderboard";
+    private readonly string _leaderBoardName = "WindowsCleanerLeaderboard";
     private const int ExpectedLevelsCount = 50;
     public void SaveProgress(GameProgress progress)
     {

@@ -8,7 +8,7 @@ public class CollectedBar : MonoBehaviour
 {
     [SerializeField] private Slider _slider;
     [SerializeField] private Scores _scores;
-    private float _maxPercentage = 100f;
+    private readonly float _maxPercentage = 100f;
     [SerializeField] private TMP_Text _hitScore;
 
     private void Start()

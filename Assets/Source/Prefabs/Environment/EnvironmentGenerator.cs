@@ -11,8 +11,7 @@ public class EnvironmentGenerator : MonoBehaviour
 
     private void Start()
     {
-        //Debug.Log($"PersistentData.CurrentEnvironment: {PersistentData.CurrentEnvironment}, level is restarting: {LevelController.Instance.IsRestartingLevel}");
-        if (PersistentData.EnvironmentPrefabIndex.HasValue != null && LevelController.Instance.IsRestartingLevel)
+        if (PersistentData.EnvironmentPrefabIndex.HasValue && LevelController.Instance.IsRestartingLevel)
         {
             int index = PersistentData.EnvironmentPrefabIndex.Value;
             GameObject env = Instantiate(_environments[index], _position, Quaternion.identity);

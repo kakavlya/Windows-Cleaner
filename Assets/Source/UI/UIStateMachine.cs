@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public partial class UIStateMachine : MonoBehaviour
@@ -28,6 +25,7 @@ public partial class UIStateMachine : MonoBehaviour
 
     public void SwitchState(UIState newState)
     {
+
 
         if (_currentState != newState)
         {

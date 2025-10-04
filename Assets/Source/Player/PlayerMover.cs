@@ -11,7 +11,7 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private float _horizontalSpeed = 5f;
     [SerializeField] private float _verticalSpeed = 7f;
     [SerializeField] private Wall _wall;
-    private float _yDirection = -1f;
+    private readonly float _yDirection = -1f;
     private Vector3 _moveDirection;
     private Vector2 _moveInput;
     private bool _stopped;
@@ -24,8 +24,6 @@ public class PlayerMover : MonoBehaviour
     private void LateUpdate()
     {
         Move();
-
-        //CheckBoundaries();
     }
 
     private void Move()

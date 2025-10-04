@@ -1,5 +1,5 @@
 {
-    "idSave": 152,
+    "idSave": 155,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -20,7 +20,7 @@
             {
                 "LevelNumber": 2,
                 "IsUnlocked": true,
-                "Score": 61.28472137451172
+                "Score": 65.79861450195313
             },
             {
                 "LevelNumber": 3,
@@ -95,7 +95,7 @@
             {
                 "LevelNumber": 17,
                 "IsUnlocked": true,
-                "Score": 63.36805725097656
+                "Score": 71.18055725097656
             },
             {
                 "LevelNumber": 18,
@@ -263,11 +263,11 @@
                 "Score": 0.0
             }
         ],
-        "TotalScore": 1108.680419921875,
-        "CurrentLevel": 17
+        "TotalScore": 1121.0068359375,
+        "CurrentLevel": 2
     },
     "musicVolume": 0.22894620895385743,
     "sfxVolume": 0.4572640657424927,
-    "isMusicEnabled": true,
-    "isSfxEnabled": true
+    "isMusicEnabled": false,
+    "isSfxEnabled": false
 }

@@ -1,37 +1,101 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class WallWithObjects : Wall
 {
-    [SerializeField] private GameObjectsSettings gameObjectsSettings; // Ссылка на настройки из ScriptableObject
-    [SerializeField] private int currentLevel = 1;
-    [SerializeField] private float objectMinDistance = 5.0f; // Минимальное расстояние между объектами
+    [SerializeField] private GameObjectsSettings _gameObjectsSettings;
+    [SerializeField] private int _currentLevel = 1;
+    [SerializeField] private float _objectMinDistance = 5f;
 
-    private List<Bounds> _occupiedAreas = new List<Bounds>();
+    private readonly List<Bounds> _occupiedAreas = new List<Bounds>();
 
     protected override void Start()
     {
         base.Start();
+        _occupiedAreas.Clear();
+        RebuildOccupiedAreas();
 
-        _occupiedAreas = GetOccupiedAreas();
-
-        GenerateObjects(gameObjectsSettings.ObstaclesSettings);
-        GenerateObjects(gameObjectsSettings.PickablesSettings);
+        GenerateObjects(_gameObjectsSettings.ObstaclesSettings);
+        GenerateObjects(_gameObjectsSettings.PickablesSettings);
     }
 
-    private List<Bounds> GetOccupiedAreas()
+    private void GenerateObjects(GameObjectTypeSettings settings)
     {
-        List<Bounds> areas = new List<Bounds>();
-        foreach (Transform child in transform)
+        if (settings == null)
+            return;
+
+        int count = settings.GetCount(_currentLevel);
+        float minSpeed = settings.GetMinSpeed(_currentLevel);
+        float maxSpeed = settings.GetMaxSpeed(_currentLevel);
+
+        float xMin = Mathf.Min(_leftBound.x, _rightBound.x);
+        float xMax = Mathf.Max(_leftBound.x, _rightBound.x);
+        float yMin = Mathf.Min(_bottomBound.y, _topBound.y);
+        float yMax = Mathf.Max(_bottomBound.y, _topBound.y);
+
+        int attempts = 0;
+        int maxAttempts = count * 5;
+        int placed = 0;
+
+        while (placed < count && attempts < maxAttempts)
         {
-            if (child.GetComponent<IBrick>() != null)
+            attempts++;
+
+            var data = settings.GetRandomData();
+            var prefab = data?.ObstaclePrefab;
+            if (prefab == null)
                 continue;
-            Renderer rend = child.GetComponent<Renderer>();
-            if (rend != null)
-                areas.Add(rend.bounds);
+
+            var pos = new Vector3(
+                Random.Range(xMin, xMax),
+                Random.Range(yMin, yMax),
+                data.ZOffset
+            );
+
+            var approxSize = prefab.transform.localScale * data.SizeScale;
+            var approxPadded = new Bounds(pos, approxSize + Vector3.one * _objectMinDistance);
+
+            if (!IsAreaValid(approxPadded))
+                continue;
+
+            var obj = Instantiate(prefab, pos, Quaternion.Euler(data.Rotation), transform);
+
+            var rb2d = obj.GetComponent<Rigidbody2D>();
+            if (rb2d != null)
+            {
+                float speed = Random.Range(minSpeed, maxSpeed);
+                rb2d.velocity = new Vector2(0f, -speed);
+            }
+
+            var renderer = obj.GetComponentInChildren<Renderer>();
+            var realSize = renderer != null ? renderer.bounds.size : approxSize;
+            var realPadded = new Bounds(pos, realSize + Vector3.one * _objectMinDistance);
+
+            if (!IsAreaValid(realPadded))
+            {
+                Destroy(obj);
+                continue;
+            }
+
+            _occupiedAreas.Add(realPadded);
+            placed++;
         }
-        return areas;
+
+        if (placed < count)
+            Debug.LogWarning($"[WallWithObjects] Placed {placed}/{count} (space constraints).");
+    }
+
+    private void RebuildOccupiedAreas()
+    {
+        _occupiedAreas.Clear();
+
+        var renderers = GetComponentsInChildren<Renderer>();
+        foreach (var r in renderers)
+        {
+            if (r == null) continue;
+            if (r.TryGetComponent<IBrick>(out _)) continue;
+            _occupiedAreas.Add(r.bounds);
+        }
     }
 
     private bool IsAreaValid(Bounds newBounds)
@@ -42,41 +106,5 @@ public class WallWithObjects : Wall
                 return false;
         }
         return true;
-    }
-
-    private void GenerateObjects(GameObjectTypeSettings settings)
-    {
-        if (settings == null)
-            return;
-
-        int count = settings.GetCount(currentLevel);
-        float minSpeed = settings.GetMinSpeed(currentLevel);
-        float maxSpeed = settings.GetMaxSpeed(currentLevel);
-
-        for (int i = 0; i < count; i++)
-        {
-            ObstacleData data = settings.GetRandomData();
-            if (data == null || data.ObstaclePrefab == null)
-                continue;
-
-            Vector3 randomPos = new Vector3(
-                Random.Range(_leftBound.x, _rightBound.x),
-                Random.Range(_bottomBound.y, _topBound.y),
-                data.ZOffset);
-
-            Bounds objBounds = new Bounds(randomPos, data.ObstaclePrefab.transform.localScale * data.SizeScale);
-
-            if (IsAreaValid(objBounds))
-            {
-                GameObject obj = Instantiate(data.ObstaclePrefab, randomPos, Quaternion.Euler(data.Rotation), transform);
-                Rigidbody2D rb = obj.GetComponent<Rigidbody2D>();
-                if (rb != null)
-                {
-                    float speed = Random.Range(minSpeed, maxSpeed);
-                    rb.velocity = new Vector2(0, -speed);
-                }
-                _occupiedAreas.Add(objBounds);
-            }
-        }
     }
 }

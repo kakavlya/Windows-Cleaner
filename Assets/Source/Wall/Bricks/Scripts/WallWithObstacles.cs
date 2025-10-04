@@ -1,50 +1,72 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class WallWithObstacles : Wall
 {
+    [Header("Config")]
     [SerializeField] private ObstacleSettings _obstacleSettings;
     [SerializeField] private int _currentLevel = 1;
     [SerializeField] private float _obstacleMinDistance = 5.0f;
 
-    private List<Bounds> _occupiedAreas = new List<Bounds>();
-    private List<GameObject> _obstacles = new List<GameObject>();
+    private readonly List<Bounds> _occupiedAreas = new List<Bounds>();
+    private readonly List<GameObject> _obstacles = new List<GameObject>();
 
-    private void OnDisable() => LevelController.Instance.OnLevelChanged -= OnLevelChanged;
+    private void OnEnable()
+    {
+        if (LevelController.Instance != null)
+            LevelController.Instance.OnLevelChanged += OnLevelChanged;
+    }
+
+    private void OnDisable()
+    {
+        if (LevelController.Instance != null)
+            LevelController.Instance.OnLevelChanged -= OnLevelChanged;
+    }
 
     protected override void Start()
     {
-
         base.Start();
+
         _obstacles.Clear();
-        _occupiedAreas = GetOccupiedAreas();
-        InitObstacles();
-        LevelController.Instance.OnLevelChanged += OnLevelChanged;
-        SetLevel(LevelController.Instance.CurrentLevelInController);
+        RebuildOccupiedAreas();
+
+        int startLevel = (LevelController.Instance != null)
+            ? LevelController.Instance.CurrentLevelInController
+            : _currentLevel;
+
+        SetLevel(startLevel, forceRebuild: true);
     }
 
     public void StopObstacles()
     {
-        foreach (GameObject obstacle in _obstacles)
+        foreach (var obstacle in _obstacles)
         {
-            
-            if(obstacle != null)
+            if (obstacle != null)
                 obstacle.SetActive(false);
         }
     }
 
-    public void SetLevel(int level)
+    public void SetLevel(int level, bool forceRebuild = false)
     {
+        if (!forceRebuild && level == _currentLevel)
+            return;
+
         _currentLevel = level;
         ClearSceneObstacles();
-        CheckClearObstaclesState();
+        ClearSavedStateIfNeeded();
         InitObstacles();
+    }
+
+    private void OnLevelChanged(int level)
+    {
+        SetLevel(level, forceRebuild: true);
     }
 
     private void InitObstacles()
     {
-        if (LevelController.Instance.IsRestartingLevel && PersistentData.SavedObstacles.Count > 0)
+        if (LevelController.Instance != null &&
+            LevelController.Instance.IsRestartingLevel &&
+            PersistentData.SavedObstacles.Count > 0)
         {
             RestoreObstacles();
         }
@@ -57,44 +79,24 @@ public class WallWithObstacles : Wall
     private void RestoreObstacles()
     {
         _obstacles.Clear();
-        foreach (ObstacleState state in PersistentData.SavedObstacles)
+
+        foreach (var state in PersistentData.SavedObstacles)
         {
-            GameObject obstacle = Instantiate(state.Prefab, state.Position, state.Rotation);
+            var obstacle = Instantiate(state.Prefab, state.Position, state.Rotation);
             obstacle.transform.SetParent(transform);
 
-            Rigidbody2D rb = obstacle.GetComponent<Rigidbody2D>();
-            if (rb != null)
-                rb.velocity = new Vector2(0, -state.Speed);
+            var rb2d = obstacle.GetComponent<Rigidbody2D>();
+            if (rb2d != null)
+                rb2d.velocity = new Vector2(0f, -state.Speed);
 
-            Bounds bounds = new Bounds(state.Position, obstacle.transform.localScale * state.SizeScale);
+            var renderer = obstacle.GetComponentInChildren<Renderer>();
+            var size = (renderer != null) ? renderer.bounds.size : obstacle.transform.localScale * state.SizeScale;
+
+            var bounds = new Bounds(state.Position, size);
             _occupiedAreas.Add(bounds);
+
             _obstacles.Add(obstacle);
         }
-    }
-
-    private void CheckClearObstaclesState()
-    {
-        if (!LevelController.Instance.IsRestartingLevel)
-            PersistentData.SavedObstacles.Clear();
-
-        _obstacles.Clear();
-    }
-
-    private void OnLevelChanged(int level)
-    {
-        SetLevel(level);
-    }
-
-    private void ClearSceneObstacles()
-    {
-        foreach(Transform child in transform)
-        {
-            if(child.GetComponent<IBrick>() == null)
-            {
-                Destroy(child.gameObject);
-            }
-        }
-        _occupiedAreas.Clear();
     }
 
     private void GenerateObstacles()
@@ -103,62 +105,92 @@ public class WallWithObstacles : Wall
         float minSpeed = _obstacleSettings.GetMinSpeed(_currentLevel);
         float maxSpeed = _obstacleSettings.GetMaxSpeed(_currentLevel);
 
-        CheckClearObstaclesState();
-
-        // Limit number of attempts to prevent infinite loops
         int maxAttempts = obstacleCount * 5;
         int attemptCount = 0;
         int placedObstacles = 0;
+
+        float xMin = Mathf.Min(LeftBound.x, RightBound.x);
+        float xMax = Mathf.Max(LeftBound.x, RightBound.x);
+        float yMin = Mathf.Min(_topBound.y, _bottomBound.y);
+        float yMax = Mathf.Max(_topBound.y, _bottomBound.y);
+
+        if (!(LevelController.Instance != null && LevelController.Instance.IsRestartingLevel))
+            PersistentData.SavedObstacles.Clear();
 
         while (placedObstacles < obstacleCount && attemptCount < maxAttempts)
         {
             attemptCount++;
 
-            ObstacleData obstacleData = _obstacleSettings.GetRandomObstacleData();
-            GameObject obstaclePrefab = obstacleData.ObstaclePrefab;
-            if (obstaclePrefab == null) continue;
+            var obstacleData = _obstacleSettings.GetRandomObstacleData();
+            var prefab = obstacleData.ObstaclePrefab;
+            if (prefab == null) continue;
 
-            // Calculate a random position within the wall bounds
-            Vector3 randomPosition = new Vector3(
-                Random.Range(LeftBound.x, RightBound.x),
-                Random.Range(_topBound.y, _bottomBound.y),
+            var pos = new Vector3(
+                Random.Range(xMin, xMax),
+                Random.Range(yMin, yMax),
                 obstacleData.ZOffset);
 
-            Bounds obstacleBounds = new Bounds(randomPosition, obstaclePrefab.transform.localScale * obstacleData.SizeScale);
+            var approxSize = prefab.transform.localScale * obstacleData.SizeScale;
+            var approxPadded = new Bounds(pos, approxSize + Vector3.one * _obstacleMinDistance);
 
-            // Add some padding to ensure obstacles aren't too close
-            Bounds paddedBounds = new Bounds(obstacleBounds.center, obstacleBounds.size + Vector3.one * _obstacleMinDistance);
+            if (!IsAreaValid(approxPadded))
+                continue;
 
-            if (IsAreaValid(paddedBounds))
+            var obstacle = Instantiate(prefab, pos, Quaternion.Euler(obstacleData.Rotation));
+            obstacle.transform.SetParent(transform);
+
+            var rb2d = obstacle.GetComponent<Rigidbody2D>();
+            float speed = Random.Range(minSpeed, maxSpeed);
+            if (rb2d != null)
+                rb2d.velocity = new Vector2(0f, -speed);
+
+            var renderer = obstacle.GetComponentInChildren<Renderer>();
+            var realSize = (renderer != null) ? renderer.bounds.size : approxSize;
+            var realPadded = new Bounds(pos, realSize + Vector3.one * _obstacleMinDistance);
+
+            if (!IsAreaValid(realPadded))
             {
-                GameObject obstacle = Instantiate(obstaclePrefab, randomPosition, Quaternion.Euler(obstacleData.Rotation));
-                obstacle.transform.SetParent(transform);
-
-                float speed = Random.Range(minSpeed, maxSpeed);
-                Rigidbody2D rb = obstacle.GetComponent<Rigidbody2D>();
-                if (rb != null) rb.velocity = new Vector2(0, -speed);
-
-                _occupiedAreas.Add(paddedBounds);
-                SaveObstacle(obstacleData, obstaclePrefab, randomPosition, speed);
-
-                _obstacles.Add(obstacle);
-                placedObstacles++;
+                Destroy(obstacle);
+                continue;
             }
+
+            _occupiedAreas.Add(realPadded);
+            SaveObstacle(obstacleData, prefab, pos, speed);
+            _obstacles.Add(obstacle);
+            placedObstacles++;
         }
 
-        // Log warning if we couldn't place all obstacles
         if (placedObstacles < obstacleCount)
-        {
-            Debug.LogWarning($"Could only place {placedObstacles} obstacles out of {obstacleCount} due to space constraints");
-        }
+            Debug.LogWarning($"[WallWithObstacles] Placed {placedObstacles}/{obstacleCount} (space constraints).");
     }
 
-    private void SaveObstacle(ObstacleData obstacleData, GameObject obstaclePrefab, Vector3 randomPosition, float speed)
+    private void ClearSceneObstacles()
     {
-        ObstacleState state = new ObstacleState
+        var toRemove = new List<GameObject>();
+        foreach (Transform child in transform)
+        {
+            if (child.GetComponent<IBrick>() == null)
+                toRemove.Add(child.gameObject);
+        }
+        foreach (var go in toRemove)
+            Destroy(go);
+
+        _obstacles.Clear();
+        _occupiedAreas.Clear();
+    }
+
+    private void ClearSavedStateIfNeeded()
+    {
+        if (LevelController.Instance == null || !LevelController.Instance.IsRestartingLevel)
+            PersistentData.SavedObstacles.Clear();
+    }
+
+    private void SaveObstacle(ObstacleData obstacleData, GameObject obstaclePrefab, Vector3 position, float speed)
+    {
+        var state = new ObstacleState
         {
             Prefab = obstaclePrefab,
-            Position = randomPosition,
+            Position = position,
             Rotation = Quaternion.Euler(obstacleData.Rotation),
             Speed = speed,
             SizeScale = obstacleData.SizeScale
@@ -167,32 +199,26 @@ public class WallWithObstacles : Wall
         PersistentData.SavedObstacles.Add(state);
     }
 
-    private List<Bounds> GetOccupiedAreas()
+    private void RebuildOccupiedAreas()
     {
-        List<Bounds> occupiedAreas = new List<Bounds>();
-        Transform[] children = GetComponentsInChildren<Transform>();
+        _occupiedAreas.Clear();
 
-        foreach (Transform child in children)
+        var renderers = GetComponentsInChildren<Renderer>();
+        foreach (var r in renderers)
         {
-            Renderer renderer = child.GetComponent<Renderer>();
-            if(renderer != null && child.GetComponent<IBrick>() == null)
-            {
-                occupiedAreas.Add(renderer.bounds);
-            }
+            if (r == null) continue;
+            if (r.TryGetComponent<IBrick>(out _)) continue;
+            _occupiedAreas.Add(r.bounds);
         }
-
-        return occupiedAreas;
     }
 
     private bool IsAreaValid(Bounds newBounds)
     {
-        foreach(var occupied in _occupiedAreas)
+        foreach (var occupied in _occupiedAreas)
         {
-            if(occupied.Intersects(newBounds)) return false;
+            if (occupied.Intersects(newBounds))
+                return false;
         }
-
         return true;
     }
-
-    
 }

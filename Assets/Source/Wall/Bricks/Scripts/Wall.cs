@@ -1,11 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
-
     public event Action WallGenerated;
 
     [SerializeField] private GameObject _brick;
@@ -17,74 +15,73 @@ public class Wall : MonoBehaviour
 
     protected Vector3 _leftBound;
     protected Vector3 _rightBound;
-
     protected Vector3 _topBound;
     protected Vector3 _bottomBound;
 
-
     public Vector3 LeftBound => _leftBound;
     public Vector3 RightBound => _rightBound;
-    public int TotalBricks { get => _totalBricks;}
+    public int TotalBricks => _totalBricks;
 
     protected virtual void Start()
     {
         GenerateWallUpdateTotal();
         CalculateTotalBricksAmount();
-
         WallGenerated?.Invoke();
     }
 
     public Vector3 GetTopCenterPoint()
     {
-        float centerX = (_leftBound.x + _rightBound.x) / 2;
-        float centerY = _topBound.y;
-        //Debug.Log("Topbound.y: " + _topBound.y);
-        //Debug.Log("BottomBound.y: " + _bottomBound.y);
-        return new Vector3(centerX, centerY, 0);
+        float centerX = (_leftBound.x + _rightBound.x) * 0.5f;
+        float yTop = Mathf.Max(_topBound.y, _bottomBound.y);
+        return new Vector3(centerX, yTop, 0f);
     }
 
     private void CalculateTotalBricksAmount()
     {
-        _totalBricks = (_rows * _columns);
+        _totalBricks = _rows * _columns;
     }
 
     private void GenerateWallUpdateTotal()
     {
-        for(int row = 0; row < _rows; row++)
+        if (_brick == null || _rows <= 0 || _columns <= 0)
+            return;
+
+        float cellW = _brick.transform.localScale.x + _brickSpacing;
+        float cellH = _brick.transform.localScale.y + _brickSpacing;
+
+        for (int row = 0; row < _rows; row++)
         {
-            
-            for(int column = 0; column < _columns; column++)
+            for (int column = 0; column < _columns; column++)
             {
-                if(_brick != null)
+                Vector3 localPos = new Vector3(column * cellW, row * cellH, 0f);
+                GameObject brick = Instantiate(_brick, transform);
+                brick.transform.localPosition = localPos;
+
+                Vector3 worldPos = brick.transform.position;
+
+                if (row == 0 && column == 0)
                 {
-                    Vector3 position = new Vector3(column * (_brick.transform.localScale.x + _brickSpacing),
-                                                row * (_brick.transform.localScale.y + _brickSpacing),
-                                                0);
-                    GameObject brick = Instantiate(_brick, position, Quaternion.identity);
-
-                    if (row == 0)
-                    {
-                        _bottomBound = brick.transform.position;
-                        if (column == 0)
-                        {
-                            _leftBound = brick.transform.position;
-                        } else if (column == _columns - 1)
-                        {
-                            _rightBound = brick.transform.position;
-                        }
-                    } else if (row == _rows - 1)
-                    {
-                        _topBound = brick.transform.position;
-
-                    }
-                    brick.transform.SetParent(transform);
+                    _bottomBound = worldPos;
+                    _leftBound = worldPos;
                 }
+
+                if (row == 0 && column == _columns - 1)
+                    _rightBound = worldPos;
+
+                if (row == _rows - 1 && column == 0)
+                    _topBound = worldPos;
             }
         }
     }
 
     public bool CheckBoundaries(Vector3 position)
     {
-        return position.x >= LeftBound.x && position.x <= RightBound.x && position.y  <= _bottomBound.y && position.y >= _topBound.y;
+        float minX = Mathf.Min(_leftBound.x, _rightBound.x);
+        float maxX = Mathf.Max(_leftBound.x, _rightBound.x);
+        float minY = Mathf.Min(_topBound.y, _bottomBound.y);
+        float maxY = Mathf.Max(_topBound.y, _bottomBound.y);
+
+        return position.x >= minX && position.x <= maxX &&
+               position.y >= minY && position.y <= maxY;
     }
 }
