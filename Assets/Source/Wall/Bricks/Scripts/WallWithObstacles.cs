@@ -111,8 +111,8 @@ public class WallWithObstacles : Wall
 
         float xMin = Mathf.Min(LeftBound.x, RightBound.x);
         float xMax = Mathf.Max(LeftBound.x, RightBound.x);
-        float yMin = Mathf.Min(_topBound.y, _bottomBound.y);
-        float yMax = Mathf.Max(_topBound.y, _bottomBound.y);
+        float yMin = Mathf.Min(TopBoundPoint.y, BottomBountPoint.y);
+        float yMax = Mathf.Max(TopBoundPoint.y, BottomBountPoint.y);
 
         if (!(LevelController.Instance != null && LevelController.Instance.IsRestartingLevel))
             PersistentData.SavedObstacles.Clear();

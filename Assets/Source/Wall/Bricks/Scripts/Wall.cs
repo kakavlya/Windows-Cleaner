@@ -13,13 +13,13 @@ public class Wall : MonoBehaviour
 
     private int _totalBricks;
 
-    protected Vector3 _leftBound;
-    protected Vector3 _rightBound;
-    protected Vector3 _topBound;
-    protected Vector3 _bottomBound;
+    protected Vector3 LeftBoundPoint;
+    protected Vector3 RightBoundPoint;
+    protected Vector3 TopBoundPoint;
+    protected Vector3 BottomBountPoint;
 
-    public Vector3 LeftBound => _leftBound;
-    public Vector3 RightBound => _rightBound;
+    public Vector3 LeftBound => LeftBoundPoint;
+    public Vector3 RightBound => RightBoundPoint;
     public int TotalBricks => _totalBricks;
 
     protected virtual void Start()
@@ -31,8 +31,8 @@ public class Wall : MonoBehaviour
 
     public Vector3 GetTopCenterPoint()
     {
-        float centerX = (_leftBound.x + _rightBound.x) * 0.5f;
-        float yTop = Mathf.Max(_topBound.y, _bottomBound.y);
+        float centerX = (LeftBoundPoint.x + RightBoundPoint.x) * 0.5f;
+        float yTop = Mathf.Max(TopBoundPoint.y, BottomBountPoint.y);
         return new Vector3(centerX, yTop, 0f);
     }
 
@@ -61,25 +61,25 @@ public class Wall : MonoBehaviour
 
                 if (row == 0 && column == 0)
                 {
-                    _bottomBound = worldPos;
-                    _leftBound = worldPos;
+                    BottomBountPoint = worldPos;
+                    LeftBoundPoint = worldPos;
                 }
 
                 if (row == 0 && column == _columns - 1)
-                    _rightBound = worldPos;
+                    RightBoundPoint = worldPos;
 
                 if (row == _rows - 1 && column == 0)
-                    _topBound = worldPos;
+                    TopBoundPoint = worldPos;
             }
         }
     }
 
     public bool CheckBoundaries(Vector3 position)
     {
-        float minX = Mathf.Min(_leftBound.x, _rightBound.x);
-        float maxX = Mathf.Max(_leftBound.x, _rightBound.x);
-        float minY = Mathf.Min(_topBound.y, _bottomBound.y);
-        float maxY = Mathf.Max(_topBound.y, _bottomBound.y);
+        float minX = Mathf.Min(LeftBoundPoint.x, RightBoundPoint.x);
+        float maxX = Mathf.Max(LeftBoundPoint.x, RightBoundPoint.x);
+        float minY = Mathf.Min(TopBoundPoint.y, BottomBountPoint.y);
+        float maxY = Mathf.Max(TopBoundPoint.y, BottomBountPoint.y);
 
         return position.x >= minX && position.x <= maxX &&
                position.y >= minY && position.y <= maxY;

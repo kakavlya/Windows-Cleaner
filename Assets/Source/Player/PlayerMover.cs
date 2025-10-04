@@ -33,7 +33,7 @@ public class PlayerMover : MonoBehaviour
             return;
         }
         _moveDirection = new(_moveInput.x, _yDirection, 0);
-        var nextPosition = _moveDirection * _verticalSpeed * Time.deltaTime;
+        var nextPosition = _verticalSpeed * Time.deltaTime * _moveDirection;
 
         transform.Translate(nextPosition);
     }

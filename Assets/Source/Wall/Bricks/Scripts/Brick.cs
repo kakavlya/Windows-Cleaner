@@ -39,9 +39,8 @@ public class Brick : MonoBehaviour, IBrick
 
     private void AddRotation()
     {
-
         _rigidbody.useGravity = true;
-        _rigidbody.AddTorque(transform.up * rotationH * rotationV * Random.Range(1.1f, 200f));
-        _rigidbody.AddTorque(transform.right * rotationH * rotationV * Random.Range(1.1f, 200f));
+        _rigidbody.AddTorque(Random.Range(1.1f, 200f) * rotationH * rotationV * transform.up);
+        _rigidbody.AddTorque(Random.Range(1.1f, 200f) * rotationH * rotationV * transform.right);
     }
 }

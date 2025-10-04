@@ -43,6 +43,6 @@ public class DustResizing : MonoBehaviour
 
     private void FixedUpdate()
     {
-        GetComponent<Rigidbody>().AddTorque(Vector3.up * _spinForce * Time.fixedDeltaTime);
+        GetComponent<Rigidbody>().AddTorque(_spinForce * Time.fixedDeltaTime * Vector3.up);
     }
 }

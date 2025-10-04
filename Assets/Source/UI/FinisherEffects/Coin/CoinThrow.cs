@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CoinThrow : MonoBehaviour
@@ -13,6 +11,6 @@ public class CoinThrow : MonoBehaviour
 
     private void FixedUpdate()
     {
-        GetComponent<Rigidbody>().AddTorque(Vector3.up * _spinForce * Time.fixedDeltaTime);
+        GetComponent<Rigidbody>().AddTorque(_spinForce * Time.fixedDeltaTime * Vector3.up);
     }
 }

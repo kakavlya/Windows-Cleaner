@@ -28,10 +28,10 @@ public class WallWithObjects : Wall
         float minSpeed = settings.GetMinSpeed(_currentLevel);
         float maxSpeed = settings.GetMaxSpeed(_currentLevel);
 
-        float xMin = Mathf.Min(_leftBound.x, _rightBound.x);
-        float xMax = Mathf.Max(_leftBound.x, _rightBound.x);
-        float yMin = Mathf.Min(_bottomBound.y, _topBound.y);
-        float yMax = Mathf.Max(_bottomBound.y, _topBound.y);
+        float xMin = Mathf.Min(LeftBoundPoint.x, RightBoundPoint.x);
+        float xMax = Mathf.Max(LeftBoundPoint.x, RightBoundPoint.x);
+        float yMin = Mathf.Min(BottomBountPoint.y, TopBoundPoint.y);
+        float yMax = Mathf.Max(BottomBountPoint.y, TopBoundPoint.y);
 
         int attempts = 0;
         int maxAttempts = count * 5;
