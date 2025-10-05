@@ -15,7 +15,9 @@ public class BrickLightweight : MonoBehaviour, IBrick
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_isBreaking || !other.GetComponent<PlayerCollisionHandler>()) return;
+        if (_isBreaking || !other.GetComponent<PlayerCollisionHandler>())
+            return;
+
         Break();
     }
 

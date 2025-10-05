@@ -11665,6 +11665,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1869210474}
     - target: {fileID: 5582661521274182515, guid: dd09e75039541c248ad459ae4ad8f79a, type: 3}
+      propertyPath: RibbonOnScreenDuration
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582661521274182515, guid: dd09e75039541c248ad459ae4ad8f79a, type: 3}
       propertyPath: _starsTransforms.Array.data[0]
       value: 
       objectReference: {fileID: 501580410}
@@ -11764,6 +11768,10 @@ PrefabInstance:
       propertyPath: _coinsReward
       value: 
       objectReference: {fileID: 2064418093}
+    - target: {fileID: 8911296791105852873, guid: dd09e75039541c248ad459ae4ad8f79a, type: 3}
+      propertyPath: CoinsOnScreenDuration
+      value: 0.4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

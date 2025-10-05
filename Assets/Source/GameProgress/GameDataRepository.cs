@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameDataRepository 
 {
-    private const string _gameProgressPref = "GameProgress";
     private readonly GameDataHandle _gameDataHandle = new GameDataHandle();
 
     public GameProgress LoadProgress()

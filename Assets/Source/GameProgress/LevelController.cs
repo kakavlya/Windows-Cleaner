@@ -36,14 +36,6 @@ public class LevelController : MonoBehaviour
         NotifyLevelChanged();
     }
 
-    private void PrintAllLevelsDebug(GameProgress progress)
-    {
-        foreach(var level in progress.Levels)
-        {
-            Debug.Log($"level number: {level.LevelNumber} level is unlocked: {level.IsUnlocked}");
-        }
-    }
-
     public void SetLevel(int newLevel)
     {
         CurrentLevelInController = newLevel;
@@ -99,16 +91,4 @@ public class LevelController : MonoBehaviour
 
         _gameDataHandle.SaveProgress(progress);
     }
-
-    private void OpenAllLevels()
-    {
-        Debug.Log("Unlocking all levels");
-        GameProgress progress = _gameDataHandle.LoadProgress();
-        foreach (var level in progress.Levels)
-        {
-            level.IsUnlocked = true;
-        }
-        _gameDataHandle.SaveProgress(progress);
-    }
-
 }

@@ -1,6 +1,6 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class MopController : MonoBehaviour
 {
@@ -10,13 +10,13 @@ public class MopController : MonoBehaviour
     [SerializeField] private float _rotateAngle = 45f;
     [SerializeField] private float _rotationBackSpeed = 20f;
 
-
     [Header("Falling")]
-    [SerializeField] private float _fallinSpeed = 1f;
-    [SerializeField] private float _fallinMultiplayer = 2f;
+    [SerializeField] private float _fallingSpeed = 1f;
+    [SerializeField] private float _fallingMultiplier = 2f;
+
     [SerializeField] private Wall _wall;
     [SerializeField] private UnityEvent _outOfWallBoundaries;
-    [SerializeField] private UnityEvent _insideWallBoundaris;
+    [SerializeField] private UnityEvent _insideWallBoundaries;
 
     [Header("Joystick Controls")]
     [SerializeField] private RectTransform _outerCircle;
@@ -27,69 +27,60 @@ public class MopController : MonoBehaviour
     private Quaternion _originalRotation;
     private bool _isStopped;
     private Vector2 _startPos;
-    private Vector2 _inputDir;
 
     private void Start()
     {
         _originalRotation = transform.rotation;
-        _startPos = _outerCircle.position;
-        _innerCircle.position = _startPos;
+
+        if (_outerCircle != null)
+        {
+            _startPos = _outerCircle.position;
+            if (_innerCircle != null)
+                _innerCircle.position = _startPos;
+        }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        if (_isStopped == false)
-        {
-            HandleRotation();
-            HandleMove();
-            HandleFalling();
-        }
-       
-    }
+        if (_isStopped)
+            return;
 
-    private void LateUpdate()
-    {
-        if (_isStopped == false)
-        {
-            ClampBoundsPosition();
-        }
-  
+        HandleMove();
+        HandleFalling();
+        HandleRotation();
+        ClampBoundsPosition();
     }
 
     private void HandleMove()
     {
-        _moveDirectionX = Input.GetAxis("Horizontal");
-        var vector = this.transform.up - Vector3.down;
-        if (_moveDirectionX > 0)
-        {
-            //Debug.Log($"Vector: {vector}");
-            vector *= -1;
-        }
-        this.transform.Translate(vector * (_moveDirectionX * Time.deltaTime * _moveSpeed));
+        float axis = Input.GetAxis("Horizontal");
+        _moveDirectionX = Mathf.Abs(axis) > Mathf.Abs(_moveDirectionX)
+            ? axis
+            : Mathf.Lerp(_moveDirectionX, axis, Time.deltaTime * _joystickSmoothness);
 
         HandleJoystickInput();
+
+        Vector3 delta = new Vector3(_moveDirectionX * _moveSpeed * Time.deltaTime, 0f, 0f);
+        transform.Translate(delta, Space.World);
     }
+
     private void HandleJoystickInput()
     {
+        if (_outerCircle == null || _innerCircle == null)
+            return;
+
         if (Input.touchCount > 0 || Input.GetMouseButton(0))
         {
             Vector2 touchPos = Input.touchCount > 0 ? Input.GetTouch(0).position : (Vector2)Input.mousePosition;
-
-            // Calculate the direction from the center of the outer circle to the touch position
             Vector2 direction = touchPos - _startPos;
-            float maxDistance = _outerCircle.rect.width / 2;
+            float maxDistance = _outerCircle.rect.width * 0.5f;
 
-            // Clamp the distance to the maxDistance and calculate normalized direction
-            float distance = Mathf.Clamp(direction.magnitude, 0, maxDistance);
-            direction.Normalize();
+            float distance = Mathf.Clamp(direction.magnitude, 0f, maxDistance);
+            direction = direction.sqrMagnitude > 0f ? direction.normalized : Vector2.zero;
 
-            // Scale move direction based on the distance as a factor (provides smoother control)
-            float targetDirectionX = (distance / maxDistance) * Mathf.Sign(direction.x);
+            float target = (distance / maxDistance) * Mathf.Sign(direction.x);
+            _moveDirectionX = Mathf.Lerp(_moveDirectionX, target, Time.deltaTime * _joystickSmoothness);
 
-            // Smoothly interpolate _moveDirectionX towards the target direction for a gradual effect
-            _moveDirectionX = Mathf.Lerp(_moveDirectionX, targetDirectionX, Time.deltaTime * _joystickSmoothness);
-
-            // Set inner circle position for visual feedback, clamped to max distance
             _innerCircle.position = _startPos + direction * distance;
         }
         else
@@ -101,49 +92,56 @@ public class MopController : MonoBehaviour
 
     private void HandleFalling()
     {
-        var downVector = Vector3.down;
-        if (_wall && _wall.CheckBoundaries(this.transform.position) == false)
+        Vector3 down = Vector3.down;
+        bool outside = _wall != null && !_wall.CheckBoundaries(transform.position);
+
+        if (outside)
         {
-            downVector *= _fallinMultiplayer;
-            this._outOfWallBoundaries?.Invoke();
+            down *= _fallingMultiplier;
+            _outOfWallBoundaries?.Invoke();
         }
         else
         {
-            this._insideWallBoundaris?.Invoke();
+            _insideWallBoundaries?.Invoke();
         }
-        this.transform.Translate(downVector * (_fallinSpeed * Time.deltaTime));
+
+        transform.Translate(down * (_fallingSpeed * Time.deltaTime), Space.World);
     }
 
     private void HandleRotation()
     {
-        if (_moveDirectionX != 0)
+        if (Mathf.Abs(_moveDirectionX) > 0.0001f)
         {
-            var _targetRotation = Quaternion.Euler(_originalRotation.eulerAngles.x, _originalRotation.eulerAngles.y, _rotateAngle * _moveDirectionX);
-            transform.rotation = Quaternion.Slerp(transform.rotation, _targetRotation, Time.deltaTime * _rotationSpeed);
-
-        } else
-        {
-            RotateBack();
+            Quaternion target = Quaternion.Euler(
+                _originalRotation.eulerAngles.x,
+                _originalRotation.eulerAngles.y,
+                _rotateAngle * _moveDirectionX
+            );
+            transform.rotation = Quaternion.Slerp(transform.rotation, target, Time.deltaTime * _rotationSpeed);
         }
-    }
-
-
-    private void RotateBack()
-    {
-        transform.rotation = Quaternion.Slerp(transform.rotation, _originalRotation, Time.deltaTime * _rotationBackSpeed);
+        else
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, _originalRotation, Time.deltaTime * _rotationBackSpeed);
+        }
     }
 
     public void Stop()
     {
         _isStopped = true;
+        if (_innerCircle != null)
+            _innerCircle.position = _startPos;
+        _moveDirectionX = 0f;
     }
 
     private void ClampBoundsPosition()
     {
-        if (_wall != null)
-        {
-            float clampedX = Mathf.Clamp(transform.position.x, _wall.LeftBound.x, _wall.RightBound.x);
-            transform.position = new Vector3(clampedX, transform.position.y, transform.position.z);
-        }
+        if (_wall == null)
+            return;
+
+        float minX = Mathf.Min(_wall.LeftBound.x, _wall.RightBound.x);
+        float maxX = Mathf.Max(_wall.LeftBound.x, _wall.RightBound.x);
+        float clampedX = Mathf.Clamp(transform.position.x, minX, maxX);
+
+        transform.position = new Vector3(clampedX, transform.position.y, transform.position.z);
     }
 }

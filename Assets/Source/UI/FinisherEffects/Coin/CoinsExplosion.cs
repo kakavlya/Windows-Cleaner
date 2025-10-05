@@ -7,7 +7,7 @@ public class CoinsExplosion : MonoBehaviour, IHaveDurartion
     [SerializeField] private GameObject _3dCoin;
     [SerializeField] private int _coinsAmount = 10;
     [SerializeField] private GameObject _explosionCenter;
-    [SerializeField] public float _coinsOnScreenDuration = 0.5f;
+    public float CoinsOnScreenDuration = 0.5f;
     [SerializeField] private float _throwForce = 5f;
     [SerializeField] private float _spinForce = 1f;
     [SerializeField] private float _spread = 1f;
@@ -26,12 +26,12 @@ public class CoinsExplosion : MonoBehaviour, IHaveDurartion
             coin.SetActive(true);
             coin.GetComponent<Rigidbody>().AddForce(Vector3.up * _throwForce, ForceMode.Impulse);
             coin.GetComponent<CoinThrow>().SetSpinForce(_spinForce);
-            coin.GetComponent<CoinSizeDecrease>()?.StartDecreaseSequence(_coinsOnScreenDuration);
+            coin.GetComponent<CoinSizeDecrease>()?.StartDecreaseSequence(CoinsOnScreenDuration);
         }
     }
 
     public void SetDuration(float duration)
     {
-        _coinsOnScreenDuration = duration;
+        CoinsOnScreenDuration = duration;
     }
 }

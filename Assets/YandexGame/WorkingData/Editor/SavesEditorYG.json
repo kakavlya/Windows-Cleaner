@@ -1,5 +1,5 @@
 {
-    "idSave": 155,
+    "idSave": 157,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -266,8 +266,8 @@
         "TotalScore": 1121.0068359375,
         "CurrentLevel": 2
     },
-    "musicVolume": 0.22894620895385743,
-    "sfxVolume": 0.4572640657424927,
-    "isMusicEnabled": false,
-    "isSfxEnabled": false
+    "musicVolume": 0.0445980504155159,
+    "sfxVolume": 0.062273453921079639,
+    "isMusicEnabled": true,
+    "isSfxEnabled": true
 }
