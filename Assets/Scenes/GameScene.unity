@@ -1166,7 +1166,7 @@ PrefabInstance:
       objectReference: {fileID: 1359935034}
     - target: {fileID: 6316389699129042926, guid: 64d68011b90cc324a9f367cd12b78c37, type: 3}
       propertyPath: _moveSpeed
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6316389699129042926, guid: 64d68011b90cc324a9f367cd12b78c37, type: 3}
       propertyPath: _fallinSpeed
@@ -1180,6 +1180,10 @@ PrefabInstance:
       propertyPath: _outerCircle
       value: 
       objectReference: {fileID: 431231702}
+    - target: {fileID: 6316389699129042926, guid: 64d68011b90cc324a9f367cd12b78c37, type: 3}
+      propertyPath: _fallingSpeed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6316389699129042926, guid: 64d68011b90cc324a9f367cd12b78c37, type: 3}
       propertyPath: _joystickSmoothness
       value: 22

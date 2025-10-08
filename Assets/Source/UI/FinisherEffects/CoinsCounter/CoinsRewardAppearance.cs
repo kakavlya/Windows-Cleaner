@@ -7,7 +7,6 @@ using UnityEngine;
 public class CoinsRewardAppearance : MonoBehaviour
 {
     [SerializeField] private GameObject _coinsReward;
-    //[SerializeField] private float _startSize = 0.1f;
     [SerializeField] private float _enlargeSize = 0.5f;
     [SerializeField] private float _duration = 1.2f;
     [SerializeField] private float delayBeforeDecrease = 0.5f;
@@ -17,8 +16,6 @@ public class CoinsRewardAppearance : MonoBehaviour
 
     public void StartRewardsSequence()
     {
-        // should start from 0 coins and count to maximum, using duration variable
-        // should pop up before coins will fly using dotween
         _coinsReward.SetActive(true);
 
         _coinsRewardTransform = _coinsReward.transform;
@@ -40,6 +37,5 @@ public class CoinsRewardAppearance : MonoBehaviour
         sequence.AppendInterval(delayBeforeDecrease);
 
         sequence.Append(_coinsRewardTransform.DOScale(_endSize, _duration).SetEase(_easingType));
-        
     }
 }

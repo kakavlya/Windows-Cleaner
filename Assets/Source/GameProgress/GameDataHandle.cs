@@ -9,8 +9,7 @@ using static GameProgress;
 public class GameDataHandle
 {
     private const string _gameProgressPref = "GameProgress";
-    private readonly string _leaderBoardName = "WindowsCleanerLeaderboard";
-    private const int ExpectedLevelsCount = 50;
+    private readonly int _expectedLevelsCount = 50;
     public void SaveProgress(GameProgress progress)
     {
         string json = JsonUtility.ToJson(progress);
@@ -23,7 +22,6 @@ public class GameDataHandle
             YandexGame.SaveProgress();
         }
     }
-
 
     public GameProgress LoadProgress()
     {
@@ -57,6 +55,7 @@ public class GameDataHandle
             {
                 newProgress.Levels.Add(new LevelData { LevelNumber = i, IsUnlocked = false, Score = 0 });
             }
+
             SaveProgress(newProgress);
             return newProgress;
         }
@@ -69,7 +68,7 @@ public class GameDataHandle
             progress.Levels = new List<GameProgress.LevelData>();
         }
 
-        for (int i = 1; i <= ExpectedLevelsCount; i++)
+        for (int i = 1; i <= _expectedLevelsCount; i++)
         {
             if (!progress.Levels.Any(l => l.LevelNumber == i))
             {

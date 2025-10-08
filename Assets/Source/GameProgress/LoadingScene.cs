@@ -43,7 +43,6 @@ public class LoadingScene : MonoBehaviour
         }
     }
 
-
     private IEnumerator ProceedToGame()
     {
         float elapsedTime = Time.time - startTime;

@@ -17,7 +17,6 @@ public class RewardObj : MonoBehaviour
     private float _stepsLeft;
     private float _scoresInStep;
 
-
     public void ShowCoinsPrize() =>
         ShowCoinsPrize(_totalRewardCount);
 
@@ -26,7 +25,6 @@ public class RewardObj : MonoBehaviour
 
     private void GetCoinsPrize(int scores)
     {
-        // TODO implement logic for reward calculation;
         _totalRewardCount = scores * 10;
     }
 
@@ -51,13 +49,10 @@ public class RewardObj : MonoBehaviour
     {
         CalculateShowReward(_scores.GetBricksHit());
 
-
         float milliSecondsToWait = duration / _updatesDuringSecond;
         _stepsToMake = duration * _updatesDuringSecond;
         _stepsLeft = _stepsToMake;
         _scoresInStep = _totalRewardCount / _stepsToMake;
-        //Debug.Log(String.Format("_steps to make {0}, _stepsLeft: {1}, _scoresInStep{2}, milliSecondsToWait{3}",
-        //    _stepsToMake, _stepsLeft, _scoresInStep, milliSecondsToWait));
         IEnumerator coroutine = StartUpdatingScores(milliSecondsToWait);
         StartCoroutine(coroutine);
     }
@@ -70,7 +65,6 @@ public class RewardObj : MonoBehaviour
         {
             _stepsLeft--;
             _currentDisplayedReward += _scoresInStep;
-            //Debug.Log(String.Format(" _stepsLeft: {0}, _currentDisplayedReward{1}", _stepsLeft, _currentDisplayedReward));
             int rounded = Convert.ToInt32(_currentDisplayedReward);
             ShowCoinsPrize(rounded);
             StartCoroutine(StartUpdatingScores(milliSecondsToWait));
