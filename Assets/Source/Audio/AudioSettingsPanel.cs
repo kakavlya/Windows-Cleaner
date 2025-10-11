@@ -1,22 +1,19 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using DG.Tweening;
 
 public class AudioSettingsPanel : MonoBehaviour
 {
-    public Slider musicSlider;
-    public Slider sfxSlider;
-    public Toggle musicToggle;
-    public Toggle sfxToggle;
+    [SerializeField] private Slider _musicSlider;
+    [SerializeField] private Slider _sfxSlider;
+    [SerializeField] private Toggle _musicToggle;
+    [SerializeField] private Toggle _sfxToggle;
 
-    private bool _initialized = false;
+    private bool _initialized;
 
     private IEnumerator Start()
     {
-        //while (Audio.Instance == null)
-        //    yield return null;
-        yield return new WaitUntil(() => Audio.Instance!= null);
+        yield return new WaitUntil(() => Audio.Instance != null);
 
         if (!_initialized)
         {
@@ -27,37 +24,38 @@ public class AudioSettingsPanel : MonoBehaviour
 
     private void InitializeUI()
     {
-        musicSlider.value = Audio.Instance.musicVolume;
-        sfxSlider.value = Audio.Instance.sfxVolume;
-        musicToggle.isOn = Audio.Instance.IsMusicEnabled;
-        sfxToggle.isOn = Audio.Instance.IsSfxEnabled;
+        _musicSlider.value = Audio.Instance.MusicVolume;
+        _sfxSlider.value = Audio.Instance.SfxVolume;
+        _musicToggle.isOn = Audio.Instance.IsMusicEnabled;
+        _sfxToggle.isOn = Audio.Instance.IsSfxEnabled;
 
-        musicSlider.onValueChanged.AddListener(Audio.Instance.SetMusicVolume);
-        sfxSlider.onValueChanged.AddListener(Audio.Instance.SetSfxVolume);
-        musicToggle.onValueChanged.AddListener(Audio.Instance.ToggleMusic);
-        sfxToggle.onValueChanged.AddListener(Audio.Instance.ToggleSfx);
+        _musicSlider.onValueChanged.AddListener(Audio.Instance.SetMusicVolume);
+        _sfxSlider.onValueChanged.AddListener(Audio.Instance.SetSfxVolume);
+        _musicToggle.onValueChanged.AddListener(Audio.Instance.ToggleMusic);
+        _sfxToggle.onValueChanged.AddListener(Audio.Instance.ToggleSfx);
     }
 
     private void OnDisable()
     {
         if (Audio.Instance != null)
-        {
             Audio.Instance.SaveSettings();
-        }
     }
 
     private void OnDestroy()
     {
-        musicSlider.onValueChanged.RemoveListener(Audio.Instance.SetMusicVolume);
-        sfxSlider.onValueChanged.RemoveListener(Audio.Instance.SetSfxVolume);
-        musicToggle.onValueChanged.RemoveListener(Audio.Instance.ToggleMusic);
-        sfxToggle.onValueChanged.RemoveListener(Audio.Instance.ToggleSfx);
+        if (Audio.Instance == null)
+            return;
+
+        if (_musicSlider != null)
+            _musicSlider.onValueChanged.RemoveListener(Audio.Instance.SetMusicVolume);
+
+        if (_sfxSlider != null)
+            _sfxSlider.onValueChanged.RemoveListener(Audio.Instance.SetSfxVolume);
+
+        if (_musicToggle != null)
+            _musicToggle.onValueChanged.RemoveListener(Audio.Instance.ToggleMusic);
+
+        if (_sfxToggle != null)
+            _sfxToggle.onValueChanged.RemoveListener(Audio.Instance.ToggleSfx);
     }
-
-    //private void OnEnable()
-    //{
-
-    //    InitializeUI();
-    //    IconToggleUI[] iconToggles = GetComponentsInChildren<IconToggleUI>();
-    //}
 }

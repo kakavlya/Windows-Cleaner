@@ -1354,10 +1354,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 990a434c85b26574185e2bc956e31c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicSlider: {fileID: 1138237792}
-  sfxSlider: {fileID: 1425425217}
-  musicToggle: {fileID: 1084446131}
-  sfxToggle: {fileID: 1175357649}
+  _musicSlider: {fileID: 1138237792}
+  _sfxSlider: {fileID: 1425425217}
+  _musicToggle: {fileID: 1084446131}
+  _sfxToggle: {fileID: 1175357649}
 --- !u!1001 &335632637
 PrefabInstance:
   m_ObjectHideFlags: 0

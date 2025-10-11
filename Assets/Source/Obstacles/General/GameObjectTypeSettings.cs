@@ -1,46 +1,54 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
+[System.Serializable]
 public class GameObjectTypeSettings
 {
-    public List<ObstacleData> dataPrefabs;
+    [FormerlySerializedAs("dataPrefabs")]
+    public List<ObstacleData> DataPrefabs;
 
-    public AnimationCurve countCurve;   
-    public int maxCount = 10;            
+    [FormerlySerializedAs("countCurve")]
+    public AnimationCurve CountCurve;
 
-    public AnimationCurve speedMinCurve; 
-    public AnimationCurve speedMaxCurve; 
+    [FormerlySerializedAs("maxCount")]
+    public int MaxCount = 10;
 
-    public float minSpeed = 5f;
-    public float maxSpeed = 10f;
+    [FormerlySerializedAs("speedMinCurve")]
+    public AnimationCurve SpeedMinCurve;
 
-    
+    [FormerlySerializedAs("speedMaxCurve")]
+    public AnimationCurve SpeedMaxCurve;
+
+    [FormerlySerializedAs("minSpeed")]
+    public float MinSpeed = 5f;
+
+    [FormerlySerializedAs("maxSpeed")]
+    public float MaxSpeed = 10f;
+
     public int GetCount(int level)
     {
-        float normalized = countCurve.Evaluate(level);
-        return Mathf.RoundToInt(normalized * maxCount);
+        float normalized = CountCurve.Evaluate(level);
+        return Mathf.RoundToInt(normalized * MaxCount);
     }
 
     public float GetMinSpeed(int level)
     {
-        float normalized = speedMinCurve.Evaluate(level);
-        return Mathf.Lerp(minSpeed, maxSpeed, normalized);
+        float normalized = SpeedMinCurve.Evaluate(level);
+        return Mathf.Lerp(MinSpeed, MaxSpeed, normalized);
     }
 
-    
     public float GetMaxSpeed(int level)
     {
-        float normalized = speedMaxCurve.Evaluate(level);
-        return Mathf.Lerp(minSpeed, maxSpeed, normalized);
+        float normalized = SpeedMaxCurve.Evaluate(level);
+        return Mathf.Lerp(MinSpeed, MaxSpeed, normalized);
     }
 
-    
     public ObstacleData GetRandomData()
     {
-        if (dataPrefabs == null || dataPrefabs.Count == 0)
+        if (DataPrefabs == null || DataPrefabs.Count == 0)
             return null;
-        return dataPrefabs[Random.Range(0, dataPrefabs.Count)];
+
+        return DataPrefabs[Random.Range(0, DataPrefabs.Count)];
     }
 }
-

@@ -59,6 +59,7 @@ public class MoveBetweenPoints : MonoBehaviour
                     _targetPoint = _leftPoint;
                     _currentDirection = Direction.Left;
                 }
+
                 _isMoving = true;
 
                 OnDirectionChanged?.Invoke(_currentDirection);

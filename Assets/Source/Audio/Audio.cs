@@ -9,8 +9,8 @@ public class Audio : MonoBehaviour
     [SerializeField] private AudioClip _musicClip;
 
     [Header("Settings")]
-    [Range(0f, 1f)] public float musicVolume = 1f;
-    [Range(0f, 1f)] public float sfxVolume = 1f;
+    [Range(0f, 1f)] public float MusicVolume = 1f;
+    [Range(0f, 1f)] public float SfxVolume = 1f;
     [SerializeField] private bool _isMusicEnabled = true;
     [SerializeField] private bool _isSfxEnabled = true;
 
@@ -39,7 +39,6 @@ public class Audio : MonoBehaviour
         _sfxSource.loop = false;
         _sfxSource.playOnAwake = false;
 
-        // loading local settings
         LoadSettings();
 
         if (YandexGame.SDKEnabled)
@@ -62,13 +61,13 @@ public class Audio : MonoBehaviour
 
     public void SetMusicVolume(float volume)
     {
-        musicVolume = volume;
+        MusicVolume = volume;
         ApplySettings();
     }
 
     public void SetSfxVolume(float volume)
     {
-        sfxVolume = volume;
+        SfxVolume = volume;
         ApplySettings();
     }
 
@@ -89,29 +88,28 @@ public class Audio : MonoBehaviour
         if (_musicSource != null)
         {
             _musicSource.mute = !IsMusicEnabled;
-            _musicSource.volume = musicVolume;
+            _musicSource.volume = MusicVolume;
         }
 
         if (_sfxSource != null)
         {
             _sfxSource.mute = !IsSfxEnabled;
-            _sfxSource.volume = sfxVolume;
+            _sfxSource.volume = SfxVolume;
         }
     }
 
     public void SaveSettings()
     {
-        PlayerPrefs.SetFloat("MusicVolume", musicVolume);
-        PlayerPrefs.SetFloat("SfxVolume", sfxVolume);
+        PlayerPrefs.SetFloat("MusicVolume", MusicVolume);
+        PlayerPrefs.SetFloat("SfxVolume", SfxVolume);
         PlayerPrefs.SetInt("MusicEnabled", IsMusicEnabled ? 1 : 0);
         PlayerPrefs.SetInt("SfxEnabled", IsSfxEnabled ? 1 : 0);
         PlayerPrefs.Save();
 
-        // ќбновл€ем объект сохранений дл€ яндекса
         if (YandexGame.SDKEnabled)
         {
-            YandexGame.savesData.musicVolume = musicVolume;
-            YandexGame.savesData.sfxVolume = sfxVolume;
+            YandexGame.savesData.musicVolume = MusicVolume;
+            YandexGame.savesData.sfxVolume = SfxVolume;
             YandexGame.savesData.isMusicEnabled = IsMusicEnabled;
             YandexGame.savesData.isSfxEnabled = IsSfxEnabled;
             YandexGame.SaveProgress();
@@ -120,16 +118,16 @@ public class Audio : MonoBehaviour
 
     public void LoadSettings()
     {
-        musicVolume = PlayerPrefs.GetFloat("MusicVolume", 1f);
-        sfxVolume = PlayerPrefs.GetFloat("SfxVolume", 1f);
+        MusicVolume = PlayerPrefs.GetFloat("MusicVolume", 1f);
+        SfxVolume = PlayerPrefs.GetFloat("SfxVolume", 1f);
         IsMusicEnabled = PlayerPrefs.GetInt("MusicEnabled", 1) == 1;
         IsSfxEnabled = PlayerPrefs.GetInt("SfxEnabled", 1) == 1;
     }
 
     public void LoadSettingsFromYandex()
     {
-        musicVolume = YandexGame.savesData.musicVolume;
-        sfxVolume = YandexGame.savesData.sfxVolume;
+        MusicVolume = YandexGame.savesData.musicVolume;
+        SfxVolume = YandexGame.savesData.sfxVolume;
         IsMusicEnabled = YandexGame.savesData.isMusicEnabled;
         IsSfxEnabled = YandexGame.savesData.isSfxEnabled;
     }
@@ -138,7 +136,7 @@ public class Audio : MonoBehaviour
     {
         if (IsSfxEnabled && clip != null && _sfxSource != null)
         {
-            _sfxSource.PlayOneShot(clip, sfxVolume);
+            _sfxSource.PlayOneShot(clip, SfxVolume);
         }
     }
 }
