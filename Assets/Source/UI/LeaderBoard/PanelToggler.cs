@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PanelToggler : MonoBehaviour
 {
-    [SerializeField] private Button _ScreenOpenPanelcon;
+    [SerializeField] private Button _screenOpenPanelcon;
     [SerializeField] private Button _panelClose;
 
     [SerializeField] private GameObject _UIPanel;
@@ -14,13 +12,13 @@ public class PanelToggler : MonoBehaviour
 
     private void Start()
     {
-        _ScreenOpenPanelcon.onClick.AddListener(TogglePanel);
+        _screenOpenPanelcon.onClick.AddListener(TogglePanel);
         _panelClose.onClick.AddListener(TogglePanel);
     }
 
     private void OnDisable()
     {
-        _ScreenOpenPanelcon.onClick.RemoveListener(TogglePanel);
+        _screenOpenPanelcon.onClick.RemoveListener(TogglePanel);
         _panelClose.onClick.RemoveListener(TogglePanel);
     }
 

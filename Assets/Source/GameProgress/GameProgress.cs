@@ -16,7 +16,6 @@ public class GameProgress
         }
     }
 
-
     [System.Serializable]
     public class LevelData
     {
@@ -24,5 +23,4 @@ public class GameProgress
         public bool IsUnlocked;
         public float Score;
     }
-
 }

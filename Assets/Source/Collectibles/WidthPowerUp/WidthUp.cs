@@ -23,8 +23,6 @@ public class WidthUp : MonoBehaviour
         }
     }
 
-
-
     private void Remove()
     {
         Destroy(gameObject);

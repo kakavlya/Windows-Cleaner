@@ -1,9 +1,6 @@
-using DG.Tweening;
-using System;
+
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class CollectedFinisher : MonoBehaviour
 {
@@ -32,27 +29,11 @@ public class CollectedFinisher : MonoBehaviour
     
     public void StartFinishingSequence()
     {
-        // First sequence - start explosion of coins, coins flying up and dust object,
-        // on sequence finishing - call the second sequence
-        // sequence length 3 seconds
-        // Second sequence - flying finishing ribbon, on sequence finished - call the buttons menu
-        // sequence length 4 seconds
-
-
-
-
-        // Coins should spawn in the middle with random x, y coordinate
-        // A couple of seconds after spawn go to random location slightly upper
-        // and than go to the upper right corner
-        // Need 3 points -
-        // starting point with a spread
-        // middle point with less spread and end point
         StartCoroutine(AnimateFromPrefabRoutine());
     }
 
     private IEnumerator AnimateFromPrefabRoutine()
     {
-
         yield return new WaitForSeconds(_waitingTimeCoroutineStarting);
 
         _coinsExplosion.StartExplosion();
@@ -61,5 +42,4 @@ public class CollectedFinisher : MonoBehaviour
         _resultsRibbon.StartRibbonSequenceAfterDelay(_duration);
         _coinsRewardAppearance.StartRewardsSequence();
     }
-
 }

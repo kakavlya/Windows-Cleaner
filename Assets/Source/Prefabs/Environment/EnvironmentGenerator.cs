@@ -1,13 +1,9 @@
-using System;
-using System.Reflection;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class EnvironmentGenerator : MonoBehaviour
 {
     [SerializeField] private GameObject[] _environments;
     [SerializeField] private Vector3 _position;
-
 
     private void Start()
     {
@@ -20,7 +16,6 @@ public class EnvironmentGenerator : MonoBehaviour
         {
             GenerateRandomEnvironment();
         }
-        
     }
 
     private void GenerateRandomEnvironment()

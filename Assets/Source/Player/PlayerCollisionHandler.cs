@@ -26,7 +26,6 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        //Debug.Log($"Collided with ${other.gameObject.name}");
         if (other.collider.TryGetComponent(out FinishObj finish))
         {
 

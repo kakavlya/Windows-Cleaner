@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,7 +8,6 @@ public class LevelSelector : MonoBehaviour
 {
     [SerializeField] private string _gameProgressPrefs = "GameProgress";
     [SerializeField] private GameObject _levelButtonPrefab;
-    //[SerializeField] private Button _closeBtn;
     [SerializeField] private Transform _contentParent;
     [SerializeField] private int _totalLevels;
 
@@ -28,17 +23,6 @@ public class LevelSelector : MonoBehaviour
         LoadLevelStatus();
         GenerateLevelButton();
     }
-
-    //private void OnEnable()
-    //{
-    //    _closeBtn.onClick.AddListener(CloseMenu);
-    //}
-
-    //private void OnDisable()
-    //{
-    //    _closeBtn.onClick.RemoveListener(CloseMenu);
-    //}
-
 
     public void LoadLevels()
     {

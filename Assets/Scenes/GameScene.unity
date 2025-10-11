@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -133,7 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4079707}
   m_Layer: 0
-  m_Name: Borders (1)
+  m_Name: Borders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5046,6 +5045,7 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+  m_ScrollDeltaPerTick: 6
 --- !u!1 &1344432782
 GameObject:
   m_ObjectHideFlags: 0
@@ -5541,7 +5541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b13d7e71264a29247b1b81d6431c5ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ScreenOpenPanelcon: {fileID: 878503353}
+  _screenOpenPanelcon: {fileID: 0}
   _panelClose: {fileID: 5407382313080352284}
   _UIPanel: {fileID: 258411818}
   _sidePanelCanvasGroups:

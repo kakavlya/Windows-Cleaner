@@ -11,7 +11,6 @@ public class MopRotator : MonoBehaviour
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private float _rotationBackSpeed = 20f;
 
-
     private Quaternion _originalRotation;
 
     private void Start()
@@ -36,7 +35,6 @@ public class MopRotator : MonoBehaviour
             RotateBack();
         }
     }
-
 
     private void RotateBack()
     {

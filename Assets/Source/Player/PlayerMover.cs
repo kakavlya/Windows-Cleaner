@@ -1,10 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 
 public class PlayerMover : MonoBehaviour
 {
@@ -32,18 +28,11 @@ public class PlayerMover : MonoBehaviour
         {
             return;
         }
+
         _moveDirection = new(_moveInput.x, _yDirection, 0);
         var nextPosition = _verticalSpeed * Time.deltaTime * _moveDirection;
 
         transform.Translate(nextPosition);
-    }
-
-    private void CheckBoundaries()
-    {
-        var adjustedPosition = this.transform.position;
-        adjustedPosition.x = Math.Clamp(this.transform.position.x, _wall.LeftBound.x, _wall.RightBound.x);
-
-        this.transform.position = adjustedPosition;
     }
 
     public Vector2 MoveInput()

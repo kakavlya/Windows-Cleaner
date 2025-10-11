@@ -7,7 +7,6 @@ public class TutorialDisplay : MonoBehaviour
     [SerializeField] private GameObject _tutorialElement;
     [SerializeField] private string _tutorialPrefsName = "TutorialShown";
 
-
     private void Start()
     {
         ShowTutorialIfNeeded();
