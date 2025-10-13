@@ -35,7 +35,6 @@ public class RewardObj : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("CoinsReward: script was enabled");
         CalculateShowReward(_scores.GetBricksHit());
         ShowCoinsPrize(0);
     }

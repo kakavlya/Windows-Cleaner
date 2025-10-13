@@ -30,7 +30,6 @@ public class GameDataHandle
         if(YandexGame.SDKEnabled && YandexGame.savesData.gameProgress != null)
         {
             progress = YandexGame.savesData.gameProgress;
-            Debug.Log("Progress loaded from YandexGames.savesData");
         } else
         {
             progress = LoadProgressLocal();

@@ -87,7 +87,6 @@ namespace YG
                 payingStatus = null;
 
                 RejectedAuthorization.Invoke();
-                Debug.LogError("Failed init player data");
                 GetDataInvoke();
                 return;
             }

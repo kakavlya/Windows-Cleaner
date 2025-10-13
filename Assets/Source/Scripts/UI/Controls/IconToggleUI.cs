@@ -17,15 +17,12 @@ public class IconToggleUI : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("IconToggleUI גûחמג OnEnabled");
-
         _toggle.onValueChanged.AddListener(UpdateIcons);
         UpdateIcons(_toggle.isOn);
     }
 
     private void OnDisable()
     {
-        Debug.Log("IconToggleUI גûחמג OnDisable");
         _toggle.onValueChanged.RemoveListener(UpdateIcons);
     }
 
@@ -33,8 +30,5 @@ public class IconToggleUI : MonoBehaviour
     {
         _iconOn.SetActive(isOn);
         _iconOff.SetActive(!isOn);
-        Debug.Log($"IconToggle UIUpdateIcons");
-        //Debug.Log($"_iconOn is: {_iconOn}");
-        //Debug.Log($"_iconOff is: {_iconOff}");
     }
 }

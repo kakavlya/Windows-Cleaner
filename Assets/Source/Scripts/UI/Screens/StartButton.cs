@@ -34,9 +34,6 @@ public class StartButton : MonoBehaviour
             .DefaultIfEmpty(minimalLevelToLoad)
             .Max();
 
-        Debug.Log("Levels " + levels.Count);
-        Debug.Log("HighestInlocked level" + highestUnlockedLevel);
-
         _levelSelector.LoadLevel(highestUnlockedLevel);
     }
 }

@@ -8,13 +8,13 @@ public class ArrowHint : MonoBehaviour
     private RectTransform arrowTransform; 
 
     [SerializeField]
-    private float targetScale = 1.2f; 
+    private float _targetScale = 1.2f; 
 
     [SerializeField]
-    private float duration = 0.5f; 
+    private float _duration = 0.5f; 
 
     [SerializeField]
-    private int repeatCount = -1; // -1 for endless animation
+    private int _repeatCount = -1;
 
     [SerializeField]
     private bool playOnEnable = true; 
@@ -38,16 +38,15 @@ public class ArrowHint : MonoBehaviour
     {
         if (arrowTransform == null)
         {
-            Debug.LogError("ArrowTransform не назначен!");
             return;
         }
 
         arrowTransform.localScale = Vector3.one;
 
-        pulseTween = arrowTransform.DOScale(targetScale, duration)
+        pulseTween = arrowTransform.DOScale(_targetScale, _duration)
             .SetEase(Ease.InOutSine)
-            .SetLoops(repeatCount, LoopType.Yoyo)
-            .SetUpdate(true); // Update using real time and not game time scale
+            .SetLoops(_repeatCount, LoopType.Yoyo)
+            .SetUpdate(true);
     }
 
     public void StopPulseAnimation()
@@ -57,7 +56,7 @@ public class ArrowHint : MonoBehaviour
             pulseTween.Kill();
             pulseTween = null;
         }
-        // Возвращаем исходный масштаб
+
         if (arrowTransform != null)
         {
             arrowTransform.localScale = Vector3.one;
