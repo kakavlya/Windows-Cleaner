@@ -16,7 +16,7 @@ namespace YG
     {
         [Header("———————  Basic settings  ———————")]
 
-        [Tooltip("При инициализации объекта Player авторизованному игроку будет показано диалоговое окно с запросом на предоставление доступа к персональным данным. Запрашивается доступ только к аватару и имени, идентификатор пользователя всегда передается автоматически. Примерное содержание: Игра запрашивает доступ к вашему аватару и имени пользователя на сервисах Яндекса.\nЕсли вам достаточно знать идентификатор, а имя и аватар пользователя не нужны, используйте опциональный параметр scopes: false. В этом случае диалоговое окно не будет показано.")]
+        [Tooltip("При инициализации объекта PlayerNs авторизованному игроку будет показано диалоговое окно с запросом на предоставление доступа к персональным данным. Запрашивается доступ только к аватару и имени, идентификатор пользователя всегда передается автоматически. Примерное содержание: Игра запрашивает доступ к вашему аватару и имени пользователя на сервисах Яндекса.\nЕсли вам достаточно знать идентификатор, а имя и аватар пользователя не нужны, используйте опциональный параметр scopes: false. В этом случае диалоговое окно не будет показано.")]
         public bool scopes = true;
         public enum PlayerPhotoSize { small, medium, large };
         [ConditionallyVisible(nameof(scopes))]
@@ -45,7 +45,7 @@ namespace YG
             public bool authorized = true;
             public bool isMobile;
             public string language = "ru";
-            public string name = "Player this";
+            public string name = "PlayerNs this";
             public string uniqueID = "000";
             public string photo = avatarExample;
             [Tooltip("Четыре возможных значения, зависящих от частоты и объема покупок пользователя:\n\n •  paying — пользователь купил портальную валюту на сумму более 500 рублей за последний месяц.\n\n •  partially_paying — у пользователя была хотя бы одна покупка портальной валюты реальными деньгами за последний год.\n\n •  not_paying — пользователь не делал покупок портальной валюты реальными деньгами за последний год.\n\n •  unknown — пользователь не из РФ или он не разрешил передачу такой информации разработчику.")]
@@ -151,7 +151,7 @@ namespace YG
                     new LBPlayerData { name = "Ivan", rank = 2, score = 15, uniqueID = "321", photo = avatarExample },
                     new LBPlayerData { name = "Tanya", rank = 3, score = 23, uniqueID = "456", photo = avatarExample },
                     new LBPlayerData { name = "Player4", rank = 4, score = 30, uniqueID = "321", photo = avatarExample },
-                    new LBPlayerData { name = "Player this", rank = 5, score = 40, uniqueID = "000", photo = avatarExample },
+                    new LBPlayerData { name = "PlayerNs this", rank = 5, score = 40, uniqueID = "000", photo = avatarExample },
                     new LBPlayerData { name = "Player6", rank = 6, score = 50, uniqueID = "321", photo = avatarExample }
                 },
                 type = "numeric",
@@ -176,7 +176,7 @@ namespace YG
                     new LBPlayerData { name = "Max", rank = 2, score = 15321, uniqueID = "987", photo = avatarExample },
                     new LBPlayerData { name = "Maria", rank = 3, score = 62000, uniqueID = "891", photo = avatarExample },
                     new LBPlayerData { name = "Player4", rank = 4, score = 122000, uniqueID = "321", photo = avatarExample },
-                    new LBPlayerData { name = "Player this", rank = 5, score = 127000, uniqueID = "000", photo = avatarExample },
+                    new LBPlayerData { name = "PlayerNs this", rank = 5, score = 127000, uniqueID = "000", photo = avatarExample },
                     new LBPlayerData { name = "Player6", rank = 6, score = 340000, uniqueID = "321", photo = avatarExample }
                 },
                 type = "numeric",
@@ -446,7 +446,7 @@ namespace YG
 
         public enum BackgroundImageFormat
         {
-            [InspectorName("Player Settings")] unity,
+            [InspectorName("PlayerNs Settings")] unity,
             [InspectorName("No Background")] no,
             [InspectorName("PNG")] png,
             [InspectorName("JPG")] jpg,

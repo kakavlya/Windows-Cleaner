@@ -1,44 +1,43 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class MopRotator : MonoBehaviour
+namespace WindowsCleaner.PlayerNs
 {
-    [SerializeField] private PlayerMover _playerMover;
-    [SerializeField] private float _rotationDegree;
-    [SerializeField] private float _rotationSpeed;
-    [SerializeField] private float _rotationBackSpeed = 20f;
-
-    private Quaternion _originalRotation;
-
-    private void Start()
+    public class MopRotator : MonoBehaviour
     {
-        _originalRotation = transform.rotation;
+        [SerializeField] private PlayerMover _playerMover;
+        [SerializeField] private float _rotationDegree;
+        [SerializeField] private float _rotationSpeed;
+        [SerializeField] private float _rotationBackSpeed = 20f;
 
-    }
+        private Quaternion _originalRotation;
 
-    private void FixedUpdate()
-    {
-        
-        float moveInput = _playerMover.MoveInput().x;
-
-        if (moveInput != 0)
+        private void Start()
         {
-            var _targetRotation = Quaternion.Euler(_originalRotation.eulerAngles.x, _originalRotation.eulerAngles.y, _rotationDegree * moveInput);
+            _originalRotation = transform.rotation;
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, _targetRotation, Time.deltaTime * _rotationSpeed);
+        }
 
-        } else
+        private void FixedUpdate()
         {
-            RotateBack();
+
+            float moveInput = _playerMover.MoveInput().x;
+
+            if (moveInput != 0)
+            {
+                var _targetRotation = Quaternion.Euler(_originalRotation.eulerAngles.x, _originalRotation.eulerAngles.y, _rotationDegree * moveInput);
+
+                transform.rotation = Quaternion.Slerp(transform.rotation, _targetRotation, Time.deltaTime * _rotationSpeed);
+
+            }
+            else
+            {
+                RotateBack();
+            }
+        }
+
+        private void RotateBack()
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, _originalRotation, Time.deltaTime * _rotationBackSpeed);
         }
     }
-
-    private void RotateBack()
-    {
-        transform.rotation = Quaternion.Slerp(transform.rotation, _originalRotation, Time.deltaTime * _rotationBackSpeed);
-    }
-
 }

@@ -1,39 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class StartButton : MonoBehaviour
+namespace WindowsCleaner.UI
 {
-    [SerializeField] private Button _startButton;
-    [SerializeField] private LevelSelector _levelSelector;
-    private GameDataHandle _gameDataHandle;
-
-    private void Start()
+    public class StartButton : MonoBehaviour
     {
-        _startButton.onClick.AddListener(LoadLevel);
-        _gameDataHandle = new GameDataHandle();
-    }
+        [SerializeField] private Button _startButton;
+        [SerializeField] private LevelSelector _levelSelector;
+        private GameDataHandle _gameDataHandle;
 
-    private void OnDisable()
-    {
-        _startButton.onClick.RemoveListener(LoadLevel);
-    }
+        private void Start()
+        {
+            _startButton.onClick.AddListener(LoadLevel);
+            _gameDataHandle = new GameDataHandle();
+        }
 
-    private void LoadLevel()
-    {
-        int minimalLevelToLoad = 1;
+        private void OnDisable()
+        {
+            _startButton.onClick.RemoveListener(LoadLevel);
+        }
 
-        var progress = _gameDataHandle.LoadProgress();
-        var levels = progress.Levels;
-        int highestUnlockedLevel = progress.Levels
-            .Where(level => level.IsUnlocked)
-            .Select(level => level.LevelNumber)
-            .DefaultIfEmpty(minimalLevelToLoad)
-            .Max();
+        private void LoadLevel()
+        {
+            int minimalLevelToLoad = 1;
 
-        _levelSelector.LoadLevel(highestUnlockedLevel);
+            var progress = _gameDataHandle.LoadProgress();
+            var levels = progress.Levels;
+            int highestUnlockedLevel = progress.Levels
+                .Where(level => level.IsUnlocked)
+                .Select(level => level.LevelNumber)
+                .DefaultIfEmpty(minimalLevelToLoad)
+                .Max();
+
+            _levelSelector.LoadLevel(highestUnlockedLevel);
+        }
     }
 }

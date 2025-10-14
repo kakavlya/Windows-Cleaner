@@ -4,93 +4,97 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static GameProgress;
 
-public class LevelSelector : MonoBehaviour
+namespace WindowsCleaner.UI
 {
-    [SerializeField] private string _gameProgressPrefs = "GameProgress";
-    [SerializeField] private GameObject _levelButtonPrefab;
-    [SerializeField] private Transform _contentParent;
-    [SerializeField] private int _totalLevels;
-
-    private GameProgress _progress;
-    private GameDataHandle _gameDataHandle;
-
-    private bool[] _levelStatus;
-    private void Start()
+    public class LevelSelector : MonoBehaviour
     {
-        _gameDataHandle = new GameDataHandle();
-        LoadLevels();
-        EnsureAllLevelsExist(_progress, _totalLevels);
-        LoadLevelStatus();
-        GenerateLevelButton();
-    }
+        [SerializeField] private string _gameProgressPrefs = "GameProgress";
+        [SerializeField] private GameObject _levelButtonPrefab;
+        [SerializeField] private Transform _contentParent;
+        [SerializeField] private int _totalLevels;
 
-    public void LoadLevels()
-    {
-        _progress = _gameDataHandle.LoadProgress();
-        if(_progress.Levels.Count == 0)
+        private GameProgress _progress;
+        private GameDataHandle _gameDataHandle;
+
+        private bool[] _levelStatus;
+        private void Start()
         {
-            _progress.Levels.Add(new LevelData { LevelNumber = 1, IsUnlocked = true, Score = 0 });
-            for(int i = 2; i < _totalLevels; i++)
-            {
-                _progress.Levels.Add(new LevelData { LevelNumber = i, IsUnlocked = false, Score = 0 });
-            }
-
-            _gameDataHandle.SaveProgress(_progress);
+            _gameDataHandle = new GameDataHandle();
+            LoadLevels();
+            EnsureAllLevelsExist(_progress, _totalLevels);
+            LoadLevelStatus();
+            GenerateLevelButton();
         }
-    }
 
-    private void LoadLevelStatus()
-    {
-        _levelStatus = new bool[_totalLevels];
-        for (int i = 0; i < _totalLevels; i++)
+        public void LoadLevels()
         {
-            _levelStatus[i] = _progress.Levels[i].IsUnlocked;
-        }
-    }
-
-    private void GenerateLevelButton()
-    {
-        for (int i =0; i < _totalLevels; i++)
-        {
-            GameObject button = Instantiate(_levelButtonPrefab, _contentParent);
-            button.GetComponentInChildren<TMP_Text>().text = (i + 1).ToString();
-
-            if (_levelStatus[i])
+            _progress = _gameDataHandle.LoadProgress();
+            if (_progress.Levels.Count == 0)
             {
-                button.GetComponent<Button>().interactable = true;
-                int levelIndex = i;
-                button.GetComponent<Button>().onClick.AddListener(() => LoadNextLevel(levelIndex));
-            } else
-            {
-                button.GetComponent<Button>().interactable = false;
+                _progress.Levels.Add(new LevelData { LevelNumber = 1, IsUnlocked = true, Score = 0 });
+                for (int i = 2; i < _totalLevels; i++)
+                {
+                    _progress.Levels.Add(new LevelData { LevelNumber = i, IsUnlocked = false, Score = 0 });
+                }
+
+                _gameDataHandle.SaveProgress(_progress);
             }
         }
-    }
 
-    public void LoadLevel(int levelIndex)
-    {
-        LevelController.Instance.SetLevel(levelIndex);
-        LevelController.Instance.GoingNextLevel();
-        SceneManager.LoadScene("GameScene");
-    }
-
-    public void LoadNextLevel(int levelIndex)
-    {
-        int selectedLevel = levelIndex + 1;
-        LoadLevel(selectedLevel);
-    }
-
-    private void CloseMenu()
-    {
-        gameObject.SetActive(false);
-    }
-
-    private void EnsureAllLevelsExist(GameProgress progress, int totalLevelsInGame)
-    {
-        int currentLevelCount = progress.Levels.Count;
-        for (int i = currentLevelCount + 1; i <= totalLevelsInGame; i++)
+        private void LoadLevelStatus()
         {
-            progress.Levels.Add(new LevelData { LevelNumber = i, IsUnlocked = false, Score = 0 });
+            _levelStatus = new bool[_totalLevels];
+            for (int i = 0; i < _totalLevels; i++)
+            {
+                _levelStatus[i] = _progress.Levels[i].IsUnlocked;
+            }
+        }
+
+        private void GenerateLevelButton()
+        {
+            for (int i = 0; i < _totalLevels; i++)
+            {
+                GameObject button = Instantiate(_levelButtonPrefab, _contentParent);
+                button.GetComponentInChildren<TMP_Text>().text = (i + 1).ToString();
+
+                if (_levelStatus[i])
+                {
+                    button.GetComponent<Button>().interactable = true;
+                    int levelIndex = i;
+                    button.GetComponent<Button>().onClick.AddListener(() => LoadNextLevel(levelIndex));
+                }
+                else
+                {
+                    button.GetComponent<Button>().interactable = false;
+                }
+            }
+        }
+
+        public void LoadLevel(int levelIndex)
+        {
+            LevelController.Instance.SetLevel(levelIndex);
+            LevelController.Instance.GoingNextLevel();
+            SceneManager.LoadScene("GameScene");
+        }
+
+        public void LoadNextLevel(int levelIndex)
+        {
+            int selectedLevel = levelIndex + 1;
+            LoadLevel(selectedLevel);
+        }
+
+        private void CloseMenu()
+        {
+            gameObject.SetActive(false);
+        }
+
+        private void EnsureAllLevelsExist(GameProgress progress, int totalLevelsInGame)
+        {
+            int currentLevelCount = progress.Levels.Count;
+            for (int i = currentLevelCount + 1; i <= totalLevelsInGame; i++)
+            {
+                progress.Levels.Add(new LevelData { LevelNumber = i, IsUnlocked = false, Score = 0 });
+            }
         }
     }
 }

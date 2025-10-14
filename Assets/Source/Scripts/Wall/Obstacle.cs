@@ -1,8 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour
+namespace WindowsCleaner.UI
 {
-   
+    public class Obstacle : MonoBehaviour
+    {
+
+    }
 }

@@ -1,25 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LevelSelection : MonoBehaviour
+namespace WindowsCleaner.UI
 {
-    [SerializeField] private Button _levelSelection;
-    [SerializeField] private GameObject _levelsMenu;
-
-    private void Start()
+    public class LevelSelection : MonoBehaviour
     {
-        _levelSelection.onClick.AddListener(OpenMenu);
-    }
+        [SerializeField] private Button _levelSelection;
+        [SerializeField] private GameObject _levelsMenu;
 
-    private void OnDisable()
-    {
-        _levelSelection.onClick.RemoveListener(OpenMenu);
-    }
+        private void Start()
+        {
+            _levelSelection.onClick.AddListener(OpenMenu);
+        }
 
-    private void OpenMenu()
-    {
-        _levelsMenu.SetActive(true);
+        private void OnDisable()
+        {
+            _levelSelection.onClick.RemoveListener(OpenMenu);
+        }
+
+        private void OpenMenu()
+        {
+            _levelsMenu.SetActive(true);
+        }
     }
 }

@@ -1,41 +1,41 @@
 using DG.Tweening;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinsRewardAppearance : MonoBehaviour
+namespace WindowsCleaner.UI
 {
-    [SerializeField] private GameObject _coinsReward;
-    [SerializeField] private float _enlargeSize = 0.5f;
-    [SerializeField] private float _duration = 1.2f;
-    [SerializeField] private float delayBeforeDecrease = 0.5f;
-    [SerializeField] private float _endSize = 2.2f;
-    [SerializeField] private Ease _easingType = Ease.OutQuad;
-    private Transform _coinsRewardTransform;
-
-    public void StartRewardsSequence()
+    public class CoinsRewardAppearance : MonoBehaviour
     {
-        _coinsReward.SetActive(true);
+        [SerializeField] private GameObject _coinsReward;
+        [SerializeField] private float _enlargeSize = 0.5f;
+        [SerializeField] private float _duration = 1.2f;
+        [SerializeField] private float delayBeforeDecrease = 0.5f;
+        [SerializeField] private float _endSize = 2.2f;
+        [SerializeField] private Ease _easingType = Ease.OutQuad;
+        private Transform _coinsRewardTransform;
 
-        _coinsRewardTransform = _coinsReward.transform;
-        _coinsRewardTransform.localScale = new Vector3(0, 0, 0);
+        public void StartRewardsSequence()
+        {
+            _coinsReward.SetActive(true);
 
-        DisplayRewardsSequence(_coinsRewardTransform);
-        TriggerRewardCount(_coinsReward.GetComponent<RewardObj>());
-    }
+            _coinsRewardTransform = _coinsReward.transform;
+            _coinsRewardTransform.localScale = new Vector3(0, 0, 0);
 
-    private void TriggerRewardCount(RewardObj coinsReward) => 
-        coinsReward.TriggerRewardCount(_duration+1);
+            DisplayRewardsSequence(_coinsRewardTransform);
+            TriggerRewardCount(_coinsReward.GetComponent<RewardObj>());
+        }
 
-    private void DisplayRewardsSequence(Transform _coinsRewardTransform)
-    {
-        Sequence sequence = DOTween.Sequence();
+        private void TriggerRewardCount(RewardObj coinsReward) =>
+            coinsReward.TriggerRewardCount(_duration + 1);
 
-        sequence.Append(_coinsRewardTransform.DOScale(_enlargeSize, _duration).SetEase(_easingType));
+        private void DisplayRewardsSequence(Transform _coinsRewardTransform)
+        {
+            Sequence sequence = DOTween.Sequence();
 
-        sequence.AppendInterval(delayBeforeDecrease);
+            sequence.Append(_coinsRewardTransform.DOScale(_enlargeSize, _duration).SetEase(_easingType));
 
-        sequence.Append(_coinsRewardTransform.DOScale(_endSize, _duration).SetEase(_easingType));
+            sequence.AppendInterval(delayBeforeDecrease);
+
+            sequence.Append(_coinsRewardTransform.DOScale(_endSize, _duration).SetEase(_easingType));
+        }
     }
 }

@@ -1,52 +1,55 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using WindowsCleaner.UI;
 
-public class PlayerMover : MonoBehaviour
+namespace WindowsCleaner.PlayerNs
 {
-    [SerializeField] private float _horizontalSpeed = 5f;
-    [SerializeField] private float _verticalSpeed = 7f;
-    [SerializeField] private Wall _wall;
-    private readonly float _yDirection = -1f;
-    private Vector3 _moveDirection;
-    private Vector2 _moveInput;
-    private bool _stopped;
-
-    private void Start()
+    public class PlayerMover : MonoBehaviour
     {
-        _stopped = false;
-    }
+        [SerializeField] private float _horizontalSpeed = 5f;
+        [SerializeField] private float _verticalSpeed = 7f;
+        [SerializeField] private Wall _wall;
+        private readonly float _yDirection = -1f;
+        private Vector3 _moveDirection;
+        private Vector2 _moveInput;
+        private bool _stopped;
 
-    private void LateUpdate()
-    {
-        Move();
-    }
-
-    private void Move()
-    {
-        if (_stopped)
+        private void Start()
         {
-            return;
+            _stopped = false;
         }
 
-        _moveDirection = new(_moveInput.x, _yDirection, 0);
-        var nextPosition = _verticalSpeed * Time.deltaTime * _moveDirection;
+        private void LateUpdate()
+        {
+            Move();
+        }
 
-        transform.Translate(nextPosition);
-    }
+        private void Move()
+        {
+            if (_stopped)
+            {
+                return;
+            }
 
-    public Vector2 MoveInput()
-    {
-        return _moveInput;
-    }
+            _moveDirection = new(_moveInput.x, _yDirection, 0);
+            var nextPosition = _verticalSpeed * Time.deltaTime * _moveDirection;
 
-    public void OnMovement(InputValue value)
-    {
-        _moveInput = value.Get<Vector2>();
-    }
+            transform.Translate(nextPosition);
+        }
 
-    public void Stop()
-    {
-        _stopped = true;
+        public Vector2 MoveInput()
+        {
+            return _moveInput;
+        }
+
+        public void OnMovement(InputValue value)
+        {
+            _moveInput = value.Get<Vector2>();
+        }
+
+        public void Stop()
+        {
+            _stopped = true;
+        }
     }
 }

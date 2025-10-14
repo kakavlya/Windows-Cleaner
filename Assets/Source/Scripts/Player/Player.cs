@@ -1,32 +1,35 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Player : MonoBehaviour
+namespace WindowsCleaner.PlayerNs
 {
-    [SerializeField] private MopController _mopController;
-    [SerializeField] private AudioClip _collisionSound;
-
-    public event UnityAction GameOver;
-    public event UnityAction WonLevel;
-    public event UnityAction IncrementScore;
-
-    public void Die()
+    public class Player : MonoBehaviour
     {
-        if(GameOver != null)
+        [SerializeField] private MopController _mopController;
+        [SerializeField] private AudioClip _collisionSound;
+
+        public event UnityAction GameOver;
+        public event UnityAction WonLevel;
+        public event UnityAction IncrementScore;
+
+        public void Die()
         {
-            GameOver.Invoke();
-            Audio.Instance?.PlaySfx(_collisionSound);
+            if (GameOver != null)
+            {
+                GameOver.Invoke();
+                Audio.Instance?.PlaySfx(_collisionSound);
+            }
         }
-    }
 
-    public void EndLevel()
-    {
-        WonLevel?.Invoke();
-        _mopController.Stop();
-    }
+        public void EndLevel()
+        {
+            WonLevel?.Invoke();
+            _mopController.Stop();
+        }
 
-    public void BrickHit()
-    {
-        IncrementScore?.Invoke();
+        public void BrickHit()
+        {
+            IncrementScore?.Invoke();
+        }
     }
 }

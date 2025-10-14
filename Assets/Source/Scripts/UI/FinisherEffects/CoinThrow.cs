@@ -1,16 +1,19 @@
 using UnityEngine;
 
-public class CoinThrow : MonoBehaviour
+namespace WindowsCleaner.UI
 {
-    private float _spinForce;
-
-    public void SetSpinForce(float spinForce)
+    public class CoinThrow : MonoBehaviour
     {
-        _spinForce = spinForce;
-    }
+        private float _spinForce;
 
-    private void FixedUpdate()
-    {
-        GetComponent<Rigidbody>().AddTorque(_spinForce * Time.fixedDeltaTime * Vector3.up);
+        public void SetSpinForce(float spinForce)
+        {
+            _spinForce = spinForce;
+        }
+
+        private void FixedUpdate()
+        {
+            GetComponent<Rigidbody>().AddTorque(_spinForce * Time.fixedDeltaTime * Vector3.up);
+        }
     }
 }

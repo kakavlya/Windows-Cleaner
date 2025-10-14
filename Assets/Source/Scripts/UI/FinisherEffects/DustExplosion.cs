@@ -1,91 +1,91 @@
-using DG.Tweening;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-public class DustExplosion : MonoBehaviour, IHaveDurartion
+namespace WindowsCleaner.UI
 {
-    [SerializeField] private DustResizing _dustObject;
-    [SerializeField] private int _amountOfDusts = 10;
-    [SerializeField] private float _spread = 5f;
-    [SerializeField] private float _maxRandomRotationAngle = 360f;
-    [SerializeField] private ParticleSystem _dustParticle;
-    [SerializeField] private Vector3 _startPos = new Vector3(10f, 0f, -2f);
-
-    private List<ParticleSystem> _dustParticles;
-    private List<DustResizing> _dustObjects;
-    private List<Vector3> _positions;
-    private float _duration;
-
-    private void Start()
+    public class DustExplosion : MonoBehaviour, IHaveDurartion
     {
-        _dustParticles = new List<ParticleSystem>();
-        _dustObjects = new List<DustResizing>();
-        _positions = new List<Vector3>();
+        [SerializeField] private DustResizing _dustObject;
+        [SerializeField] private int _amountOfDusts = 10;
+        [SerializeField] private float _spread = 5f;
+        [SerializeField] private float _maxRandomRotationAngle = 360f;
+        [SerializeField] private ParticleSystem _dustParticle;
+        [SerializeField] private Vector3 _startPos = new Vector3(10f, 0f, -2f);
 
-        CreateRandomPosList();
-        CreateDustObjects();
-        CreateDustParticles();
+        private List<ParticleSystem> _dustParticles;
+        private List<DustResizing> _dustObjects;
+        private List<Vector3> _positions;
+        private float _duration;
 
-    }
-
-    private void CreateRandomPosList()
-    {
-        for(int i =0; i< _amountOfDusts; i++)
+        private void Start()
         {
-            _positions.Add(_startPos + Helpers.GetRandomPos(_spread));
-        }
-    }
+            _dustParticles = new List<ParticleSystem>();
+            _dustObjects = new List<DustResizing>();
+            _positions = new List<Vector3>();
 
-    public void PlayEffect()
-    {
-        foreach(var dust in _dustObjects)
-        {
-            dust.IncreaseAndDecreaseSizeWithDelay();
+            CreateRandomPosList();
+            CreateDustObjects();
+            CreateDustParticles();
+
         }
 
-        foreach (var dust in _dustParticles)
+        private void CreateRandomPosList()
         {
-            dust.Play();
+            for (int i = 0; i < _amountOfDusts; i++)
+            {
+                _positions.Add(_startPos + Helpers.GetRandomPos(_spread));
+            }
         }
 
-        StartCoroutine(DisableAfterDurationIE(_duration));
-    }    
-
-    private IEnumerator DisableAfterDurationIE(float duration)
-    {
-        yield return new WaitForSeconds(duration);
-
-        foreach (var dust in _dustParticles)
+        public void PlayEffect()
         {
-            dust.Stop();
-            dust.gameObject.SetActive(false);
-        }
-    }
+            foreach (var dust in _dustObjects)
+            {
+                dust.IncreaseAndDecreaseSizeWithDelay();
+            }
 
-    private void CreateDustObjects()
-    {
-        for(int i = 0;  i < _amountOfDusts; i++)
+            foreach (var dust in _dustParticles)
+            {
+                dust.Play();
+            }
+
+            StartCoroutine(DisableAfterDurationIE(_duration));
+        }
+
+        private IEnumerator DisableAfterDurationIE(float duration)
         {
-            GameObject dust = GameObject.Instantiate(_dustObject.gameObject, _positions[i], Helpers.GetRandomRotation(_maxRandomRotationAngle));
-            _dustObjects.Add(dust.GetComponent<DustResizing>());            
-        }
-    }
+            yield return new WaitForSeconds(duration);
 
-    private void CreateDustParticles()
-    {
-        for(int i = 0; i < _amountOfDusts; i++)
+            foreach (var dust in _dustParticles)
+            {
+                dust.Stop();
+                dust.gameObject.SetActive(false);
+            }
+        }
+
+        private void CreateDustObjects()
         {
-            var dustParticle = Instantiate(_dustParticle, _positions[i], Quaternion.identity);
-            dustParticle.Stop();
-            _dustParticles.Add(dustParticle);
+            for (int i = 0; i < _amountOfDusts; i++)
+            {
+                GameObject dust = GameObject.Instantiate(_dustObject.gameObject, _positions[i], Helpers.GetRandomRotation(_maxRandomRotationAngle));
+                _dustObjects.Add(dust.GetComponent<DustResizing>());
+            }
         }
-    }
 
-    public void SetDuration(float duration)
-    {
-        _duration = duration;
+        private void CreateDustParticles()
+        {
+            for (int i = 0; i < _amountOfDusts; i++)
+            {
+                var dustParticle = Instantiate(_dustParticle, _positions[i], Quaternion.identity);
+                dustParticle.Stop();
+                _dustParticles.Add(dustParticle);
+            }
+        }
+
+        public void SetDuration(float duration)
+        {
+            _duration = duration;
+        }
     }
 }

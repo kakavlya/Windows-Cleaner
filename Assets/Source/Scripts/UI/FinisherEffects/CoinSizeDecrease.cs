@@ -1,26 +1,27 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinSizeDecrease : MonoBehaviour
+namespace WindowsCleaner.UI
 {
-    [SerializeField] private float _startSize = 1f;
-    [SerializeField] private float _delayBeforeDecrease = 0.5f;
-    [SerializeField] private float _endSize = 0.2f;
-    [SerializeField] private Ease _easingType = Ease.OutQuad;
-
-    public void StartDecreaseSequence(float duration)
+    public class CoinSizeDecrease : MonoBehaviour
     {
-        float _durationToDecrease = duration - _delayBeforeDecrease;
-        Sequence sequence = DOTween.Sequence();
+        [SerializeField] private float _startSize = 1f;
+        [SerializeField] private float _delayBeforeDecrease = 0.5f;
+        [SerializeField] private float _endSize = 0.2f;
+        [SerializeField] private Ease _easingType = Ease.OutQuad;
 
-        sequence.AppendInterval(_delayBeforeDecrease);
+        public void StartDecreaseSequence(float duration)
+        {
+            float _durationToDecrease = duration - _delayBeforeDecrease;
+            Sequence sequence = DOTween.Sequence();
 
-        sequence.Append(transform.DOScale(_endSize, _durationToDecrease).SetEase(_easingType))
-            .OnComplete(() =>
-            {
-                gameObject.SetActive(false);
-            });
+            sequence.AppendInterval(_delayBeforeDecrease);
+
+            sequence.Append(transform.DOScale(_endSize, _durationToDecrease).SetEase(_easingType))
+                .OnComplete(() =>
+                {
+                    gameObject.SetActive(false);
+                });
+        }
     }
 }

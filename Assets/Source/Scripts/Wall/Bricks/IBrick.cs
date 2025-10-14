@@ -1,4 +1,7 @@
-public interface IBrick 
+namespace WindowsCleaner.UI
 {
-    
+    public interface IBrick
+    {
+
+    }
 }

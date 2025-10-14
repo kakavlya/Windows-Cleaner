@@ -1,63 +1,64 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using WindowsCleaner.UI;
 
-public class UICoinsExplosion : MonoBehaviour, IHaveDurartion
+namespace WindowsCleaner.UI
 {
-    [SerializeField] private Transform _startPos;
-    [SerializeField] private Transform _intermediatePos;
-    [SerializeField] private Transform _endPos;
-    [SerializeField] private GameObject _Canvas;
-    [SerializeField] private GameObject _UICoin;
-    [SerializeField] private float _minDuration = 1f;
-    [SerializeField] private float _maxDuration = 2f;
-    [SerializeField] private float _scaleSize = 0.5f;
-    [SerializeField] private float _spread = 30f;
-    [SerializeField] private int _maxCoins = 20;
-
-    public void Start2DCoinsAnimation()
+    public class UICoinsExplosion : MonoBehaviour, IHaveDurartion
     {
-        Vector3 startingPos = _startPos.position;
-        Vector3 intermediatePos = _intermediatePos.position;
-        Vector3 endPos = GetCenteredEndPosition(); 
+        [SerializeField] private Transform _startPos;
+        [SerializeField] private Transform _intermediatePos;
+        [SerializeField] private Transform _endPos;
+        [SerializeField] private GameObject _Canvas;
+        [SerializeField] private GameObject _UICoin;
+        [SerializeField] private float _minDuration = 1f;
+        [SerializeField] private float _maxDuration = 2f;
+        [SerializeField] private float _scaleSize = 0.5f;
+        [SerializeField] private float _spread = 30f;
+        [SerializeField] private int _maxCoins = 20;
 
-        for (int i = 0; i < _maxCoins; i++)
+        public void Start2DCoinsAnimation()
         {
-            GameObject coin = Instantiate(_UICoin, _Canvas.transform);
+            Vector3 startingPos = _startPos.position;
+            Vector3 intermediatePos = _intermediatePos.position;
+            Vector3 endPos = GetCenteredEndPosition();
 
-            coin.transform.position = startingPos;
-            Vector3 cointIntermedPos = intermediatePos + Helpers.GetRandomPosXY(_spread);
-            coin.transform.DOMove(cointIntermedPos, _minDuration)
-                .SetEase(Ease.Flash)
-                .OnComplete(() =>
-                {
-                    float duration = Random.Range(_minDuration, _maxDuration);
-                    coin.transform.DOScale(_scaleSize, duration);
-                    coin.transform.DOMove(endPos, duration)
+            for (int i = 0; i < _maxCoins; i++)
+            {
+                GameObject coin = Instantiate(_UICoin, _Canvas.transform);
+
+                coin.transform.position = startingPos;
+                Vector3 cointIntermedPos = intermediatePos + Helpers.GetRandomPosXY(_spread);
+                coin.transform.DOMove(cointIntermedPos, _minDuration)
                     .SetEase(Ease.Flash)
                     .OnComplete(() =>
                     {
-                        coin.SetActive(false);
+                        float duration = Random.Range(_minDuration, _maxDuration);
+                        coin.transform.DOScale(_scaleSize, duration);
+                        coin.transform.DOMove(endPos, duration)
+                        .SetEase(Ease.Flash)
+                        .OnComplete(() =>
+                        {
+                            coin.SetActive(false);
+                        });
                     });
-                });
+            }
         }
-    }
 
-    private Vector3 GetCenteredEndPosition()
-    {
-        RectTransform rectTransform = _endPos.GetComponent<RectTransform>();
-        Vector3 screenPos = new Vector3(_endPos.position.x, _endPos.position.y, 0);
-        float width = rectTransform.rect.width;
-        float height = rectTransform.rect.height;
+        private Vector3 GetCenteredEndPosition()
+        {
+            RectTransform rectTransform = _endPos.GetComponent<RectTransform>();
+            Vector3 screenPos = new Vector3(_endPos.position.x, _endPos.position.y, 0);
+            float width = rectTransform.rect.width;
+            float height = rectTransform.rect.height;
 
-        Vector3 centeredPos = screenPos - new Vector3(width / 4, height / 4, 0);
-        return centeredPos;
-    }
+            Vector3 centeredPos = screenPos - new Vector3(width / 4, height / 4, 0);
+            return centeredPos;
+        }
 
-    public void SetDuration(float duration)
-    {
-        _maxDuration = duration;
+        public void SetDuration(float duration)
+        {
+            _maxDuration = duration;
+        }
     }
 }

@@ -1,47 +1,46 @@
-using DG.Tweening;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-public class CollectedFinisherOld : MonoBehaviour
+namespace WindowsCleaner.UI
 {
-    [SerializeField] private float _waitingTimeCoroutineStarting = 1.5f;
-    [SerializeField] private float _duration = 3.0f;
-    [SerializeField] private float _ribbonDuration = 7.0f;
-
-    private CoinsExplosion _coinsExplosion;
-    private DustExplosion _dustExplosion;
-    private UICoinsExplosion _uiCoinsExplosion;
-    private ResultsRibbon _resultsRibbon;
-
-    private void Start()
+    public class CollectedFinisherOld : MonoBehaviour
     {
-        _coinsExplosion = GetComponent<CoinsExplosion>();
-        _dustExplosion = GetComponent<DustExplosion>();
-        _uiCoinsExplosion = GetComponent<UICoinsExplosion>();
-        _resultsRibbon = GetComponent<ResultsRibbon>();
+        [SerializeField] private float _waitingTimeCoroutineStarting = 1.5f;
+        [SerializeField] private float _duration = 3.0f;
+        [SerializeField] private float _ribbonDuration = 7.0f;
 
-        _coinsExplosion.SetDuration(_duration);
-        _dustExplosion.SetDuration(_duration);
-        _uiCoinsExplosion.SetDuration(_duration);
-        _resultsRibbon.SetDuration(_ribbonDuration);
-    }
+        private CoinsExplosion _coinsExplosion;
+        private DustExplosion _dustExplosion;
+        private UICoinsExplosion _uiCoinsExplosion;
+        private ResultsRibbon _resultsRibbon;
 
-    public void StartFinishingSequence()
-    {
-        StartCoroutine(AnimateFromPrefabRoutine());
-    }
+        private void Start()
+        {
+            _coinsExplosion = GetComponent<CoinsExplosion>();
+            _dustExplosion = GetComponent<DustExplosion>();
+            _uiCoinsExplosion = GetComponent<UICoinsExplosion>();
+            _resultsRibbon = GetComponent<ResultsRibbon>();
 
-    private IEnumerator AnimateFromPrefabRoutine()
-    {
+            _coinsExplosion.SetDuration(_duration);
+            _dustExplosion.SetDuration(_duration);
+            _uiCoinsExplosion.SetDuration(_duration);
+            _resultsRibbon.SetDuration(_ribbonDuration);
+        }
 
-        yield return new WaitForSeconds(_waitingTimeCoroutineStarting);
+        public void StartFinishingSequence()
+        {
+            StartCoroutine(AnimateFromPrefabRoutine());
+        }
 
-        _coinsExplosion.StartExplosion();
-        _dustExplosion.PlayEffect();
-        _uiCoinsExplosion.Start2DCoinsAnimation();
-        _resultsRibbon.StartRibbonSequenceAfterDelay(_duration);
+        private IEnumerator AnimateFromPrefabRoutine()
+        {
+
+            yield return new WaitForSeconds(_waitingTimeCoroutineStarting);
+
+            _coinsExplosion.StartExplosion();
+            _dustExplosion.PlayEffect();
+            _uiCoinsExplosion.Start2DCoinsAnimation();
+            _resultsRibbon.StartRibbonSequenceAfterDelay(_duration);
+        }
     }
 }

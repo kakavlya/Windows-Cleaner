@@ -1,32 +1,32 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class RankingPanelToggler : PanelToggler
+namespace WindowsCleaner.UI
 {
-    [SerializeField] private CanvasGroup[] _sidePanelCanvasGroups;
-    protected override void TogglePanel()
+    public class RankingPanelToggler : PanelToggler
     {
-        base.TogglePanel();
-
-        SetPanelsVisible();
-        
-    }
-
-    private void SetPanelsVisible()
-    {
-        foreach(var canvasGroup in _sidePanelCanvasGroups)
+        [SerializeField] private CanvasGroup[] _sidePanelCanvasGroups;
+        protected override void TogglePanel()
         {
-            bool isVisible = canvasGroup.alpha > 0f;
-            SetPanelVisible(!isVisible, canvasGroup);
-        }
-    }
+            base.TogglePanel();
 
-    private void SetPanelVisible(bool visible, CanvasGroup panel)
-    {
-        panel.alpha = visible ? 1f : 0f;
-        panel.interactable = visible;
-        panel.blocksRaycasts = visible;
+            SetPanelsVisible();
+
+        }
+
+        private void SetPanelsVisible()
+        {
+            foreach (var canvasGroup in _sidePanelCanvasGroups)
+            {
+                bool isVisible = canvasGroup.alpha > 0f;
+                SetPanelVisible(!isVisible, canvasGroup);
+            }
+        }
+
+        private void SetPanelVisible(bool visible, CanvasGroup panel)
+        {
+            panel.alpha = visible ? 1f : 0f;
+            panel.interactable = visible;
+            panel.blocksRaycasts = visible;
+        }
     }
 }

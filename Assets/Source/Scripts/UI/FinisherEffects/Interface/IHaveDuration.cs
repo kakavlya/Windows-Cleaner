@@ -1,4 +1,7 @@
-public interface IHaveDurartion 
+namespace WindowsCleaner.UI
 {
-   void SetDuration(float duration);
+    public interface IHaveDurartion
+    {
+        void SetDuration(float duration);
+    }
 }

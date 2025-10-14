@@ -1,84 +1,87 @@
-using System.Collections;
 using UnityEngine;
+using WindowsCleaner.UI;
 
-public class WebGLPauseHandler : MonoBehaviour
+namespace WindowsCleaner.Misc
 {
-    public static WebGLPauseHandler Instance;
-    private UIStateMachine _uiStateMachine;
-    private bool _hasInitialized = false;
-
-    private void Awake()
+    public class WebGLPauseHandler : MonoBehaviour
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        public static WebGLPauseHandler Instance;
+        private UIStateMachine _uiStateMachine;
+        private bool _hasInitialized = false;
 
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
-
-    public void OnApplicationFocus(bool hasFocus)
-    {
-        if (!_hasInitialized)
+        private void Awake()
         {
-            if (hasFocus)
+            if (Instance != null && Instance != this)
             {
-                _hasInitialized = true;
-                if (Audio.Instance != null)
-                {
-                    Audio.Instance.ToggleMusic(true);
-                    Audio.Instance.ToggleSfx(true);
-                }
-
+                Destroy(gameObject);
                 return;
             }
+
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
 
-        if (!hasFocus)
+        public void OnApplicationFocus(bool hasFocus)
         {
-            PauseGame();
-        }
-    }
-
-    private UIStateMachine FindUiStateMachine()
-    {
-        var allUiStateMachines = Resources.FindObjectsOfTypeAll<UIStateMachine>();
-        foreach (var uiStateMachine in allUiStateMachines)
-        {
-            if (uiStateMachine.gameObject.scene.IsValid())
+            if (!_hasInitialized)
             {
-                return uiStateMachine;
+                if (hasFocus)
+                {
+                    _hasInitialized = true;
+                    if (Audio.Instance != null)
+                    {
+                        Audio.Instance.ToggleMusic(true);
+                        Audio.Instance.ToggleSfx(true);
+                    }
+
+                    return;
+                }
+            }
+
+            if (!hasFocus)
+            {
+                PauseGame();
             }
         }
 
-        return null;
-    }
-
-    private UIStateMachine GetUIStateMachine()
-    {
-        if (_uiStateMachine == null)
+        private UIStateMachine FindUiStateMachine()
         {
-            _uiStateMachine = FindUiStateMachine();
+            var allUiStateMachines = Resources.FindObjectsOfTypeAll<UIStateMachine>();
+            foreach (var uiStateMachine in allUiStateMachines)
+            {
+                if (uiStateMachine.gameObject.scene.IsValid())
+                {
+                    return uiStateMachine;
+                }
+            }
+
+            return null;
         }
 
-        return _uiStateMachine;
-    }
-
-    public void OnApplicationPause(bool isPaused)
-    {
-        if (isPaused)
+        private UIStateMachine GetUIStateMachine()
         {
-            PauseGame();
+            if (_uiStateMachine == null)
+            {
+                _uiStateMachine = FindUiStateMachine();
+            }
+
+            return _uiStateMachine;
         }
-    }
 
-    private void PauseGame()
-    {
-        if (GetUIStateMachine().GetCurrentState() == UIState.Playing)
+        public void OnApplicationPause(bool isPaused)
         {
-            GetUIStateMachine().SwitchState(UIState.PauseMenu);
+            if (isPaused)
+            {
+                PauseGame();
+            }
+        }
+
+        private void PauseGame()
+        {
+            if (GetUIStateMachine().GetCurrentState() == UIState.Playing)
+            {
+                GetUIStateMachine().SwitchState(UIState.PauseMenu);
+            }
         }
     }
 }

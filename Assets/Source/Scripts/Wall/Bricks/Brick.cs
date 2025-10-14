@@ -1,46 +1,48 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using WindowsCleaner.PlayerNs;
 
-public class Brick : MonoBehaviour, IBrick
+namespace WindowsCleaner.UI
 {
-    [SerializeField] private float rotationH = 500.5f;
-    [SerializeField] private float rotationV = 1000.5f;
-    [SerializeField] private float secondsToDestroy = 3f;
-
-    private BoxCollider _collider;
-    private Rigidbody _rigidbody;
-    private void Start()
+    public class Brick : MonoBehaviour, IBrick
     {
-        _collider = GetComponent<BoxCollider>();
-        _rigidbody = GetComponent<Rigidbody>();
-    }
+        [SerializeField] private float rotationH = 500.5f;
+        [SerializeField] private float rotationV = 1000.5f;
+        [SerializeField] private float secondsToDestroy = 3f;
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.GetComponent<Player>())
+        private BoxCollider _collider;
+        private Rigidbody _rigidbody;
+        private void Start()
         {
-            Destroy(gameObject);
+            _collider = GetComponent<BoxCollider>();
+            _rigidbody = GetComponent<Rigidbody>();
         }
-    }
 
-    protected void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<PlayerCollisionHandler>())
+        private void OnCollisionEnter(Collision collision)
         {
-            
-            Destroy(gameObject, secondsToDestroy);
-            AddRotation();
-
-            _collider.isTrigger = false;
-            _rigidbody.AddForce(0, -3 * Random.Range(1.1f, 200f), 0);
+            if (collision.gameObject.GetComponent<Player>())
+            {
+                Destroy(gameObject);
+            }
         }
-    }
 
-    private void AddRotation()
-    {
-        _rigidbody.useGravity = true;
-        _rigidbody.AddTorque(Random.Range(1.1f, 200f) * rotationH * rotationV * transform.up);
-        _rigidbody.AddTorque(Random.Range(1.1f, 200f) * rotationH * rotationV * transform.right);
+        protected void OnTriggerEnter(Collider other)
+        {
+            if (other.GetComponent<PlayerCollisionHandler>())
+            {
+
+                Destroy(gameObject, secondsToDestroy);
+                AddRotation();
+
+                _collider.isTrigger = false;
+                _rigidbody.AddForce(0, -3 * Random.Range(1.1f, 200f), 0);
+            }
+        }
+
+        private void AddRotation()
+        {
+            _rigidbody.useGravity = true;
+            _rigidbody.AddTorque(Random.Range(1.1f, 200f) * rotationH * rotationV * transform.up);
+            _rigidbody.AddTorque(Random.Range(1.1f, 200f) * rotationH * rotationV * transform.right);
+        }
     }
 }

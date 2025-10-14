@@ -1,48 +1,51 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PanelToggler : MonoBehaviour
+namespace WindowsCleaner.UI
 {
-    [SerializeField] private Button _screenOpenPanelcon;
-    [SerializeField] private Button _panelClose;
-
-    [SerializeField] private GameObject _UIPanel;
-
-    private bool _wasGamePausedBefore;
-
-    private void Start()
+    public class PanelToggler : MonoBehaviour
     {
-        _screenOpenPanelcon.onClick.AddListener(TogglePanel);
-        _panelClose.onClick.AddListener(TogglePanel);
-    }
+        [SerializeField] private Button _screenOpenPanelcon;
+        [SerializeField] private Button _panelClose;
 
-    private void OnDisable()
-    {
-        _screenOpenPanelcon.onClick.RemoveListener(TogglePanel);
-        _panelClose.onClick.RemoveListener(TogglePanel);
-    }
+        [SerializeField] private GameObject _UIPanel;
 
-    protected virtual void TogglePanel()
-    {
-        if (_UIPanel.activeSelf)
+        private bool _wasGamePausedBefore;
+
+        private void Start()
         {
-            _UIPanel.SetActive(false);
-
-            if (!_wasGamePausedBefore)
-            {
-                Time.timeScale = 1f;
-            }
+            _screenOpenPanelcon.onClick.AddListener(TogglePanel);
+            _panelClose.onClick.AddListener(TogglePanel);
         }
-        else
+
+        private void OnDisable()
         {
-            _UIPanel.SetActive(true);
+            _screenOpenPanelcon.onClick.RemoveListener(TogglePanel);
+            _panelClose.onClick.RemoveListener(TogglePanel);
+        }
 
-            _wasGamePausedBefore = Time.timeScale == 0f;
-
-
-            if (!_wasGamePausedBefore)
+        protected virtual void TogglePanel()
+        {
+            if (_UIPanel.activeSelf)
             {
-                Time.timeScale = 0f;
+                _UIPanel.SetActive(false);
+
+                if (!_wasGamePausedBefore)
+                {
+                    Time.timeScale = 1f;
+                }
+            }
+            else
+            {
+                _UIPanel.SetActive(true);
+
+                _wasGamePausedBefore = Time.timeScale == 0f;
+
+
+                if (!_wasGamePausedBefore)
+                {
+                    Time.timeScale = 0f;
+                }
             }
         }
     }

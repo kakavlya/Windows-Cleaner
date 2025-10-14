@@ -1,35 +1,35 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using WindowsCleaner.UI;
 
-
-public class PlayerCollisionHandler : MonoBehaviour
+namespace WindowsCleaner.PlayerNs
 {
-    [SerializeField]private Player _player;
-
-    private void OnTriggerEnter(Collider other)
+    public class PlayerCollisionHandler : MonoBehaviour
     {
-        if (other.TryGetComponent(out IBrick brick))
-        {
-            _player.BrickHit();
-        }
-        else if (other.TryGetComponent(out FinishObj finish))
-        {
-            _player.EndLevel();
-        }
-        else if(other.TryGetComponent(out Obstacle obstacle))
-        {
-            _player.Die();
-        } 
-    }
+        [SerializeField] private Player _player;
 
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.collider.TryGetComponent(out FinishObj finish))
+        private void OnTriggerEnter(Collider other)
         {
+            if (other.TryGetComponent(out IBrick brick))
+            {
+                _player.BrickHit();
+            }
+            else if (other.TryGetComponent(out FinishObj finish))
+            {
+                _player.EndLevel();
+            }
+            else if (other.TryGetComponent(out Obstacle obstacle))
+            {
+                _player.Die();
+            }
+        }
 
-            _player.EndLevel();
+        private void OnCollisionEnter(Collision other)
+        {
+            if (other.collider.TryGetComponent(out FinishObj finish))
+            {
+
+                _player.EndLevel();
+            }
         }
     }
 }

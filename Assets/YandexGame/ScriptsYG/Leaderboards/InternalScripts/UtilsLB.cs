@@ -49,7 +49,7 @@ namespace YG.Utils.LB
         public LBPlayerData()
         {
             rank = 0;
-            name = "Player";
+            name = "PlayerNs";
             score = 15;
             photo = InfoYG.avatarExample;
             uniqueID = "123";
