@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace WindowsCleaner.UI
+namespace WindowsCleaner.WallNs
 {
     public class Wall : MonoBehaviour
     {

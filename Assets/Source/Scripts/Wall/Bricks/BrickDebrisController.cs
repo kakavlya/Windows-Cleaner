@@ -1,7 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 
-namespace WindowsCleaner.UI
+namespace WindowsCleaner.WallNs
 {
     public class BrickDebrisController : MonoBehaviour
     {

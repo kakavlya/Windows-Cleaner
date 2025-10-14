@@ -1,18 +1,19 @@
 using UnityEngine;
-using UnityEngine.Events;
+using WindowsCleaner.AudioNs;
 
-public class MopHead : MonoBehaviour
+namespace WindowsCleaner.PlayerNs
 {
-    //[SerializeField] private UnityEvent OnGrow;
-    [SerializeField] private AudioClip _growSound;
-    public void WidthUp(float widthScale)
+    public class MopHead : MonoBehaviour
     {
-        var curLocalScale = this.transform.localScale;
-        var localXUpdated = new Vector3(curLocalScale.x * widthScale, 
-            curLocalScale.y, curLocalScale.z);
-        this.transform.localScale =  localXUpdated;
+        [SerializeField] private AudioClip _growSound;
+        public void WidthUp(float widthScale)
+        {
+            var curLocalScale = this.transform.localScale;
+            var localXUpdated = new Vector3(curLocalScale.x * widthScale,
+                curLocalScale.y, curLocalScale.z);
+            this.transform.localScale = localXUpdated;
 
-        //this.OnGrow?.Invoke();
-        Audio.Instance.PlaySfx(_growSound);
+            Audio.Instance.PlaySfx(_growSound);
+        }
     }
 }

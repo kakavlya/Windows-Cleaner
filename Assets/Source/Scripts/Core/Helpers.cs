@@ -1,54 +1,55 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Helpers 
+namespace WindowsCleaner.Core
 {
-    public static Vector3 GetRandomVector3(float spread)
+    public class Helpers
     {
-        return new Vector3(
-            GetRandomPosNegSpread(spread),
-            Random.Range(-spread, spread),
-            GetRandomPosNegSpread(spread));
-    }
+        public static Vector3 GetRandomVector3(float spread)
+        {
+            return new Vector3(
+                GetRandomPosNegSpread(spread),
+                Random.Range(-spread, spread),
+                GetRandomPosNegSpread(spread));
+        }
 
-    public Vector3 GetRandomPositiveDirection(float minMagnitude, float maxMagnitude)
-    {
-        Vector3 randomDirection = Random.onUnitSphere;
+        public Vector3 GetRandomPositiveDirection(float minMagnitude, float maxMagnitude)
+        {
+            Vector3 randomDirection = Random.onUnitSphere;
 
-        float randomMagnitude = Random.Range(minMagnitude, maxMagnitude);
+            float randomMagnitude = Random.Range(minMagnitude, maxMagnitude);
 
-        Vector3 randomPositiveDirection = randomDirection.normalized * randomMagnitude;
+            Vector3 randomPositiveDirection = randomDirection.normalized * randomMagnitude;
 
-        return randomPositiveDirection;
-    }
+            return randomPositiveDirection;
+        }
 
-    public static Quaternion GetRandomRotation(float maxRandomRotationAngle)
-    {
-        Vector3 randomEulerRotation = new Vector3(Random.Range(0f, maxRandomRotationAngle),
-                                                  Random.Range(0f, maxRandomRotationAngle),
-                                                  Random.Range(0f, maxRandomRotationAngle));
+        public static Quaternion GetRandomRotation(float maxRandomRotationAngle)
+        {
+            Vector3 randomEulerRotation = new Vector3(Random.Range(0f, maxRandomRotationAngle),
+                                                      Random.Range(0f, maxRandomRotationAngle),
+                                                      Random.Range(0f, maxRandomRotationAngle));
 
-        return Quaternion.Euler(randomEulerRotation);
-    }
+            return Quaternion.Euler(randomEulerRotation);
+        }
 
-    public static Vector3 GetRandomXZPos(float spread)
-    {
-        return new Vector3(Random.Range(-spread, spread), 0f, Random.Range(-spread, spread));
-    }
+        public static Vector3 GetRandomXZPos(float spread)
+        {
+            return new Vector3(Random.Range(-spread, spread), 0f, Random.Range(-spread, spread));
+        }
 
-    public static float GetRandomPosNegSpread(float spread)
-    {
-        return Random.Range(-spread, spread);
-    }
+        public static float GetRandomPosNegSpread(float spread)
+        {
+            return Random.Range(-spread, spread);
+        }
 
-    public static Vector3 GetRandomPos(float spread)
-    {
-        return new Vector3(Random.Range(-spread, spread), Random.Range(-spread, spread), Random.Range(-spread, spread));
-    }
+        public static Vector3 GetRandomPos(float spread)
+        {
+            return new Vector3(Random.Range(-spread, spread), Random.Range(-spread, spread), Random.Range(-spread, spread));
+        }
 
-    public static Vector3 GetRandomPosXY(float spread)
-    {
-        return new Vector3(Random.Range(-spread, spread), Random.Range(-spread, spread), 0f);
+        public static Vector3 GetRandomPosXY(float spread)
+        {
+            return new Vector3(Random.Range(-spread, spread), Random.Range(-spread, spread), 0f);
+        }
     }
 }

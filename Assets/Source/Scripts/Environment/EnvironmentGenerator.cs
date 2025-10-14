@@ -1,29 +1,35 @@
 using UnityEngine;
+using WindowsCleaner.GameProgressNs;
+using WindowsCleaner.Obstacles;
 
-public class EnvironmentGenerator : MonoBehaviour
+namespace WindowsCleaner.Environment
 {
-    [SerializeField] private GameObject[] _environments;
-    [SerializeField] private Vector3 _position;
-
-    private void Start()
+    public class EnvironmentGenerator : MonoBehaviour
     {
-        if (PersistentData.EnvironmentPrefabIndex.HasValue && LevelController.Instance.IsRestartingLevel)
+        [SerializeField] private GameObject[] _environments;
+        [SerializeField] private Vector3 _position;
+
+        private void Start()
         {
-            int index = PersistentData.EnvironmentPrefabIndex.Value;
-            GameObject env = Instantiate(_environments[index], _position, Quaternion.identity);
-            env.transform.SetParent(transform);
-        } else
-        {
-            GenerateRandomEnvironment();
+            if (PersistentData.EnvironmentPrefabIndex.HasValue && LevelController.Instance.IsRestartingLevel)
+            {
+                int index = PersistentData.EnvironmentPrefabIndex.Value;
+                GameObject env = Instantiate(_environments[index], _position, Quaternion.identity);
+                env.transform.SetParent(transform);
+            }
+            else
+            {
+                GenerateRandomEnvironment();
+            }
         }
-    }
 
-    private void GenerateRandomEnvironment()
-    {
-        int envToGenerate = UnityEngine.Random.Range(0, _environments.Length);
-        GameObject newEnv = Instantiate(_environments[envToGenerate], _position, Quaternion.identity);
-        newEnv.transform.SetParent(transform);
+        private void GenerateRandomEnvironment()
+        {
+            int envToGenerate = UnityEngine.Random.Range(0, _environments.Length);
+            GameObject newEnv = Instantiate(_environments[envToGenerate], _position, Quaternion.identity);
+            newEnv.transform.SetParent(transform);
 
-        PersistentData.EnvironmentPrefabIndex = envToGenerate;
+            PersistentData.EnvironmentPrefabIndex = envToGenerate;
+        }
     }
 }

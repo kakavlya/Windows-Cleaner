@@ -1,34 +1,35 @@
 using Cinemachine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraSwitcher : MonoBehaviour
+namespace WindowsCleaner.Misc
 {
-    [SerializeField] private CinemachineVirtualCamera _camera1;
-    [SerializeField] private CinemachineVirtualCamera _camera2;
-
-    [SerializeField] private int _lowPriority = 10;
-    [SerializeField] private int _highPriority = 50;
-
-    private void Update()
+    public class CameraSwitcher : MonoBehaviour
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        [SerializeField] private CinemachineVirtualCamera _camera1;
+        [SerializeField] private CinemachineVirtualCamera _camera2;
+
+        [SerializeField] private int _lowPriority = 10;
+        [SerializeField] private int _highPriority = 50;
+
+        private void Update()
         {
-            if(_camera1.Priority >= _camera2.Priority)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                ChangeCameraPriority(_camera2, _camera1);
-            } else
-            {
-                ChangeCameraPriority(_camera1, _camera2);
+                if (_camera1.Priority >= _camera2.Priority)
+                {
+                    ChangeCameraPriority(_camera2, _camera1);
+                }
+                else
+                {
+                    ChangeCameraPriority(_camera1, _camera2);
+                }
             }
         }
-    }
 
-    private void ChangeCameraPriority(CinemachineVirtualCamera highPriorityCam, CinemachineVirtualCamera lowPriorityCam)
-    {
-        highPriorityCam.Priority = _highPriority;
-        lowPriorityCam.Priority = _lowPriority;
+        private void ChangeCameraPriority(CinemachineVirtualCamera highPriorityCam, CinemachineVirtualCamera lowPriorityCam)
+        {
+            highPriorityCam.Priority = _highPriority;
+            lowPriorityCam.Priority = _lowPriority;
+        }
     }
 }

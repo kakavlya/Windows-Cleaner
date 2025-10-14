@@ -1,39 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class HammerSwing : MonoBehaviour
+namespace WindowsCleaner.Obstacles
 {
-    [SerializeField] private float _speed = 2f;
-
-    private float _timer = 0f;
-    private int _phase = 0;
-
-    private void FixedUpdate()
+    public class HammerSwing : MonoBehaviour
     {
-        _timer += Time.fixedDeltaTime;
+        [SerializeField] private float _speed = 2f;
 
-        if (_timer > 1f)
-        {
-            _phase++;
-            _phase %= 4;
-            _timer = 0f;
-        }
+        private float _timer = 0f;
+        private int _phase = 0;
 
-        switch (_phase)
+        private void FixedUpdate()
         {
-            case 0:
-                transform.Rotate(0f, 0f, _speed * (1 - _timer));
-                break;
-            case 1:
-                transform.Rotate(0f, 0f, -_speed * _timer);
-                break;
-            case 2:
-                transform.Rotate(0f, 0f, -_speed * (1 - _timer));
-                break;
-            case 3:
-                transform.Rotate(0f, 0f, _speed * _timer);
-                break;
+            _timer += Time.fixedDeltaTime;
+
+            if (_timer > 1f)
+            {
+                _phase++;
+                _phase %= 4;
+                _timer = 0f;
+            }
+
+            switch (_phase)
+            {
+                case 0:
+                    transform.Rotate(0f, 0f, _speed * (1 - _timer));
+                    break;
+                case 1:
+                    transform.Rotate(0f, 0f, -_speed * _timer);
+                    break;
+                case 2:
+                    transform.Rotate(0f, 0f, -_speed * (1 - _timer));
+                    break;
+                case 3:
+                    transform.Rotate(0f, 0f, _speed * _timer);
+                    break;
+            }
         }
     }
 }

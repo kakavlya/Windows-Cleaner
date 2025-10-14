@@ -1,16 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioBootstrapper : MonoBehaviour
+namespace WindowsCleaner.AudioNs
 {
-    [SerializeField] private GameObject _audioPrefab;
-
-    private void Awake()
+    public class AudioBootstrapper : MonoBehaviour
     {
-        if(Audio.Instance == null)
+        [SerializeField] private GameObject _audioPrefab;
+
+        private void Awake()
         {
-            Instantiate(_audioPrefab);
+            if (Audio.Instance == null)
+            {
+                Instantiate(_audioPrefab);
+            }
         }
     }
 }

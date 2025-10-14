@@ -28,10 +28,10 @@ namespace WindowsCleaner.Misc
                 if (hasFocus)
                 {
                     _hasInitialized = true;
-                    if (Audio.Instance != null)
+                    if (AudioNs.Audio.Instance != null)
                     {
-                        Audio.Instance.ToggleMusic(true);
-                        Audio.Instance.ToggleSfx(true);
+                        AudioNs.Audio.Instance.ToggleMusic(true);
+                        AudioNs.Audio.Instance.ToggleSfx(true);
                     }
 
                     return;

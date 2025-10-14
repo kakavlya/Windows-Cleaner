@@ -1,18 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class GameDataRepository 
+namespace WindowsCleaner.GameProgressNs
 {
-    private readonly GameDataHandle _gameDataHandle = new GameDataHandle();
-
-    public GameProgress LoadProgress()
+    public class GameDataRepository
     {
-        return _gameDataHandle.LoadProgress();
-    }
+        private readonly GameDataHandle _gameDataHandle = new GameDataHandle();
 
-    public void SaveProgress(GameProgress progress)
-    {
-        _gameDataHandle.SaveProgress(progress);
+        public GameProgress LoadProgress()
+        {
+            return _gameDataHandle.LoadProgress();
+        }
+
+        public void SaveProgress(GameProgress progress)
+        {
+            _gameDataHandle.SaveProgress(progress);
+        }
     }
 }

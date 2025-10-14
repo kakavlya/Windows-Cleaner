@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using WindowsCleaner.AudioNs;
 
 public class AudioSettingsPanel : MonoBehaviour
 {

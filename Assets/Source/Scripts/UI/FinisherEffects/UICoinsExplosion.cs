@@ -1,6 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
-using WindowsCleaner.UI;
+using WindowsCleaner.Core;
 
 namespace WindowsCleaner.UI
 {

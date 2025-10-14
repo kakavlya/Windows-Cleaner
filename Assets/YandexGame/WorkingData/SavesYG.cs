@@ -1,4 +1,6 @@
 ﻿
+using WindowsCleaner.GameProgressNs;
+
 namespace YG
 {
     [System.Serializable]

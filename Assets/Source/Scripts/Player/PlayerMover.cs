@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using WindowsCleaner.UI;
+using WindowsCleaner.WallNs;
 
 namespace WindowsCleaner.PlayerNs
 {

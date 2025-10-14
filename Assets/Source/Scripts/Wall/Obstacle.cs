@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace WindowsCleaner.UI
+namespace WindowsCleaner.WallNs
 {
     public class Obstacle : MonoBehaviour
     {

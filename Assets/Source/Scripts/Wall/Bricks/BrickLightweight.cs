@@ -1,7 +1,7 @@
 using UnityEngine;
 using WindowsCleaner.PlayerNs;
 
-namespace WindowsCleaner.UI
+namespace WindowsCleaner.WallNs
 {
     [RequireComponent(typeof(Collider))]
     public class BrickLightweight : MonoBehaviour, IBrick

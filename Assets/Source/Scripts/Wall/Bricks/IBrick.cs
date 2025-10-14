@@ -1,4 +1,4 @@
-namespace WindowsCleaner.UI
+namespace WindowsCleaner.WallNs
 {
     public interface IBrick
     {

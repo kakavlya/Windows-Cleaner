@@ -1,5 +1,5 @@
 using UnityEngine;
-using WindowsCleaner.UI;
+using WindowsCleaner.WallNs;
 
 namespace WindowsCleaner.PlayerNs
 {

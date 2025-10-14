@@ -1,13 +1,15 @@
 using System;
 using UnityEngine;
 
-public class Follow : MonoBehaviour
+namespace WindowsCleaner.PlayerNs
 {
-    [SerializeField] private Transform _target;
-
-    private void LateUpdate()
+    public class Follow : MonoBehaviour
     {
-        this.transform.position = _target.position;
-        //this.transform.rotation = _target.rotation;
+        [SerializeField] private Transform _target;
+
+        private void LateUpdate()
+        {
+            this.transform.position = _target.position;
+        }
     }
 }

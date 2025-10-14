@@ -1,19 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using YG;
 
-public class LeaderboardService
+namespace WindowsCleaner.GameProgressNs
 {
-    private readonly string _leaderBoardName;
-
-    public LeaderboardService(string leaderBoardName)
+    public class LeaderboardService
     {
-        _leaderBoardName = leaderBoardName;
-    }
+        private readonly string _leaderBoardName;
 
-    public void UpdateLeaderboard(int newRecord)
-    {
-        YandexGame.NewLeaderboardScores(_leaderBoardName, newRecord);
+        public LeaderboardService(string leaderBoardName)
+        {
+            _leaderBoardName = leaderBoardName;
+        }
+
+        public void UpdateLeaderboard(int newRecord)
+        {
+            YandexGame.NewLeaderboardScores(_leaderBoardName, newRecord);
+        }
     }
 }

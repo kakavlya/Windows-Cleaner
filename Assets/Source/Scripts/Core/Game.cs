@@ -4,6 +4,9 @@ using Cinemachine;
 using YG;
 using WindowsCleaner.UI;
 using WindowsCleaner.Collectibles;
+using WindowsCleaner.GameProgressNs;
+using WindowsCleaner.Obstacles;
+using WindowsCleaner.WallNs;
 
 namespace WindowsCleaner.Core
 {

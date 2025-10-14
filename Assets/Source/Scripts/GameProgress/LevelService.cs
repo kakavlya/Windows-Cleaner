@@ -1,43 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using static GameProgress;
-
-public class LevelService 
+namespace WindowsCleaner.GameProgressNs
 {
-    private readonly GameDataRepository _repository;
-
-    public LevelService(GameDataRepository repository)
+    public class LevelService
     {
-        _repository = repository;
-    }
+        private readonly GameDataRepository _repository;
 
-    public int CompleteLevel(int currentLevelNumber, float newScore)
-    {
-        GameProgress progress = _repository.LoadProgress();
-
-        LevelData currentLevel = progress.Levels.Find(level => level.LevelNumber == currentLevelNumber);
-        if(currentLevel == null)
+        public LevelService(GameDataRepository repository)
         {
-            throw new System.Exception($"Level {currentLevelNumber} not found in progress data.");
+            _repository = repository;
         }
 
-        if (newScore > currentLevel.Score)
+        public int CompleteLevel(int currentLevelNumber, float newScore)
         {
-            currentLevel.Score = newScore;
+            GameProgress progress = _repository.LoadProgress();
+
+            LevelData currentLevel = progress.Levels.Find(level => level.LevelNumber == currentLevelNumber);
+            if (currentLevel == null)
+            {
+                throw new System.Exception($"Level {currentLevelNumber} not found in progress data.");
+            }
+
+            if (newScore > currentLevel.Score)
+            {
+                currentLevel.Score = newScore;
+            }
+
+            progress.UpdateTotalScore();
+            progress.CurrentLevel = currentLevelNumber;
+
+            LevelData nextLevel = progress.Levels.Find(level => level.LevelNumber == currentLevelNumber + 1);
+
+            if (nextLevel != null && !nextLevel.IsUnlocked)
+            {
+                nextLevel.IsUnlocked = true;
+            }
+
+            _repository.SaveProgress(progress);
+            return (int)progress.TotalScore;
         }
-
-        progress.UpdateTotalScore();
-        progress.CurrentLevel = currentLevelNumber;
-
-        LevelData nextLevel = progress.Levels.Find(level => level.LevelNumber == currentLevelNumber+1);
-
-        if (nextLevel != null && !nextLevel.IsUnlocked)
-        {
-            nextLevel.IsUnlocked = true;
-        }
-
-        _repository.SaveProgress(progress);
-        return (int)progress.TotalScore;
     }
 }

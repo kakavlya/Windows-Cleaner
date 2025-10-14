@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static GameProgress;
+using WindowsCleaner.GameProgressNs;
 
 namespace WindowsCleaner.UI
 {

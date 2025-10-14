@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using WindowsCleaner.Obstacles;
 
-namespace WindowsCleaner.UI
+namespace WindowsCleaner.WallNs
 {
     public class WallWithObjects : Wall
     {

@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
+using WindowsCleaner.GameProgressNs;
 using WindowsCleaner.Obstacles;
 
-namespace WindowsCleaner.UI
+namespace WindowsCleaner.WallNs
 {
     public class WallWithObstacles : Wall
     {

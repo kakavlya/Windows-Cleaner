@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
-using WindowsCleaner.UI;
+using WindowsCleaner.WallNs;
 
 namespace WindowsCleaner.Collectibles
 {

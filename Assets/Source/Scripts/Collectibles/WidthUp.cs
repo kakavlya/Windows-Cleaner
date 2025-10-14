@@ -1,30 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using WindowsCleaner.PlayerNs;
 
-public class WidthUp : MonoBehaviour
+namespace WindowsCleaner.Collectibles
 {
-    [SerializeField] private float _widthBuff;
-
-    private void Start()
+    public class WidthUp : MonoBehaviour
     {
-        _widthBuff = _widthBuff == 0 ? 1.2f : _widthBuff;
-    }
+        [SerializeField] private float _widthBuff;
 
-    private void OnTriggerEnter(Collider other)
-    {
-    
-        var mopHead = other.GetComponent<MopHead>();
-        if (mopHead)
+        private void Start()
         {
-            Remove();
-            mopHead.WidthUp(_widthBuff);
-          
+            _widthBuff = _widthBuff == 0 ? 1.2f : _widthBuff;
         }
-    }
 
-    private void Remove()
-    {
-        Destroy(gameObject);
+        private void OnTriggerEnter(Collider other)
+        {
+
+            var mopHead = other.GetComponent<MopHead>();
+            if (mopHead)
+            {
+                Remove();
+                mopHead.WidthUp(_widthBuff);
+
+            }
+        }
+
+        private void Remove()
+        {
+            Destroy(gameObject);
+        }
     }
 }

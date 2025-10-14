@@ -1,6 +1,7 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using WindowsCleaner.GameProgressNs;
 
 namespace WindowsCleaner.UI
 {

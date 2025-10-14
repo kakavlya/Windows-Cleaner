@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace WindowsCleaner.UI
+namespace WindowsCleaner.WallNs
 {
     [CreateAssetMenu(fileName = "WallSettings", menuName = "Game/Wall Settings")]
     public class WallSettings : ScriptableObject
