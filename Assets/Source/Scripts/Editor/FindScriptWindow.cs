@@ -1,10 +1,9 @@
-using UnityEngine;
-using UnityEditor;
 using System.Collections.Generic;
-
+using UnityEditor;
+using UnityEngine;
 public class FindScriptWindow : EditorWindow
 {
-    private string _scriptName = "";
+    private string _scriptName;
     private Vector2 _scroll;
     private List<GameObject> _foundObjects = new();
 
@@ -31,7 +30,8 @@ public class FindScriptWindow : EditorWindow
         {
             foreach (var obj in _foundObjects)
             {
-                if (obj == null) continue;
+                if (obj == null)
+                    continue;
 
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.ObjectField(obj, typeof(GameObject), true);
@@ -60,7 +60,8 @@ public class FindScriptWindow : EditorWindow
             var comps = go.GetComponents<MonoBehaviour>();
             foreach (var comp in comps)
             {
-                if (comp == null) continue;
+                if (comp == null)
+                    continue;
                 if (comp.GetType().Name.ToLower() == _scriptName.ToLower())
                 {
                     _foundObjects.Add(go);
