@@ -11,6 +11,6 @@
         EndLevel,
         SoundMenu,
         Leaderboard,
-        LevelsMenu
+        LevelsMenu,
     }
 }

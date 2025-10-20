@@ -7,25 +7,13 @@ namespace WindowsCleaner.WallNs
 {
     public class WallWithObstacles : Wall
     {
+        private readonly List<Bounds> _occupiedAreas = new List<Bounds>();
+        private readonly List<GameObject> _obstacles = new List<GameObject>();
+
         [Header("Config")]
         [SerializeField] private ObstacleSettings _obstacleSettings;
         [SerializeField] private int _currentLevel = 1;
         [SerializeField] private float _obstacleMinDistance = 5.0f;
-
-        private readonly List<Bounds> _occupiedAreas = new List<Bounds>();
-        private readonly List<GameObject> _obstacles = new List<GameObject>();
-
-        private void OnEnable()
-        {
-            if (LevelController.Instance != null)
-                LevelController.Instance.OnLevelChanged += OnLevelChanged;
-        }
-
-        private void OnDisable()
-        {
-            if (LevelController.Instance != null)
-                LevelController.Instance.OnLevelChanged -= OnLevelChanged;
-        }
 
         protected override void Start()
         {
@@ -41,19 +29,39 @@ namespace WindowsCleaner.WallNs
             SetLevel(startLevel, forceRebuild: true);
         }
 
+        private void OnEnable()
+        {
+            if (LevelController.Instance != null)
+            {
+                LevelController.Instance.OnLevelChanged += OnLevelChanged;
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (LevelController.Instance != null)
+            {
+                LevelController.Instance.OnLevelChanged -= OnLevelChanged;
+            }
+        }
+
         public void StopObstacles()
         {
             foreach (var obstacle in _obstacles)
             {
                 if (obstacle != null)
+                {
                     obstacle.SetActive(false);
+                }
             }
         }
 
         public void SetLevel(int level, bool forceRebuild = false)
         {
             if (!forceRebuild && level == _currentLevel)
+            {
                 return;
+            }
 
             _currentLevel = level;
             ClearSceneObstacles();
@@ -90,6 +98,7 @@ namespace WindowsCleaner.WallNs
                 obstacle.transform.SetParent(transform);
 
                 var rb2d = obstacle.GetComponent<Rigidbody2D>();
+
                 if (rb2d != null)
                     rb2d.velocity = new Vector2(0f, -state.Speed);
 
@@ -119,7 +128,9 @@ namespace WindowsCleaner.WallNs
             float yMax = Mathf.Max(TopBoundPoint.y, BottomBountPoint.y);
 
             if (!(LevelController.Instance != null && LevelController.Instance.IsRestartingLevel))
+            {
                 PersistentData.SavedObstacles.Clear();
+            }
 
             while (placedObstacles < obstacleCount && attemptCount < maxAttempts)
             {
@@ -127,7 +138,11 @@ namespace WindowsCleaner.WallNs
 
                 var obstacleData = _obstacleSettings.GetRandomObstacleData();
                 var prefab = obstacleData.ObstaclePrefab;
-                if (prefab == null) continue;
+
+                if (prefab == null)
+                {
+                    continue;
+                }
 
                 var pos = new Vector3(
                     Random.Range(xMin, xMax),
@@ -135,10 +150,12 @@ namespace WindowsCleaner.WallNs
                     obstacleData.ZOffset);
 
                 var approxSize = prefab.transform.localScale * obstacleData.SizeScale;
-                var approxPadded = new Bounds(pos, approxSize + Vector3.one * _obstacleMinDistance);
+                var approxPadded = new Bounds(pos, approxSize + (Vector3.one * _obstacleMinDistance));
 
                 if (!IsAreaValid(approxPadded))
+                {
                     continue;
+                }
 
                 var obstacle = Instantiate(prefab, pos, Quaternion.Euler(obstacleData.Rotation));
                 obstacle.transform.SetParent(transform);
@@ -146,11 +163,13 @@ namespace WindowsCleaner.WallNs
                 var rb2d = obstacle.GetComponent<Rigidbody2D>();
                 float speed = Random.Range(minSpeed, maxSpeed);
                 if (rb2d != null)
+                {
                     rb2d.velocity = new Vector2(0f, -speed);
+                }
 
                 var renderer = obstacle.GetComponentInChildren<Renderer>();
-                var realSize = (renderer != null) ? renderer.bounds.size : approxSize;
-                var realPadded = new Bounds(pos, realSize + Vector3.one * _obstacleMinDistance);
+                var realSize = renderer != null ? renderer.bounds.size : approxSize;
+                var realPadded = new Bounds(pos, realSize + (Vector3.one * _obstacleMinDistance));
 
                 if (!IsAreaValid(realPadded))
                 {
@@ -165,7 +184,9 @@ namespace WindowsCleaner.WallNs
             }
 
             if (placedObstacles < obstacleCount)
+            {
                 Debug.LogWarning($"[WallWithObstacles] Placed {placedObstacles}/{obstacleCount} (space constraints).");
+            }
         }
 
         private void ClearSceneObstacles()
@@ -174,10 +195,15 @@ namespace WindowsCleaner.WallNs
             foreach (Transform child in transform)
             {
                 if (child.GetComponent<IBrick>() == null)
+                {
                     toRemove.Add(child.gameObject);
+                }
             }
+
             foreach (var go in toRemove)
+            {
                 Destroy(go);
+            }
 
             _obstacles.Clear();
             _occupiedAreas.Clear();
@@ -186,7 +212,9 @@ namespace WindowsCleaner.WallNs
         private void ClearSavedStateIfNeeded()
         {
             if (LevelController.Instance == null || !LevelController.Instance.IsRestartingLevel)
+            {
                 PersistentData.SavedObstacles.Clear();
+            }
         }
 
         private void SaveObstacle(ObstacleData obstacleData, GameObject obstaclePrefab, Vector3 position, float speed)
@@ -197,7 +225,7 @@ namespace WindowsCleaner.WallNs
                 Position = position,
                 Rotation = Quaternion.Euler(obstacleData.Rotation),
                 Speed = speed,
-                SizeScale = obstacleData.SizeScale
+                SizeScale = obstacleData.SizeScale,
             };
 
             PersistentData.SavedObstacles.Add(state);
@@ -210,8 +238,16 @@ namespace WindowsCleaner.WallNs
             var renderers = GetComponentsInChildren<Renderer>();
             foreach (var r in renderers)
             {
-                if (r == null) continue;
-                if (r.TryGetComponent<IBrick>(out _)) continue;
+                if (r == null)
+                {
+                    continue;
+                }
+
+                if (r.TryGetComponent<IBrick>(out _))
+                {
+                    continue;
+                }
+
                 _occupiedAreas.Add(r.bounds);
             }
         }
@@ -221,8 +257,11 @@ namespace WindowsCleaner.WallNs
             foreach (var occupied in _occupiedAreas)
             {
                 if (occupied.Intersects(newBounds))
+                {
                     return false;
+                }
             }
+
             return true;
         }
     }

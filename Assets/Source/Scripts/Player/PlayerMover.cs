@@ -6,10 +6,12 @@ namespace WindowsCleaner.PlayerNs
 {
     public class PlayerMover : MonoBehaviour
     {
+        private readonly float _yDirection = -1f;
+
         [SerializeField] private float _horizontalSpeed = 5f;
         [SerializeField] private float _verticalSpeed = 7f;
         [SerializeField] private Wall _wall;
-        private readonly float _yDirection = -1f;
+
         private Vector3 _moveDirection;
         private Vector2 _moveInput;
         private bool _stopped;
@@ -22,19 +24,6 @@ namespace WindowsCleaner.PlayerNs
         private void LateUpdate()
         {
             Move();
-        }
-
-        private void Move()
-        {
-            if (_stopped)
-            {
-                return;
-            }
-
-            _moveDirection = new(_moveInput.x, _yDirection, 0);
-            var nextPosition = _verticalSpeed * Time.deltaTime * _moveDirection;
-
-            transform.Translate(nextPosition);
         }
 
         public Vector2 MoveInput()
@@ -50,6 +39,19 @@ namespace WindowsCleaner.PlayerNs
         public void Stop()
         {
             _stopped = true;
+        }
+
+        private void Move()
+        {
+            if (_stopped)
+            {
+                return;
+            }
+
+            _moveDirection = new (_moveInput.x, _yDirection, 0);
+            var nextPosition = _verticalSpeed * Time.deltaTime * _moveDirection;
+
+            transform.Translate(nextPosition);
         }
     }
 }

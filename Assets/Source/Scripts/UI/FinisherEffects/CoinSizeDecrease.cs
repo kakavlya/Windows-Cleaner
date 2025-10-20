@@ -12,12 +12,12 @@ namespace WindowsCleaner.UI
 
         public void StartDecreaseSequence(float duration)
         {
-            float _durationToDecrease = duration - _delayBeforeDecrease;
+            float durationToDecrease = duration - _delayBeforeDecrease;
             Sequence sequence = DOTween.Sequence();
 
             sequence.AppendInterval(_delayBeforeDecrease);
 
-            sequence.Append(transform.DOScale(_endSize, _durationToDecrease).SetEase(_easingType))
+            sequence.Append(transform.DOScale(_endSize, durationToDecrease).SetEase(_easingType))
                 .OnComplete(() =>
                 {
                     gameObject.SetActive(false);

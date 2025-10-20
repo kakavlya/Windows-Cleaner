@@ -14,20 +14,17 @@ namespace WindowsCleaner.PlayerNs
         private void Start()
         {
             _originalRotation = transform.rotation;
-
         }
 
         private void FixedUpdate()
         {
-
             float moveInput = _playerMover.MoveInput().x;
 
             if (moveInput != 0)
             {
-                var _targetRotation = Quaternion.Euler(_originalRotation.eulerAngles.x, _originalRotation.eulerAngles.y, _rotationDegree * moveInput);
+                var targetRotation = Quaternion.Euler(_originalRotation.eulerAngles.x, _originalRotation.eulerAngles.y, _rotationDegree * moveInput);
 
-                transform.rotation = Quaternion.Slerp(transform.rotation, _targetRotation, Time.deltaTime * _rotationSpeed);
-
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _rotationSpeed);
             }
             else
             {

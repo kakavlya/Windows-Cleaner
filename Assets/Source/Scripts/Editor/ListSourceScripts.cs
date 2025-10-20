@@ -1,16 +1,18 @@
-using UnityEditor;
-using UnityEngine;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
-using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
 
 namespace WindowsCleaner.Editor
 {
     public class ListSourceScripts : EditorWindow
     {
+        private const string GameProgressPref = "GameProgress";
+
         private Vector2 _scrollPos;
         private List<ScriptInfo> _scripts = new List<ScriptInfo>();
-        private string _result = "";
+        private string _result = string.Empty;
 
         [MenuItem("Tools/List Source Scripts")]
         public static void ShowWindow()
@@ -45,7 +47,7 @@ namespace WindowsCleaner.Editor
         private void ScanScripts()
         {
             _scripts.Clear();
-            _result = "";
+            _result = string.Empty;
 
             string sourcePath = Path.Combine(Application.dataPath, "Source", "Scripts");
 
@@ -71,13 +73,12 @@ namespace WindowsCleaner.Editor
                     CurrentNamespace = currentNamespace,
                     ExpectedNamespace = expectedNamespace,
                     FolderName = folderName,
-                    NeedsUpdate = currentNamespace != expectedNamespace
+                    NeedsUpdate = currentNamespace != expectedNamespace,
                 };
 
                 _scripts.Add(info);
             }
 
-            // Generate result text
             _result = $"Found {_scripts.Count} scripts:\n\n";
 
             foreach (var script in _scripts)
@@ -108,7 +109,9 @@ namespace WindowsCleaner.Editor
             int firstSlash = relativePath.IndexOfAny(new char[] { '\\', '/' });
 
             if (firstSlash > 0)
+            {
                 return relativePath.Substring(0, firstSlash);
+            }
 
             return "(root)";
         }
@@ -116,10 +119,14 @@ namespace WindowsCleaner.Editor
         private string GetExpectedNamespace(string folderName)
         {
             if (folderName == "(root)")
+            {
                 return "WindowsCleaner";
+            }
 
             if (folderName == "Player")
+            {
                 return "WindowsCleaner.PlayerNs";
+            }
 
             return $"WindowsCleaner.{folderName}";
         }

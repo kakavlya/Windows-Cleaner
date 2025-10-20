@@ -5,7 +5,6 @@ namespace WindowsCleaner.UI
 {
     public partial class UIStateMachine : MonoBehaviour
     {
-
         [SerializeField] private StartScreen _startScreen;
         [SerializeField] private GameObject _tutorialScreen;
         [SerializeField] private GameObject _touchControlsScreen;
@@ -21,6 +20,7 @@ namespace WindowsCleaner.UI
 
         private UIState _currentState;
         private UIState _previousState;
+
         private void Start()
         {
             SwitchState(UIState.StartScreen);
@@ -28,8 +28,6 @@ namespace WindowsCleaner.UI
 
         public void SwitchState(UIState newState)
         {
-
-
             if (_currentState != newState)
             {
                 _previousState = _currentState;
@@ -79,6 +77,7 @@ namespace WindowsCleaner.UI
         {
             return _currentState;
         }
+
         public UIState GetPreviousState()
         {
             return _previousState;
@@ -88,6 +87,7 @@ namespace WindowsCleaner.UI
         {
             SwitchState(_previousState);
         }
+
         private void ActivateGameplay()
         {
             _touchControlsScreen.SetActive(true);

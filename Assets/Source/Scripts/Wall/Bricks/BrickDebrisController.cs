@@ -1,5 +1,5 @@
-using UnityEngine;
 using DG.Tweening;
+using UnityEngine;
 
 namespace WindowsCleaner.WallNs
 {
@@ -14,30 +14,26 @@ namespace WindowsCleaner.WallNs
         {
             float lifeTime = Random.Range(_lifetime.x, _lifetime.y);
             Vector3 randomOffset = new Vector3(
-                  Random.Range(_xOffset.x, _xOffset.y),
-                  Random.Range(_yOffset.x, _yOffset.y),
-                  Random.Range(_zOffset.x, _zOffset.y)
-              );
+                Random.Range(_xOffset.x, _xOffset.y),
+                Random.Range(_yOffset.x, _yOffset.y),
+                Random.Range(_zOffset.x, _zOffset.y));
 
             Vector3 randomRotation = new Vector3(
                 Random.Range(-180f, 180f),
                 Random.Range(-180f, 180f),
-                Random.Range(-180f, 180f)
-            );
+                Random.Range(-180f, 180f));
 
             Sequence sequence = DOTween.Sequence();
 
             sequence.Append(
                 transform.DOMove(transform.position + randomOffset, lifeTime)
-                         .SetEase(Ease.Linear)
-                         .SetUpdate(true)
-            );
+                    .SetEase(Ease.Linear)
+                    .SetUpdate(true));
 
             sequence.Join(
                 transform.DORotate(randomRotation, lifeTime, RotateMode.FastBeyond360)
-                         .SetEase(Ease.InCubic)
-                         .SetUpdate(true)
-            );
+                    .SetEase(Ease.InCubic)
+                    .SetUpdate(true));
 
             sequence.OnComplete(() => Destroy(gameObject));
         }

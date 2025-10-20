@@ -7,7 +7,6 @@ namespace WindowsCleaner.UI
     {
         [SerializeField] private Button _screenOpenPanelcon;
         [SerializeField] private Button _panelClose;
-
         [SerializeField] private GameObject _UIPanel;
 
         private bool _wasGamePausedBefore;
@@ -40,7 +39,6 @@ namespace WindowsCleaner.UI
                 _UIPanel.SetActive(true);
 
                 _wasGamePausedBefore = Time.timeScale == 0f;
-
 
                 if (!_wasGamePausedBefore)
                 {

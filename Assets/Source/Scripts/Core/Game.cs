@@ -1,12 +1,12 @@
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Cinemachine;
-using YG;
-using WindowsCleaner.UI;
 using WindowsCleaner.Collectibles;
 using WindowsCleaner.GameProgressNs;
 using WindowsCleaner.Obstacles;
+using WindowsCleaner.UI;
 using WindowsCleaner.WallNs;
+using YG;
 
 namespace WindowsCleaner.Core
 {
@@ -26,8 +26,8 @@ namespace WindowsCleaner.Core
         [SerializeField] private Scores _scores;
         [SerializeField] private WallWithObstacles _wall;
         [SerializeField] private UIStateMachine _uiStateMachine;
-
         [SerializeField] private string _leaderBoardName = "WindowsCleanerLeaderboard";
+
         private LeaderboardService _leaderboardService;
 
         private void Awake()
@@ -86,10 +86,10 @@ namespace WindowsCleaner.Core
             PauseGame();
             _uiStateMachine.SwitchState(UIState.GameOver);
         }
+
         private void WonLevel()
         {
             _wall.StopObstacles();
-            //_touchControlsScreen.SetActive(false);
             float currentScore = _scores.GetCurrentScore();
             LevelController.Instance.CompleteLevel(currentScore);
             _uiStateMachine.SwitchState(UIState.EndLevelAnimation);

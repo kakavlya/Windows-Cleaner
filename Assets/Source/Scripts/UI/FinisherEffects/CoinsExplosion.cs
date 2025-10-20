@@ -16,9 +16,10 @@ namespace WindowsCleaner.UI
         [SerializeField] private float _maxRandomRotationAngle = 360f;
         [SerializeField] private float _minMagnitude = 0.1f;
         [SerializeField] private float _maxMagnitude = 1f;
-        [SerializeField] private Vector3 _startingPos = new(10f, 0f, -2f);
+        [SerializeField] private Vector3 _startingPos = new (10f, 0f, -2f);
 
         public float CoinsOnScreenDuration = 0.5f;
+
         public void StartExplosion()
         {
             for (int i = 0; i < _coinsAmount; i++)

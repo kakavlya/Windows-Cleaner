@@ -12,22 +12,12 @@ namespace WindowsCleaner.Core
                 GetRandomPosNegSpread(spread));
         }
 
-        public Vector3 GetRandomPositiveDirection(float minMagnitude, float maxMagnitude)
-        {
-            Vector3 randomDirection = Random.onUnitSphere;
-
-            float randomMagnitude = Random.Range(minMagnitude, maxMagnitude);
-
-            Vector3 randomPositiveDirection = randomDirection.normalized * randomMagnitude;
-
-            return randomPositiveDirection;
-        }
-
         public static Quaternion GetRandomRotation(float maxRandomRotationAngle)
         {
-            Vector3 randomEulerRotation = new Vector3(Random.Range(0f, maxRandomRotationAngle),
-                                                      Random.Range(0f, maxRandomRotationAngle),
-                                                      Random.Range(0f, maxRandomRotationAngle));
+            Vector3 randomEulerRotation = new Vector3(
+                Random.Range(0f, maxRandomRotationAngle),
+                Random.Range(0f, maxRandomRotationAngle),
+                Random.Range(0f, maxRandomRotationAngle));
 
             return Quaternion.Euler(randomEulerRotation);
         }
@@ -50,6 +40,17 @@ namespace WindowsCleaner.Core
         public static Vector3 GetRandomPosXY(float spread)
         {
             return new Vector3(Random.Range(-spread, spread), Random.Range(-spread, spread), 0f);
+        }
+
+        public Vector3 GetRandomPositiveDirection(float minMagnitude, float maxMagnitude)
+        {
+            Vector3 randomDirection = Random.onUnitSphere;
+
+            float randomMagnitude = Random.Range(minMagnitude, maxMagnitude);
+
+            Vector3 randomPositiveDirection = randomDirection.normalized * randomMagnitude;
+
+            return randomPositiveDirection;
         }
     }
 }

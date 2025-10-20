@@ -3,7 +3,6 @@ using WindowsCleaner.Obstacles;
 
 namespace WindowsCleaner.Particles
 {
-
     public class SparksPositioning : MonoBehaviour
     {
         [SerializeField] private MoveBetweenPoints mover;
@@ -11,7 +10,6 @@ namespace WindowsCleaner.Particles
         [SerializeField] private float _rightDirectionX;
         [SerializeField] private float _leftAngle;
         [SerializeField] private float _rightAngle;
-
 
         private void OnEnable()
         {

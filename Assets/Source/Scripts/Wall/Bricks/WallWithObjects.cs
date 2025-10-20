@@ -6,11 +6,11 @@ namespace WindowsCleaner.WallNs
 {
     public class WallWithObjects : Wall
     {
+        private readonly List<Bounds> _occupiedAreas = new List<Bounds>();
+
         [SerializeField] private GameObjectsSettings _gameObjectsSettings;
         [SerializeField] private int _currentLevel = 1;
         [SerializeField] private float _objectMinDistance = 5f;
-
-        private readonly List<Bounds> _occupiedAreas = new List<Bounds>();
 
         protected override void Start()
         {
@@ -25,7 +25,9 @@ namespace WindowsCleaner.WallNs
         private void GenerateObjects(GameObjectTypeSettings settings)
         {
             if (settings == null)
+            {
                 return;
+            }
 
             int count = settings.GetCount(_currentLevel);
             float minSpeed = settings.GetMinSpeed(_currentLevel);
@@ -46,20 +48,24 @@ namespace WindowsCleaner.WallNs
 
                 var data = settings.GetRandomData();
                 var prefab = data?.ObstaclePrefab;
+
                 if (prefab == null)
+                {
                     continue;
+                }
 
                 var pos = new Vector3(
                     Random.Range(xMin, xMax),
                     Random.Range(yMin, yMax),
-                    data.ZOffset
-                );
+                    data.ZOffset);
 
                 var approxSize = prefab.transform.localScale * data.SizeScale;
-                var approxPadded = new Bounds(pos, approxSize + Vector3.one * _objectMinDistance);
+                var approxPadded = new Bounds(pos, approxSize + (Vector3.one * _objectMinDistance));
 
                 if (!IsAreaValid(approxPadded))
+                {
                     continue;
+                }
 
                 var obj = Instantiate(prefab, pos, Quaternion.Euler(data.Rotation), transform);
 
@@ -72,7 +78,7 @@ namespace WindowsCleaner.WallNs
 
                 var renderer = obj.GetComponentInChildren<Renderer>();
                 var realSize = renderer != null ? renderer.bounds.size : approxSize;
-                var realPadded = new Bounds(pos, realSize + Vector3.one * _objectMinDistance);
+                var realPadded = new Bounds(pos, realSize + (Vector3.one * _objectMinDistance));
 
                 if (!IsAreaValid(realPadded))
                 {
@@ -85,7 +91,9 @@ namespace WindowsCleaner.WallNs
             }
 
             if (placed < count)
+            {
                 Debug.LogWarning($"[WallWithObjects] Placed {placed}/{count} (space constraints).");
+            }
         }
 
         private void RebuildOccupiedAreas()
@@ -95,8 +103,16 @@ namespace WindowsCleaner.WallNs
             var renderers = GetComponentsInChildren<Renderer>();
             foreach (var r in renderers)
             {
-                if (r == null) continue;
-                if (r.TryGetComponent<IBrick>(out _)) continue;
+                if (r == null)
+                {
+                    continue;
+                }
+
+                if (r.TryGetComponent<IBrick>(out _))
+                {
+                    continue;
+                }
+
                 _occupiedAreas.Add(r.bounds);
             }
         }
@@ -106,8 +122,11 @@ namespace WindowsCleaner.WallNs
             foreach (var b in _occupiedAreas)
             {
                 if (b.Intersects(newBounds))
+                {
                     return false;
+                }
             }
+
             return true;
         }
     }

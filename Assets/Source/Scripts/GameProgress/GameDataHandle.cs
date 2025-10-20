@@ -8,12 +8,13 @@ namespace WindowsCleaner.GameProgressNs
 {
     public class GameDataHandle
     {
-        private const string _gameProgressPref = "GameProgress";
+        private const string GameProgressPref = "GameProgress";
         private readonly int _expectedLevelsCount = 50;
+
         public void SaveProgress(GameProgress progress)
         {
             string json = JsonUtility.ToJson(progress);
-            PlayerPrefs.SetString(_gameProgressPref, json);
+            PlayerPrefs.SetString(GameProgressPref, json);
             PlayerPrefs.Save();
 
             if (YandexGame.SDKEnabled)
@@ -42,9 +43,9 @@ namespace WindowsCleaner.GameProgressNs
 
         public GameProgress LoadProgressLocal()
         {
-            if (PlayerPrefs.HasKey(_gameProgressPref))
+            if (PlayerPrefs.HasKey(GameProgressPref))
             {
-                string json = PlayerPrefs.GetString(_gameProgressPref);
+                string json = PlayerPrefs.GetString(GameProgressPref);
                 return JsonUtility.FromJson<GameProgress>(json);
             }
             else
@@ -61,6 +62,12 @@ namespace WindowsCleaner.GameProgressNs
             }
         }
 
+        public void ResetGameProgress()
+        {
+            DeleteGameProgress();
+            LoadProgress();
+        }
+
         private GameProgress ValidateProgress(GameProgress progress)
         {
             if (progress.Levels == null)
@@ -75,8 +82,8 @@ namespace WindowsCleaner.GameProgressNs
                     progress.Levels.Add(new LevelData
                     {
                         LevelNumber = i,
-                        IsUnlocked = (i == 1),
-                        Score = 0
+                        IsUnlocked = i == 1,
+                        Score = 0,
                     });
                 }
             }
@@ -85,15 +92,9 @@ namespace WindowsCleaner.GameProgressNs
             return progress;
         }
 
-        public void ResetGameProgress()
-        {
-            DeleteGameProgress();
-            LoadProgress();
-        }
-
         private void DeleteGameProgress()
         {
-            PlayerPrefs.DeleteKey(_gameProgressPref);
+            PlayerPrefs.DeleteKey(GameProgressPref);
             PlayerPrefs.Save();
         }
     }

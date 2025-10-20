@@ -2,25 +2,23 @@
 
 namespace WindowsCleaner.Core
 {
-	public class TimeManager : MonoBehaviour
-	{
+    public class TimeManager : MonoBehaviour
+    {
+        public float SlowdownFactor = 0.25f;
+        public float SlowdownLength = 2f;
 
-		public float slowdownFactor = 0.25f;
-		public float slowdownLength = 2f;
-
-		void Update()
-		{
-			if (Input.GetKey(KeyCode.Space))
-			{
-				Time.timeScale = slowdownFactor;
-				Time.fixedDeltaTime = Time.timeScale * 0.02f;
-
-			}
-			else
-			{
-				Time.timeScale += (1f / slowdownLength) * Time.deltaTime;
-				Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
-			}
-		}
-	}
+        private void Update()
+        {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                Time.timeScale = SlowdownFactor;
+                Time.fixedDeltaTime = Time.timeScale * 0.02f;
+            }
+            else
+            {
+                Time.timeScale += (1f / SlowdownLength) * Time.deltaTime;
+                Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
+            }
+        }
+    }
 }

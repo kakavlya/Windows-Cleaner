@@ -3,16 +3,16 @@ using UnityEngine;
 
 namespace WindowsCleaner.Obstacles
 {
-
     public class MoveBetweenPoints : MonoBehaviour
     {
-        public enum Direction { Left, Right }
-
-        public event Action<Direction> OnDirectionChanged;
+        public enum Direction
+        {
+            Left,
+            Right,
+        }
 
         [SerializeField] private Transform _leftPoint;
         [SerializeField] private Transform _rightPoint;
-
         [SerializeField] private float _moveSpeed = 1f;
         [SerializeField] private float _pauseDuration = 1f;
 
@@ -20,6 +20,8 @@ namespace WindowsCleaner.Obstacles
         private bool _isMoving = true;
         private float _pauseTimer = 0f;
         private Direction _currentDirection;
+
+        public event Action<Direction> OnDirectionChanged;
 
         private void Start()
         {
