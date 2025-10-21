@@ -5,7 +5,7 @@ namespace WindowsCleaner.Particles
 {
     public class SparksPositioning : MonoBehaviour
     {
-        [SerializeField] private MoveBetweenPoints mover;
+        [SerializeField] private MoveBetweenPoints _mover;
         [SerializeField] private float _leftDirectionX;
         [SerializeField] private float _rightDirectionX;
         [SerializeField] private float _leftAngle;
@@ -13,17 +13,17 @@ namespace WindowsCleaner.Particles
 
         private void OnEnable()
         {
-            if (mover != null)
+            if (_mover != null)
             {
-                mover.OnDirectionChanged += HandleDirectionChange;
+                _mover.OnDirectionChanged += HandleDirectionChange;
             }
         }
 
         private void OnDisable()
         {
-            if (mover != null)
+            if (_mover != null)
             {
-                mover.OnDirectionChanged -= HandleDirectionChange;
+                _mover.OnDirectionChanged -= HandleDirectionChange;
             }
         }
 

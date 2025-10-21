@@ -5,14 +5,14 @@ namespace WindowsCleaner.AudioNs
 {
     public class Audio : MonoBehaviour
     {
-        public static Audio Instance;
+        private static Audio _instance;
 
         [Header("AudioNs Clip")]
         [SerializeField] private AudioClip _musicClip;
 
         [Header("Settings")]
-        [Range(0f, 1f)] public float MusicVolume = 1f;
-        [Range(0f, 1f)] public float SfxVolume = 1f;
+        [Range(0f, 1f)][SerializeField] private float _musicVolume = 1f;
+        [Range(0f, 1f)][SerializeField] private float _sfxVolume = 1f;
         [SerializeField] private bool _isMusicEnabled = true;
         [SerializeField] private bool _isSfxEnabled = true;
 
@@ -21,6 +21,9 @@ namespace WindowsCleaner.AudioNs
 
         public bool IsMusicEnabled { get => _isMusicEnabled; private set => _isMusicEnabled = value; }
         public bool IsSfxEnabled { get => _isSfxEnabled; private set => _isSfxEnabled = value; }
+        public static Audio Instance { get => _instance; private set => _instance = value; }
+        public float MusicVolume { get => _musicVolume; private set => _musicVolume = value; }
+        public float SfxVolume { get => _sfxVolume; private set => _sfxVolume = value; }
 
         private void Awake()
         {
@@ -102,8 +105,8 @@ namespace WindowsCleaner.AudioNs
 
         public void SaveSettings()
         {
-            PlayerPrefs.SetFloat("MusicVolume", MusicVolume);
-            PlayerPrefs.SetFloat("SfxVolume", SfxVolume);
+            PlayerPrefs.SetFloat("_musicVolume", MusicVolume);
+            PlayerPrefs.SetFloat("_sfxVolume", SfxVolume);
             PlayerPrefs.SetInt("MusicEnabled", IsMusicEnabled ? 1 : 0);
             PlayerPrefs.SetInt("SfxEnabled", IsSfxEnabled ? 1 : 0);
             PlayerPrefs.Save();
@@ -120,8 +123,8 @@ namespace WindowsCleaner.AudioNs
 
         public void LoadSettings()
         {
-            MusicVolume = PlayerPrefs.GetFloat("MusicVolume", 1f);
-            SfxVolume = PlayerPrefs.GetFloat("SfxVolume", 1f);
+            MusicVolume = PlayerPrefs.GetFloat("_musicVolume", 1f);
+            SfxVolume = PlayerPrefs.GetFloat("_sfxVolume", 1f);
             IsMusicEnabled = PlayerPrefs.GetInt("MusicEnabled", 1) == 1;
             IsSfxEnabled = PlayerPrefs.GetInt("SfxEnabled", 1) == 1;
         }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -60,12 +59,6 @@ namespace WindowsCleaner.GameProgressNs
                 SaveProgress(newProgress);
                 return newProgress;
             }
-        }
-
-        public void ResetGameProgress()
-        {
-            DeleteGameProgress();
-            LoadProgress();
         }
 
         private GameProgress ValidateProgress(GameProgress progress)

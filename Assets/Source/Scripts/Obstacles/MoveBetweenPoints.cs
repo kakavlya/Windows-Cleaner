@@ -39,7 +39,8 @@ namespace WindowsCleaner.Obstacles
         {
             if (_isMoving)
             {
-                transform.position = Vector3.MoveTowards(transform.position, _targetPoint.position, _moveSpeed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(
+                    transform.position, _targetPoint.position, _moveSpeed * Time.deltaTime);
 
                 if (Vector3.Distance(transform.position, _targetPoint.position) < 0.1f)
                 {

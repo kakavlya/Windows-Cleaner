@@ -5,9 +5,11 @@ namespace WindowsCleaner.Misc
 {
     public class WebGLPauseHandler : MonoBehaviour
     {
-        public static WebGLPauseHandler Instance;
+        private static WebGLPauseHandler _instance;
         private UIStateMachine _uiStateMachine;
         private bool _hasInitialized = false;
+
+        public static WebGLPauseHandler Instance { get => _instance; private set => _instance = value; }
 
         private void Awake()
         {

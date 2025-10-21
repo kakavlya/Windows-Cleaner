@@ -883,9 +883,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrowTransform: {fileID: 211514885}
-  targetScale: 1.2
-  duration: 0.5
-  repeatCount: -1
+  _targetScale: 1.2
+  _duration: 0.5
+  _repeatCount: -1
   playOnEnable: 1
 --- !u!114 &211514887
 MonoBehaviour:
@@ -1583,6 +1583,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8097820145585362486, guid: cbb10dad3320c5a4db6e8ff58f8240be, type: 3}
+      propertyPath: _mover
+      value: 
+      objectReference: {fileID: 803597646}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2587,6 +2591,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7430533161794697715, guid: 108548eae303e084395b98b046afc33d, type: 3}
   m_PrefabInstance: {fileID: 7220835106956943565}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &803597646 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6326234205951028304, guid: cbb10dad3320c5a4db6e8ff58f8240be, type: 3}
+  m_PrefabInstance: {fileID: 374414617}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80713d2383eb08541b2e7b7bdefd763e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &814296111 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7483867728181365817, guid: faa97b59ca9346f4ab26ed86b6b25417, type: 3}
@@ -4284,9 +4299,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrowTransform: {fileID: 1236425789}
-  targetScale: 1.2
-  duration: 0.5
-  repeatCount: -1
+  _targetScale: 1.2
+  _duration: 0.5
+  _repeatCount: -1
   playOnEnable: 1
 --- !u!1 &1239971409
 GameObject:

@@ -107,11 +107,6 @@ namespace WindowsCleaner.Core
             _leaderboardService.UpdateLeaderboard(LevelController.Instance.CurrentLevelInController);
         }
 
-        private void UpdateLeaderBoard(int newRecord)
-        {
-            YandexGame.NewLeaderboardScores(_leaderBoardName, newRecord);
-        }
-
         private void OnRestartButtonClick()
         {
             LevelController.Instance.RestartingLevel();

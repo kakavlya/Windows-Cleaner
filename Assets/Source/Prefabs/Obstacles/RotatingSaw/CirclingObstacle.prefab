@@ -439,6 +439,10 @@ PrefabInstance:
       propertyPath: mover
       value: 
       objectReference: {fileID: 6326234205951028304}
+    - target: {fileID: 7180775759602743901, guid: 458184ad9c6983445810bd31f4f469ce, type: 3}
+      propertyPath: _mover
+      value: 
+      objectReference: {fileID: 6326234205951028304}
     - target: {fileID: 7296512427128988794, guid: 458184ad9c6983445810bd31f4f469ce, type: 3}
       propertyPath: m_Name
       value: SparksBase

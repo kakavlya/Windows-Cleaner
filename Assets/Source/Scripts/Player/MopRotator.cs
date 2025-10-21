@@ -22,9 +22,11 @@ namespace WindowsCleaner.PlayerNs
 
             if (moveInput != 0)
             {
-                var targetRotation = Quaternion.Euler(_originalRotation.eulerAngles.x, _originalRotation.eulerAngles.y, _rotationDegree * moveInput);
+                var targetRotation = Quaternion.Euler(
+                    _originalRotation.eulerAngles.x, _originalRotation.eulerAngles.y, _rotationDegree * moveInput);
 
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _rotationSpeed);
+                transform.rotation = Quaternion.Slerp(
+                    transform.rotation, targetRotation, Time.deltaTime * _rotationSpeed);
             }
             else
             {
