@@ -1,74 +1,89 @@
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
-public class FindScriptWindow : EditorWindow
+namespace WindowsCleaner.Editor
 {
-    private string _scriptName;
-    private Vector2 _scroll;
-    private List<GameObject> _foundObjects = new();
+    using System.Collections.Generic;
+    using UnityEditor;
+    using UnityEngine;
 
-    [MenuItem("Tools/Find Script in Scene")]
-    private static void OpenWindow()
+    public class FindScriptWindow : EditorWindow
     {
-        GetWindow<FindScriptWindow>("Find Script");
-    }
+        private string _scriptName;
+        private Vector2 _scroll;
+        private List<GameObject> _foundObjects = new List<GameObject>();
 
-    private void OnGUI()
-    {
-        EditorGUILayout.LabelField("Find Objects by Script", EditorStyles.boldLabel);
-        _scriptName = EditorGUILayout.TextField("Script Name", _scriptName);
-
-        if (GUILayout.Button("Search"))
+        [MenuItem("Tools/Find Script in Scene")]
+        private static void OpenWindow()
         {
-            SearchObjects();
+            GetWindow<FindScriptWindow>("Find Script");
         }
 
-        EditorGUILayout.Space(10);
-        _scroll = EditorGUILayout.BeginScrollView(_scroll);
-
-        if (_foundObjects.Count > 0)
+        private void OnGUI()
         {
-            foreach (var obj in _foundObjects)
-            {
-                if (obj == null)
-                    continue;
+            EditorGUILayout.LabelField("Find Objects by Script", EditorStyles.boldLabel);
+            _scriptName = EditorGUILayout.TextField("Script Name", _scriptName);
 
-                EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.ObjectField(obj, typeof(GameObject), true);
-                if (GUILayout.Button("Select", GUILayout.Width(60)))
-                    Selection.activeObject = obj;
-                EditorGUILayout.EndHorizontal();
+            if (GUILayout.Button("Search"))
+            {
+                SearchObjects();
             }
-        }
-        else
-        {
-            EditorGUILayout.LabelField("No objects found.");
-        }
 
-        EditorGUILayout.EndScrollView();
-    }
+            EditorGUILayout.Space(10);
+            _scroll = EditorGUILayout.BeginScrollView(_scroll);
 
-    private void SearchObjects()
-    {
-        _foundObjects.Clear();
-        if (string.IsNullOrEmpty(_scriptName))
-            return;
-
-        var all = Object.FindObjectsOfType<GameObject>(true);
-        foreach (var go in all)
-        {
-            var comps = go.GetComponents<MonoBehaviour>();
-            foreach (var comp in comps)
+            if (_foundObjects.Count > 0)
             {
-                if (comp == null)
-                    continue;
-                if (comp.GetType().Name.ToLower() == _scriptName.ToLower())
+                foreach (var obj in _foundObjects)
                 {
-                    _foundObjects.Add(go);
-                    break;
+                    if (obj == null)
+                    {
+                        continue;
+                    }
+
+                    EditorGUILayout.BeginHorizontal();
+                    EditorGUILayout.ObjectField(obj, typeof(GameObject), true);
+                    if (GUILayout.Button("Select", GUILayout.Width(60)))
+                    {
+                        Selection.activeObject = obj;
+                    }
+
+                    EditorGUILayout.EndHorizontal();
                 }
             }
+            else
+            {
+                EditorGUILayout.LabelField("No objects found.");
+            }
+
+            EditorGUILayout.EndScrollView();
         }
-        Debug.Log($"Found {_foundObjects.Count} object(s) with script {_scriptName}.");
+
+        private void SearchObjects()
+        {
+            _foundObjects.Clear();
+            if (string.IsNullOrEmpty(_scriptName))
+            {
+                return;
+            }
+
+            var all = Object.FindObjectsOfType<GameObject>(true);
+            foreach (var go in all)
+            {
+                var comps = go.GetComponents<MonoBehaviour>();
+                foreach (var comp in comps)
+                {
+                    if (comp == null)
+                    {
+                        continue;
+                    }
+
+                    if (comp.GetType().Name.ToLower() == _scriptName.ToLower())
+                    {
+                        _foundObjects.Add(go);
+                        break;
+                    }
+                }
+            }
+
+            Debug.Log($"Found {_foundObjects.Count} object(s) with script {_scriptName}.");
+        }
     }
 }

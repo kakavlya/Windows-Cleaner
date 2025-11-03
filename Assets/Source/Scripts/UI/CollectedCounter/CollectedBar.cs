@@ -7,9 +7,10 @@ namespace WindowsCleaner.UI
 {
     public class CollectedBar : MonoBehaviour
     {
+        private readonly float _maxPercentage = 100f;
+
         [SerializeField] private Slider _slider;
         [SerializeField] private Scores _scores;
-        private readonly float _maxPercentage = 100f;
         [SerializeField] private TMP_Text _hitScore;
 
         private void Start()
@@ -26,6 +27,7 @@ namespace WindowsCleaner.UI
         {
             _scores.ProgressUpdated -= OnPercentValueChanged;
         }
+
         private void OnPercentValueChanged(float currentPercent)
         {
             SetSliderValue(currentPercent);
@@ -34,7 +36,7 @@ namespace WindowsCleaner.UI
 
         private void SetPercentText(float currentPercent)
         {
-            _hitScore.text = (currentPercent.ToString("0.#") + "%");
+            _hitScore.text = currentPercent.ToString("0.#") + "%";
         }
 
         private void SetSliderValue(float currentPercent)

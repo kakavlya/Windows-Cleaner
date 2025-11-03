@@ -18,11 +18,26 @@ namespace WindowsCleaner.UI
         private float _stepsLeft;
         private float _scoresInStep;
 
-        public void ShowCoinsPrize() =>
-            ShowCoinsPrize(_totalRewardCount);
+        private void OnEnable()
+        {
+            CalculateShowReward(_scores.GetBricksHit());
+            ShowCoinsPrize(0);
+        }
 
-        public void ShowCoinsPrize(int score) =>
+        public void ShowCoinsPrize()
+        {
+            ShowCoinsPrize(_totalRewardCount);
+        }
+
+        public void ShowCoinsPrize(int score)
+        {
             _hitScore.SetText(score.ToString());
+        }
+
+        internal void TriggerRewardCount(float durationSeconds)
+        {
+            CalculateUpdateValues(durationSeconds);
+        }
 
         private void GetCoinsPrize(int scores)
         {
@@ -32,17 +47,6 @@ namespace WindowsCleaner.UI
         private void CalculateShowReward(int scores)
         {
             GetCoinsPrize(scores);
-        }
-
-        private void OnEnable()
-        {
-            CalculateShowReward(_scores.GetBricksHit());
-            ShowCoinsPrize(0);
-        }
-
-        internal void TriggerRewardCount(float _durationSeconds)
-        {
-            CalculateUpdateValues(_durationSeconds);
         }
 
         private void CalculateUpdateValues(float duration)

@@ -14,6 +14,7 @@ namespace WindowsCleaner.UI
         private UICoinsExplosion _uiCoinsExplosion;
         private ResultsRibbon _resultsRibbon;
         private CoinsRewardAppearance _coinsRewardAppearance;
+
         private void Start()
         {
             _coinsExplosion = GetComponent<CoinsExplosion>();

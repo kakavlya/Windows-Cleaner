@@ -93,8 +93,11 @@ namespace WindowsCleaner.UI
             _touchControlsScreen.SetActive(true);
             _sliderPickedBar.SetActive(true);
             _sideButtons.SetActive(true);
-            Audio.Instance.ToggleMusic(true);
-            Audio.Instance.ToggleSfx(true);
+            if (Audio.Instance != null)
+            {
+                Audio.Instance.ToggleMusic(true);
+                Audio.Instance.ToggleSfx(true);
+            }
             Time.timeScale = 1;
         }
 

@@ -4,9 +4,9 @@ using UnityEngine.SceneManagement;
 using WindowsCleaner.Collectibles;
 using WindowsCleaner.GameProgressNs;
 using WindowsCleaner.Obstacles;
+using WindowsCleaner.PlayerNs;
 using WindowsCleaner.UI;
 using WindowsCleaner.WallNs;
-using YG;
 
 namespace WindowsCleaner.Core
 {
@@ -18,7 +18,7 @@ namespace WindowsCleaner.Core
         [SerializeField] private GameOverScreen _gameOverScreen;
         [SerializeField] private EndLevelScreen _endLevelScreen;
         [SerializeField] private GameObject _sliderPickedBar;
-        [SerializeField] private PlayerNs.Player _player;
+        [SerializeField] private Player _player;
         [SerializeField] private CollectedFinisher _collectedFinisher;
         [SerializeField] private float _totalSequenceDuration;
         [SerializeField] private CinemachineVirtualCamera _secondCam;

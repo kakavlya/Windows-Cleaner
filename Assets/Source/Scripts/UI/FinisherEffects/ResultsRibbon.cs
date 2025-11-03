@@ -1,5 +1,5 @@
-using DG.Tweening;
 using System.Collections;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using WindowsCleaner.Collectibles;
@@ -25,10 +25,10 @@ namespace WindowsCleaner.UI
         [SerializeField] private TMP_Text _scoresText;
         [SerializeField] private Scores _scores;
 
-        public float RibbonOnScreenDuration = 3f;
-
         private Transform _ribbonTransform;
         private bool _showRibbon;
+
+        public float RibbonOnScreenDuration { get; private set; } = 3f;
 
         public void StartRibbonSequence()
         {
@@ -38,6 +38,20 @@ namespace WindowsCleaner.UI
         public void StartRibbonSequenceAfterDelay(float delay)
         {
             StartCoroutine(RibbonSequence(delay));
+        }
+
+        public void DisplayRibbonSequence(Transform target)
+        {
+            StartCoroutine(StartHideSequence());
+
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(target.DOScale(_endSize, _duration).SetEase(_easingCurve))
+                .OnComplete(ScaleStars);
+        }
+
+        public void SetDuration(float duration)
+        {
+            RibbonOnScreenDuration = duration;
         }
 
         private IEnumerator RibbonSequence(float delay)
@@ -57,19 +71,12 @@ namespace WindowsCleaner.UI
             ShowScore();
         }
 
-        public void DisplayRibbonSequence(Transform target)
-        {
-            StartCoroutine(StartHideSequence());
-
-            Sequence sequence = DOTween.Sequence();
-            sequence.Append(target.DOScale(_endSize, _duration).SetEase(_easingCurve))
-                .OnComplete(ScaleStars);
-        }
-
         private void ScaleStars()
         {
             if (!_showRibbon)
+            {
                 return;
+            }
 
             foreach (var star in _starsTransforms)
             {
@@ -97,11 +104,6 @@ namespace WindowsCleaner.UI
             yield return new WaitForSeconds(RibbonOnScreenDuration);
             _showRibbon = false;
             _ribbon.SetActive(false);
-        }
-
-        public void SetDuration(float duration)
-        {
-            RibbonOnScreenDuration = duration;
         }
     }
 }

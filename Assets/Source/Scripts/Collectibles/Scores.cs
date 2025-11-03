@@ -1,19 +1,21 @@
 using UnityEngine;
 using UnityEngine.Events;
+using WindowsCleaner.PlayerNs;
 using WindowsCleaner.WallNs;
 
 namespace WindowsCleaner.Collectibles
 {
     public class Scores : MonoBehaviour
     {
-        public event UnityAction<float> ProgressUpdated;
-
-        [SerializeField] private PlayerNs.Player _player;
+        [SerializeField] private Player _player;
         [SerializeField] private Wall _wall;
         [SerializeField] private int _multiplier = 5;
+
         private int _totalBricksCount;
         private int _bricksHit;
         private float _currentScore;
+
+        public event UnityAction<float> ProgressUpdated;
 
         private void Start()
         {
@@ -32,11 +34,21 @@ namespace WindowsCleaner.Collectibles
             _player.IncrementScore -= UpdateScore;
         }
 
+        public int GetBricksHit()
+        {
+            return _bricksHit;
+        }
+
+        public float GetCurrentScore()
+        {
+            return _currentScore;
+        }
+
         private void UpdateScore()
         {
             _bricksHit++;
             GetTotalBricksCount();
-            _currentScore = _bricksHit / (_totalBricksCount / 100f) * _multiplier;
+            _currentScore = (_bricksHit / (_totalBricksCount / 100f)) * _multiplier;
             ProgressUpdated?.Invoke(_currentScore);
         }
 
@@ -44,13 +56,5 @@ namespace WindowsCleaner.Collectibles
         {
             _totalBricksCount = _wall.TotalBricks;
         }
-
-        public int GetBricksHit()
-        {
-            return _bricksHit;
-        }
-
-        public float GetCurrentScore() =>
-            _currentScore;
     }
 }

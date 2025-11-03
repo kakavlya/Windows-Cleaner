@@ -7,23 +7,49 @@ namespace WindowsCleaner.AudioNs
     {
         private static Audio _instance;
 
-        [Header("AudioNs Clip")]
+        [Header("Audio Clip")]
         [SerializeField] private AudioClip _musicClip;
 
         [Header("Settings")]
-        [Range(0f, 1f)][SerializeField] private float _musicVolume = 1f;
-        [Range(0f, 1f)][SerializeField] private float _sfxVolume = 1f;
+        [Range(0f, 1f)]
+        [SerializeField] private float _musicVolume = 1f;
+        [Range(0f, 1f)]
+        [SerializeField] private float _sfxVolume = 1f;
         [SerializeField] private bool _isMusicEnabled = true;
         [SerializeField] private bool _isSfxEnabled = true;
 
         private AudioSource _musicSource;
         private AudioSource _sfxSource;
 
-        public bool IsMusicEnabled { get => _isMusicEnabled; private set => _isMusicEnabled = value; }
-        public bool IsSfxEnabled { get => _isSfxEnabled; private set => _isSfxEnabled = value; }
-        public static Audio Instance { get => _instance; private set => _instance = value; }
-        public float MusicVolume { get => _musicVolume; private set => _musicVolume = value; }
-        public float SfxVolume { get => _sfxVolume; private set => _sfxVolume = value; }
+        public static Audio Instance
+        {
+            get => _instance;
+            private set => _instance = value;
+        }
+
+        public bool IsMusicEnabled
+        {
+            get => _isMusicEnabled;
+            private set => _isMusicEnabled = value;
+        }
+
+        public bool IsSfxEnabled
+        {
+            get => _isSfxEnabled;
+            private set => _isSfxEnabled = value;
+        }
+
+        public float MusicVolume
+        {
+            get => _musicVolume;
+            private set => _musicVolume = value;
+        }
+
+        public float SfxVolume
+        {
+            get => _sfxVolume;
+            private set => _sfxVolume = value;
+        }
 
         private void Awake()
         {
@@ -58,7 +84,9 @@ namespace WindowsCleaner.AudioNs
         public void PlayMusic(AudioClip music)
         {
             if (music == null || _musicSource == null || !IsMusicEnabled)
+            {
                 return;
+            }
 
             _musicSource.clip = music;
             _musicSource.Play();
@@ -86,21 +114,6 @@ namespace WindowsCleaner.AudioNs
         {
             IsSfxEnabled = enabled;
             ApplySettings();
-        }
-
-        private void ApplySettings()
-        {
-            if (_musicSource != null)
-            {
-                _musicSource.mute = !IsMusicEnabled;
-                _musicSource.volume = MusicVolume;
-            }
-
-            if (_sfxSource != null)
-            {
-                _sfxSource.mute = !IsSfxEnabled;
-                _sfxSource.volume = SfxVolume;
-            }
         }
 
         public void SaveSettings()
@@ -142,6 +155,21 @@ namespace WindowsCleaner.AudioNs
             if (IsSfxEnabled && clip != null && _sfxSource != null)
             {
                 _sfxSource.PlayOneShot(clip, SfxVolume);
+            }
+        }
+
+        private void ApplySettings()
+        {
+            if (_musicSource != null)
+            {
+                _musicSource.mute = !IsMusicEnabled;
+                _musicSource.volume = MusicVolume;
+            }
+
+            if (_sfxSource != null)
+            {
+                _sfxSource.mute = !IsSfxEnabled;
+                _sfxSource.volume = SfxVolume;
             }
         }
     }

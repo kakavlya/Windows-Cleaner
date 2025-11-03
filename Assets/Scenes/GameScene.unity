@@ -1870,7 +1870,7 @@ GameObject:
   - component: {fileID: 505139978}
   - component: {fileID: 505139979}
   m_Layer: 0
-  m_Name: AudioBootStrapper
+  m_Name: Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1900,10 +1900,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 505139977}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc4f05431aa3b194eac06521c56dc8b2, type: 3}
+  m_Script: {fileID: 11500000, guid: 37b2b344a5cb6ce40affd9f65cbc07c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioPrefab: {fileID: 3828274996186365987, guid: 61b93f07c97bfef4e9f3f395e032dbff, type: 3}
+  _musicClip: {fileID: 8300000, guid: 50dda47060284214687447c1c5c29e68, type: 3}
+  _musicVolume: 0.5
+  _sfxVolume: 0.5
+  _isMusicEnabled: 1
+  _isSfxEnabled: 1
 --- !u!114 &508345238 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6227482368864029911, guid: 104080b612864ba4eaeb654a7c6dcad5, type: 3}
