@@ -22,7 +22,7 @@ namespace WindowsCleaner.UI
 
         private Tween pulseTween;
 
-        void OnEnable()
+        private void OnEnable()
         {
             if (playOnEnable)
             {
@@ -30,7 +30,7 @@ namespace WindowsCleaner.UI
             }
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             StopPulseAnimation();
         }

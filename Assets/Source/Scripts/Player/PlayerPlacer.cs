@@ -31,8 +31,10 @@ namespace WindowsCleaner.PlayerNs
         {
             if (_player != null)
             {
-                Vector3 pointToPlace = new Vector3(_wall.GetTopCenterPoint().x, _wall.GetTopCenterPoint().y + _topOffset, _wall.GetTopCenterPoint().z - 1);
-                Vector3 mopPointToPlace = new Vector3(_wall.GetTopCenterPoint().x, _wall.GetTopCenterPoint().y + _topOffset + _mopOffset, _wall.GetTopCenterPoint().z - 1);
+                Vector3 pointToPlace = new Vector3(
+                    _wall.GetTopCenterPoint().x, _wall.GetTopCenterPoint().y + _topOffset, _wall.GetTopCenterPoint().z - 1);
+                Vector3 mopPointToPlace = new Vector3(
+                    _wall.GetTopCenterPoint().x, _wall.GetTopCenterPoint().y + _topOffset + _mopOffset, _wall.GetTopCenterPoint().z - 1);
 
                 _player.transform.position = pointToPlace;
                 _playerMop.transform.position = mopPointToPlace;

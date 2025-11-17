@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace WindowsCleaner.Obstacles
 {
@@ -6,9 +7,14 @@ namespace WindowsCleaner.Obstacles
     public class GameObjectsSettings : ScriptableObject
     {
         [Header("Obstacles settings")]
-        public GameObjectTypeSettings ObstaclesSettings;
+        [FormerlySerializedAs("ObstaclesSettings")]
+        [SerializeField] private GameObjectTypeSettings _obstaclesSettings;
 
         [Header("Pickables settings")]
-        public GameObjectTypeSettings PickablesSettings;
+        [FormerlySerializedAs("PickablesSettings")]
+        [SerializeField] private GameObjectTypeSettings _pickablesSettings;
+
+        public GameObjectTypeSettings ObstaclesSettings => _obstaclesSettings;
+        public GameObjectTypeSettings PickablesSettings => _pickablesSettings;
     }
 }

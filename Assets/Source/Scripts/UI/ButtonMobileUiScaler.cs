@@ -8,7 +8,7 @@ namespace WindowsCleaner.UI
         [SerializeField] private float _scaleMultiplier = 2f;
         [SerializeField] private bool _adjustPosition = true;
 
-        void Start()
+        private void Start()
         {
             if (Application.isMobilePlatform)
             {

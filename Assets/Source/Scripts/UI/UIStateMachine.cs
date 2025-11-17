@@ -3,7 +3,7 @@ using WindowsCleaner.AudioNs;
 
 namespace WindowsCleaner.UI
 {
-    public partial class UIStateMachine : MonoBehaviour
+    public class UIStateMachine : MonoBehaviour
     {
         [SerializeField] private StartScreen _startScreen;
         [SerializeField] private GameObject _tutorialScreen;
