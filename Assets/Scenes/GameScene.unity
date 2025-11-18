@@ -11795,6 +11795,10 @@ PrefabInstance:
       propertyPath: CoinsOnScreenDuration
       value: 0.4
       objectReference: {fileID: 0}
+    - target: {fileID: 8911296791105852873, guid: dd09e75039541c248ad459ae4ad8f79a, type: 3}
+      propertyPath: "_\u0441oinsOnScreenDuration"
+      value: 0.4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

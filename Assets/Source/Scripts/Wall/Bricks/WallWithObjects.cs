@@ -33,10 +33,10 @@ namespace WindowsCleaner.WallNs
             float minSpeed = settings.GetMinSpeed(_currentLevel);
             float maxSpeed = settings.GetMaxSpeed(_currentLevel);
 
-            float xMin = Mathf.Min(LeftBoundPoint.x, RightBoundPoint.x);
-            float xMax = Mathf.Max(LeftBoundPoint.x, RightBoundPoint.x);
-            float yMin = Mathf.Min(BottomBountPoint.y, TopBoundPoint.y);
-            float yMax = Mathf.Max(BottomBountPoint.y, TopBoundPoint.y);
+            float xMin = Mathf.Min(LeftBound.x, RightBound.x);
+            float xMax = Mathf.Max(LeftBound.x, RightBound.x);
+            float yMin = Mathf.Min(BottomBound.y, TopBound.y);
+            float yMax = Mathf.Max(BottomBound.y, TopBound.y);
 
             int attempts = 0;
             int maxAttempts = count * 5;

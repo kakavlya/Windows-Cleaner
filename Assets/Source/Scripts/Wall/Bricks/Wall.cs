@@ -14,13 +14,16 @@ namespace WindowsCleaner.WallNs
 
         private int _totalBricks;
 
-        protected Vector3 LeftBoundPoint;
-        protected Vector3 RightBoundPoint;
-        protected Vector3 TopBoundPoint;
-        protected Vector3 BottomBountPoint;
+        private Vector3 _leftBoundPoint;
+        private Vector3 _rightBoundPoint;
+        private Vector3 _topBoundPoint;
+        private Vector3 _bottomBoundPoint;
 
-        public Vector3 LeftBound => LeftBoundPoint;
-        public Vector3 RightBound => RightBoundPoint;
+        public Vector3 LeftBound => _leftBoundPoint;
+        public Vector3 RightBound => _rightBoundPoint;
+        public Vector3 TopBound => _topBoundPoint;
+        public Vector3 BottomBound => _bottomBoundPoint;
+
         public int TotalBricks => _totalBricks;
 
         protected virtual void Start()
@@ -32,8 +35,8 @@ namespace WindowsCleaner.WallNs
 
         public Vector3 GetTopCenterPoint()
         {
-            float centerX = (LeftBoundPoint.x + RightBoundPoint.x) * 0.5f;
-            float yTop = Mathf.Max(TopBoundPoint.y, BottomBountPoint.y);
+            float centerX = (LeftBound.x + RightBound.x) * 0.5f;
+            float yTop = Mathf.Max(TopBound.y, BottomBound.y);
             return new Vector3(centerX, yTop, 0f);
         }
 
@@ -62,25 +65,25 @@ namespace WindowsCleaner.WallNs
 
                     if (row == 0 && column == 0)
                     {
-                        BottomBountPoint = worldPos;
-                        LeftBoundPoint = worldPos;
+                        _bottomBoundPoint = worldPos;
+                        _leftBoundPoint = worldPos;
                     }
 
                     if (row == 0 && column == _columns - 1)
-                        RightBoundPoint = worldPos;
+                        _rightBoundPoint = worldPos;
 
                     if (row == _rows - 1 && column == 0)
-                        TopBoundPoint = worldPos;
+                        _topBoundPoint = worldPos;
                 }
             }
         }
 
         public bool CheckBoundaries(Vector3 position)
         {
-            float minX = Mathf.Min(LeftBoundPoint.x, RightBoundPoint.x);
-            float maxX = Mathf.Max(LeftBoundPoint.x, RightBoundPoint.x);
-            float minY = Mathf.Min(TopBoundPoint.y, BottomBountPoint.y);
-            float maxY = Mathf.Max(TopBoundPoint.y, BottomBountPoint.y);
+            float minX = Mathf.Min(LeftBound.x, RightBound.x);
+            float maxX = Mathf.Max(LeftBound.x, RightBound.x);
+            float minY = Mathf.Min(TopBound.y, BottomBound.y);
+            float maxY = Mathf.Max(TopBound.y, BottomBound.y);
 
             return position.x >= minX && position.x <= maxX &&
                    position.y >= minY && position.y <= maxY;

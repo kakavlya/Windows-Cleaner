@@ -124,8 +124,8 @@ namespace WindowsCleaner.WallNs
 
             float xMin = Mathf.Min(LeftBound.x, RightBound.x);
             float xMax = Mathf.Max(LeftBound.x, RightBound.x);
-            float yMin = Mathf.Min(TopBoundPoint.y, BottomBountPoint.y);
-            float yMax = Mathf.Max(TopBoundPoint.y, BottomBountPoint.y);
+            float yMin = Mathf.Min(TopBound.y, BottomBound.y);
+            float yMax = Mathf.Max(TopBound.y, BottomBound.y);
 
             if (!(LevelController.Instance != null && LevelController.Instance.IsRestartingLevel))
             {

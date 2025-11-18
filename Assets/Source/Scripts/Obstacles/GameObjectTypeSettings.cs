@@ -9,50 +9,50 @@ namespace WindowsCleaner.Obstacles
     public class GameObjectTypeSettings
     {
         [FormerlySerializedAs("dataPrefabs")]
-        public List<ObstacleData> DataPrefabs;
+        [SerializeField] private List<ObstacleData> _dataPrefabs;
 
         [FormerlySerializedAs("countCurve")]
-        public AnimationCurve CountCurve;
+        [SerializeField] private AnimationCurve _countCurve;
 
         [FormerlySerializedAs("maxCount")]
-        public int MaxCount = 10;
+        [SerializeField] private int _maxCount = 10;
 
         [FormerlySerializedAs("speedMinCurve")]
-        public AnimationCurve SpeedMinCurve;
+        [SerializeField] private AnimationCurve _speedMinCurve;
 
         [FormerlySerializedAs("speedMaxCurve")]
-        public AnimationCurve SpeedMaxCurve;
+        [SerializeField] private AnimationCurve _speedMaxCurve;
 
         [FormerlySerializedAs("minSpeed")]
-        public float MinSpeed = 5f;
+        [SerializeField] private float _minSpeed = 5f;
 
         [FormerlySerializedAs("maxSpeed")]
-        public float MaxSpeed = 10f;
+        [SerializeField] private float _maxSpeed = 10f;
 
         public int GetCount(int level)
         {
-            float normalized = CountCurve.Evaluate(level);
-            return Mathf.RoundToInt(normalized * MaxCount);
+            float normalized = _countCurve.Evaluate(level);
+            return Mathf.RoundToInt(normalized * _maxCount);
         }
 
         public float GetMinSpeed(int level)
         {
-            float normalized = SpeedMinCurve.Evaluate(level);
-            return Mathf.Lerp(MinSpeed, MaxSpeed, normalized);
+            float normalized = _speedMinCurve.Evaluate(level);
+            return Mathf.Lerp(_minSpeed, _maxSpeed, normalized);
         }
 
         public float GetMaxSpeed(int level)
         {
-            float normalized = SpeedMaxCurve.Evaluate(level);
-            return Mathf.Lerp(MinSpeed, MaxSpeed, normalized);
+            float normalized = _speedMaxCurve.Evaluate(level);
+            return Mathf.Lerp(_minSpeed, _maxSpeed, normalized);
         }
 
         public ObstacleData GetRandomData()
         {
-            if (DataPrefabs == null || DataPrefabs.Count == 0)
+            if (_dataPrefabs == null || _dataPrefabs.Count == 0)
                 return null;
 
-            return DataPrefabs[Random.Range(0, DataPrefabs.Count)];
+            return _dataPrefabs[Random.Range(0, _dataPrefabs.Count)];
         }
     }
 }

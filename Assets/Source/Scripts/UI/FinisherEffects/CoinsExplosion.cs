@@ -18,7 +18,7 @@ namespace WindowsCleaner.UI
         [SerializeField] private float _maxMagnitude = 1f;
         [SerializeField] private Vector3 _startingPos = new (10f, 0f, -2f);
 
-        public float CoinsOnScreenDuration = 0.5f;
+        [SerializeField] private float _ñoinsOnScreenDuration = 0.5f;
 
         public void StartExplosion()
         {
@@ -30,13 +30,13 @@ namespace WindowsCleaner.UI
                 coin.SetActive(true);
                 coin.GetComponent<Rigidbody>().AddForce(Vector3.up * _throwForce, ForceMode.Impulse);
                 coin.GetComponent<CoinThrow>().SetSpinForce(_spinForce);
-                coin.GetComponent<CoinSizeDecrease>()?.StartDecreaseSequence(CoinsOnScreenDuration);
+                coin.GetComponent<CoinSizeDecrease>()?.StartDecreaseSequence(_ñoinsOnScreenDuration);
             }
         }
 
         public void SetDuration(float duration)
         {
-            CoinsOnScreenDuration = duration;
+            _ñoinsOnScreenDuration = duration;
         }
     }
 }
