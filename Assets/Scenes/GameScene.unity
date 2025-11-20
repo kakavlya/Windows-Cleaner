@@ -246,7 +246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Button: {fileID: 928803644}
   MainMenuButton: {fileID: 508345238}
-  NextLvlButton: {fileID: 1152636565879089105}
+  _nextLvlButton: {fileID: 1152636565879089105}
 --- !u!1 &86408269
 GameObject:
   m_ObjectHideFlags: 0
@@ -882,11 +882,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7189642b117216418bd66a577388d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowTransform: {fileID: 211514885}
+  _arrowTransform: {fileID: 211514885}
   _targetScale: 1.2
   _duration: 0.5
   _repeatCount: -1
-  playOnEnable: 1
+  _playOnEnable: 1
 --- !u!114 &211514887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4302,11 +4302,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7189642b117216418bd66a577388d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowTransform: {fileID: 1236425789}
+  _arrowTransform: {fileID: 1236425789}
   _targetScale: 1.2
   _duration: 0.5
   _repeatCount: -1
-  playOnEnable: 1
+  _playOnEnable: 1
 --- !u!1 &1239971409
 GameObject:
   m_ObjectHideFlags: 0

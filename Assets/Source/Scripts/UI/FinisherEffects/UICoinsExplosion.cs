@@ -45,6 +45,11 @@ namespace WindowsCleaner.UI
             }
         }
 
+        public void SetDuration(float duration)
+        {
+            _maxDuration = duration;
+        }
+
         private Vector3 GetCenteredEndPosition()
         {
             RectTransform rectTransform = _endPos.GetComponent<RectTransform>();
@@ -54,11 +59,6 @@ namespace WindowsCleaner.UI
 
             Vector3 centeredPos = screenPos - new Vector3(width / 4, height / 4, 0);
             return centeredPos;
-        }
-
-        public void SetDuration(float duration)
-        {
-            _maxDuration = duration;
         }
     }
 }

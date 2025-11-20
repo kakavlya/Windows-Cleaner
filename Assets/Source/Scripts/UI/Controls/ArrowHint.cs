@@ -1,12 +1,14 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace WindowsCleaner.UI
 {
     public class ArrowHint : MonoBehaviour
     {
+        [FormerlySerializedAs("arrowTransform")]
         [SerializeField]
-        private RectTransform arrowTransform;
+        private RectTransform _arrowTransform;
 
         [SerializeField]
         private float _targetScale = 1.2f;
@@ -17,14 +19,15 @@ namespace WindowsCleaner.UI
         [SerializeField]
         private int _repeatCount = -1;
 
+        [FormerlySerializedAs("playOnEnable")]
         [SerializeField]
-        private bool playOnEnable = true;
+        private bool _playOnEnable = true;
 
-        private Tween pulseTween;
+        private Tween _pulseTween;
 
         private void OnEnable()
         {
-            if (playOnEnable)
+            if (_playOnEnable)
             {
                 StartPulseAnimation();
             }
@@ -37,14 +40,14 @@ namespace WindowsCleaner.UI
 
         public void StartPulseAnimation()
         {
-            if (arrowTransform == null)
+            if (_arrowTransform == null)
             {
                 return;
             }
 
-            arrowTransform.localScale = Vector3.one;
+            _arrowTransform.localScale = Vector3.one;
 
-            pulseTween = arrowTransform.DOScale(_targetScale, _duration)
+            _pulseTween = _arrowTransform.DOScale(_targetScale, _duration)
                 .SetEase(Ease.InOutSine)
                 .SetLoops(_repeatCount, LoopType.Yoyo)
                 .SetUpdate(true);
@@ -52,15 +55,15 @@ namespace WindowsCleaner.UI
 
         public void StopPulseAnimation()
         {
-            if (pulseTween != null && pulseTween.IsActive())
+            if (_pulseTween != null && _pulseTween.IsActive())
             {
-                pulseTween.Kill();
-                pulseTween = null;
+                _pulseTween.Kill();
+                _pulseTween = null;
             }
 
-            if (arrowTransform != null)
+            if (_arrowTransform != null)
             {
-                arrowTransform.localScale = Vector3.one;
+                _arrowTransform.localScale = Vector3.one;
             }
         }
     }

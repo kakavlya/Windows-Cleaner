@@ -34,7 +34,7 @@ namespace WindowsCleaner.UI
             _hitScore.SetText(score.ToString());
         }
 
-        internal void TriggerRewardCount(float durationSeconds)
+        public void TriggerRewardCount(float durationSeconds)
         {
             CalculateUpdateValues(durationSeconds);
         }

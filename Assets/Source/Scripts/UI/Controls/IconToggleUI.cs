@@ -5,9 +5,10 @@ namespace WindowsCleaner.UI
 {
     public class IconToggleUI : MonoBehaviour
     {
-        private Toggle _toggle;
         [SerializeField] private GameObject _iconOn;
         [SerializeField] private GameObject _iconOff;
+
+        private Toggle _toggle;
 
         private void Awake()
         {

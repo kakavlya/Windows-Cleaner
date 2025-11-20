@@ -31,14 +31,6 @@ namespace WindowsCleaner.UI
 
         }
 
-        private void CreateRandomPosList()
-        {
-            for (int i = 0; i < _amountOfDusts; i++)
-            {
-                _positions.Add(_startPos + Helpers.GetRandomPos(_spread));
-            }
-        }
-
         public void PlayEffect()
         {
             foreach (var dust in _dustObjects)
@@ -52,6 +44,19 @@ namespace WindowsCleaner.UI
             }
 
             StartCoroutine(DisableAfterDurationIE(_duration));
+        }
+
+        public void SetDuration(float duration)
+        {
+            _duration = duration;
+        }
+
+        private void CreateRandomPosList()
+        {
+            for (int i = 0; i < _amountOfDusts; i++)
+            {
+                _positions.Add(_startPos + Helpers.GetRandomPos(_spread));
+            }
         }
 
         private IEnumerator DisableAfterDurationIE(float duration)
@@ -82,11 +87,6 @@ namespace WindowsCleaner.UI
                 dustParticle.Stop();
                 _dustParticles.Add(dustParticle);
             }
-        }
-
-        public void SetDuration(float duration)
-        {
-            _duration = duration;
         }
     }
 }

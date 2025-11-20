@@ -53,6 +53,14 @@ namespace WindowsCleaner.PlayerNs
             ClampBoundsPosition();
         }
 
+        public void Stop()
+        {
+            _isStopped = true;
+            if (_innerCircle != null)
+                _innerCircle.position = _startPos;
+            _moveDirectionX = 0f;
+        }
+
         private void HandleMove()
         {
             float axis = Input.GetAxis("Horizontal");
@@ -125,14 +133,6 @@ namespace WindowsCleaner.PlayerNs
             {
                 transform.rotation = Quaternion.Slerp(transform.rotation, _originalRotation, Time.deltaTime * _rotationBackSpeed);
             }
-        }
-
-        public void Stop()
-        {
-            _isStopped = true;
-            if (_innerCircle != null)
-                _innerCircle.position = _startPos;
-            _moveDirectionX = 0f;
         }
 
         private void ClampBoundsPosition()

@@ -41,6 +41,28 @@ namespace WindowsCleaner.UI
             }
         }
 
+        public void LoadLevel(int levelIndex)
+        {
+            LevelController.Instance.SetLevel(levelIndex);
+            LevelController.Instance.GoingNextLevel();
+            SceneManager.LoadScene("GameScene");
+        }
+
+        public void LoadNextLevel(int levelIndex)
+        {
+            int selectedLevel = levelIndex + 1;
+            LoadLevel(selectedLevel);
+        }
+
+        private void EnsureAllLevelsExist(GameProgress progress, int totalLevelsInGame)
+        {
+            int currentLevelCount = progress.Levels.Count;
+            for (int i = currentLevelCount + 1; i <= totalLevelsInGame; i++)
+            {
+                progress.Levels.Add(new LevelData { LevelNumber = i, IsUnlocked = false, Score = 0 });
+            }
+        }
+
         private void LoadLevelStatus()
         {
             _levelStatus = new bool[_totalLevels];
@@ -67,33 +89,6 @@ namespace WindowsCleaner.UI
                 {
                     button.GetComponent<Button>().interactable = false;
                 }
-            }
-        }
-
-        public void LoadLevel(int levelIndex)
-        {
-            LevelController.Instance.SetLevel(levelIndex);
-            LevelController.Instance.GoingNextLevel();
-            SceneManager.LoadScene("GameScene");
-        }
-
-        public void LoadNextLevel(int levelIndex)
-        {
-            int selectedLevel = levelIndex + 1;
-            LoadLevel(selectedLevel);
-        }
-
-        private void CloseMenu()
-        {
-            gameObject.SetActive(false);
-        }
-
-        private void EnsureAllLevelsExist(GameProgress progress, int totalLevelsInGame)
-        {
-            int currentLevelCount = progress.Levels.Count;
-            for (int i = currentLevelCount + 1; i <= totalLevelsInGame; i++)
-            {
-                progress.Levels.Add(new LevelData { LevelNumber = i, IsUnlocked = false, Score = 0 });
             }
         }
     }

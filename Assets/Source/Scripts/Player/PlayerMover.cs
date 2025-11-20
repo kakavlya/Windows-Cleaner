@@ -14,12 +14,6 @@ namespace WindowsCleaner.PlayerNs
 
         private Vector3 _moveDirection;
         private Vector2 _moveInput;
-        private bool _stopped;
-
-        private void Start()
-        {
-            _stopped = false;
-        }
 
         private void LateUpdate()
         {
@@ -36,18 +30,8 @@ namespace WindowsCleaner.PlayerNs
             _moveInput = value.Get<Vector2>();
         }
 
-        public void Stop()
-        {
-            _stopped = true;
-        }
-
         private void Move()
         {
-            if (_stopped)
-            {
-                return;
-            }
-
             _moveDirection = new (_moveInput.x, _yDirection, 0);
             var nextPosition = _verticalSpeed * Time.deltaTime * _moveDirection;
 

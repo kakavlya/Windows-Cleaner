@@ -1,16 +1,30 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace WindowsCleaner.UI
 {
     public class EndLevelScreen : AbstractUIScreen
     {
-        [SerializeField] private Button NextLvlButton;
+        [FormerlySerializedAs("_nextLvlButton")]
+        [SerializeField] private Button _nextLvlButton;
 
         public event UnityAction NextButtonClick;
         public event UnityAction MainMenuButtonClick;
         public event UnityAction RestartButtonClick;
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            _nextLvlButton.onClick.AddListener(OnNextLvlBtnClick);
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            _nextLvlButton.onClick.RemoveListener(OnNextLvlBtnClick);
+        }
 
         protected override void OnButtonClick()
         {
@@ -25,18 +39,6 @@ namespace WindowsCleaner.UI
         public void OnNextLvlBtnClick()
         {
             NextButtonClick.Invoke();
-        }
-
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-            NextLvlButton.onClick.AddListener(OnNextLvlBtnClick);
-        }
-
-        protected override void OnDisable()
-        {
-            base.OnDisable();
-            NextLvlButton.onClick.RemoveListener(OnNextLvlBtnClick);
         }
     }
 }

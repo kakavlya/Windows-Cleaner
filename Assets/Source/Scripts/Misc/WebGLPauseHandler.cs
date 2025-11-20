@@ -23,6 +23,14 @@ namespace WindowsCleaner.Misc
             DontDestroyOnLoad(gameObject);
         }
 
+        public void OnApplicationPause(bool isPaused)
+        {
+            if (isPaused)
+            {
+                PauseGame();
+            }
+        }
+
         public void OnApplicationFocus(bool hasFocus)
         {
             if (!_hasInitialized)
@@ -68,14 +76,6 @@ namespace WindowsCleaner.Misc
             }
 
             return _uiStateMachine;
-        }
-
-        public void OnApplicationPause(bool isPaused)
-        {
-            if (isPaused)
-            {
-                PauseGame();
-            }
         }
 
         private void PauseGame()

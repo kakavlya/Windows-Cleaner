@@ -47,11 +47,6 @@ namespace WindowsCleaner.GameProgressNs
             SetLevel(CurrentLevelInController + 1);
         }
 
-        private void NotifyLevelChanged()
-        {
-            OnLevelChanged?.Invoke(CurrentLevelInController);
-        }
-
         public void ReloadScene()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -89,6 +84,11 @@ namespace WindowsCleaner.GameProgressNs
             }
 
             _gameDataHandle.SaveProgress(progress);
+        }
+
+        private void NotifyLevelChanged()
+        {
+            OnLevelChanged?.Invoke(CurrentLevelInController);
         }
     }
 }

@@ -84,11 +84,5 @@ namespace WindowsCleaner.GameProgressNs
             progress.Levels = progress.Levels.OrderBy(l => l.LevelNumber).ToList();
             return progress;
         }
-
-        private void DeleteGameProgress()
-        {
-            PlayerPrefs.DeleteKey(GameProgressPref);
-            PlayerPrefs.Save();
-        }
     }
 }
