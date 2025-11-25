@@ -30,11 +30,6 @@ namespace WindowsCleaner.UI
 
         public float RibbonOnScreenDuration { get; private set; } = 3f;
 
-        public void StartRibbonSequence()
-        {
-            StartRibbonSequenceAfterDelay(0);
-        }
-
         public void StartRibbonSequenceAfterDelay(float delay)
         {
             StartCoroutine(RibbonSequence(delay));

@@ -5,7 +5,7 @@ using WindowsCleaner.Core;
 
 namespace WindowsCleaner.UI
 {
-    public class DustExplosion : MonoBehaviour, IHaveDurartion
+    public class DustExplosion : MonoBehaviour
     {
         [SerializeField] private DustResizing _dustObject;
         [SerializeField] private int _amountOfDusts = 10;

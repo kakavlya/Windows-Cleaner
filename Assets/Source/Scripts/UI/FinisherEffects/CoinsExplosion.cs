@@ -5,7 +5,7 @@ using WindowsCleaner.Core;
 
 namespace WindowsCleaner.UI
 {
-    public class CoinsExplosion : MonoBehaviour, IHaveDurartion
+    public class CoinsExplosion : MonoBehaviour
     {
         [SerializeField] private GameObject _3dCoin;
         [SerializeField] private int _coinsAmount = 10;

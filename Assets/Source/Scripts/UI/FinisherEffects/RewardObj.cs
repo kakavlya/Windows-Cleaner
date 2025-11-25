@@ -24,11 +24,6 @@ namespace WindowsCleaner.UI
             ShowCoinsPrize(0);
         }
 
-        public void ShowCoinsPrize()
-        {
-            ShowCoinsPrize(_totalRewardCount);
-        }
-
         public void ShowCoinsPrize(int score)
         {
             _hitScore.SetText(score.ToString());

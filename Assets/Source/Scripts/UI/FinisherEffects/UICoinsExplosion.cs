@@ -4,7 +4,7 @@ using WindowsCleaner.Core;
 
 namespace WindowsCleaner.UI
 {
-    public class UICoinsExplosion : MonoBehaviour, IHaveDurartion
+    public class UICoinsExplosion : MonoBehaviour
     {
         [SerializeField] private Transform _startPos;
         [SerializeField] private Transform _intermediatePos;

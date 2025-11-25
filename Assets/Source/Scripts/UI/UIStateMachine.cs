@@ -78,11 +78,6 @@ namespace WindowsCleaner.UI
             return _currentState;
         }
 
-        public UIState GetPreviousState()
-        {
-            return _previousState;
-        }
-
         public void BackToPreviousState()
         {
             SwitchState(_previousState);
